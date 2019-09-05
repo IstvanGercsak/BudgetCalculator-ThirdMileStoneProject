@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" type="text/css">
+</head>
+<body>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 login-container">
+            <form action="{{ url_for('login') }}" method="POST">
+                Username:
+                <input id="username" type="text" name="username" title="username" required class="login-input">
+                <br>
+                Password:
+                <input id="password" type="password" name="password" title="password" required class="login-input">
+                <br>
+                <button type="submit" class="btn btn-primary no-textdecoration-on-links login-button">
+                    Login
+                </button>
+            </form>
+            <button type="button" class="btn btn-primary no-textdecoration-on-links login-button">
+                <a href="{{ url_for('signup') }}">
+                    Sign up
+                </a>
+            </button>
+        </div>
+    </div>
+</div>
+
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <ul class=flashes>
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endwith %}
+
+<br>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</body>
+</html>

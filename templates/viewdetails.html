@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ViewDetails</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" type="text/css">
+</head>
+<body>
+
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <ul class=flashes>
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endwith %}
+
+<h1>View details with {{ session['username'] }}</h1>
+<h2>On the year of {{ groupyear }}</h2>
+<h2>On the month of {{ month }}</h2>
+
+<table>
+    <tr>
+        <th>Item</th>
+        <th>Value</th>
+        <th>Date</th>
+    </tr>
+    {% for subgroup in datesdetails %}
+        <tr>
+            <td>
+                {{ subgroup.SUB_ITEM_NAME }}
+            </td>
+            <td>
+                {{ subgroup.VALUE }}
+            </td>
+            <td>
+                {{ subgroup.GIVEN_DATE }}
+            </td>
+            <td>
+                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modify-sub-item">
+                    Modify Sub item
+                </button>
+                <div class="modal fade" id="modify-sub-item" tabindex="-1" role="dialog"
+                     aria-labelledby="modify-sub-item"
+                     aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="modify-sub-item">Modify Sub Item!</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <p>Are you sure you want to delete this Sub Item?</p>
+                                <p>Currently:</p>
+                                <p>{{ subgroup.SUB_ITEM_NAME }} {{ subgroup.VALUE }} {{ subgroup.GIVEN_DATE }}</p>
+                            <form action="{{ url_for('updateupdatesubitem', id=subgroup.SUBID, groupname=groupname, groupyear=groupyear,month=month) }}"
+                                  method="POST">
+                                <p>New sub item name</p>
+                                <input type="text" id="subitem" name="subitem" title="subitem" required>
+                                <br>
+                                <p>New Sub item value</p>
+                                <input type="number" id="subitemvalue" name="subitemvalue" title="subitemvalue"
+                                       required>
+                                <br>
+                                <p>Expanse date:</p>
+                                <input type="date" name="date" id="date" title="date" required>
+                                <br>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                        Close
+                                    </button>
+                                    <input type="submit" value="Update Sub Item" class="btn btn-warning">
+                                </div>
+                            </form>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#remove-sub-item">
+                    Remove Sub item
+                </button>
+                <div class="modal fade" id="remove-sub-item" tabindex="-1" role="dialog"
+                     aria-labelledby="remove-sub-item-Label"
+                     aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="remove-sub-item-Label">Remove Sub Item!</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                Are you sure you want to delete this Sub Item?
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                    Close
+                                </button>
+                                <form action="{{ url_for('deletesubitem', id=subgroup.SUBID, month=month, groupname=groupname, groupyear=groupyear) }}"
+                                      method="POST">
+                                    <input type="submit" value="Delete Sub Item" class="btn btn-danger">
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    {% endfor %}
+</table>
+<h4>
+    Sum value of this Sub Group: {{ datesdetails | sum(attribute='VALUE') }}
+</h4>
+
+<br>
+<button type="button" class="btn btn-secondary">
+    <a href="{{ url_for('dashboard') }}">
+        Back to tha Dashboard
+    </a>
+</button>
+<br>
+
+
+<button type="button" class="btn btn-success" data-toggle="modal" data-target="#add-new-sub-item">
+    Add new sub item
+</button>
+<div class="modal fade" id="add-new-sub-item" tabindex="-1" role="dialog"
+     aria-labelledby="add-new-sub-item"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="add-new-sub-item-Label">Add new Sub Item!</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="{{ url_for('addnewsubitem', groupname=groupname, month=month, groupyear=groupyear) }}"
+                      method="POST">
+                    <p>New sub item name</p>
+                    <input type="text" id="subitem" name="subitem" title="subitem" required>
+                    <br>
+                    <p>New Sub item value</p>
+                    <input type="number" id="subitemvalue" name="subitemvalue" title="subitemvalue" required>
+                    <br>
+                    <p>Expanse date:</p>
+                    <input type="date" name="date" id="date" title="date" required>
+                    <br>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                            Close
+                        </button>
+                        <input type="submit" value="Add New Sub Item" class="btn btn-success">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Optional JavaScript -->
+<script>
+
+    $('.test').on('shown.bs.modal', function () {
+        $('.test').trigger('focus')
+    })
+
+</script>
+
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+</body>
+</html>

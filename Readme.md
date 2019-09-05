@@ -10,17 +10,10 @@
 
 
 
-#### Page One
-
-
-
-#### Page Two
-
-
-
 ## Features
 
-
+Demo page where I test the features from Data Centric Development lecture and copied my code to here:
+[link](https://github.com/IstvanGercsak/PythonAndMySQLPractice)
 
 ### Existing Features
 

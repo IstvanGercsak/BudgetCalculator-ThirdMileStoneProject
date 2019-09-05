@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" type="text/css">
+</head>
+<body>
+
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <ul class=flashes>
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endwith %}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 login-container">
+            <h2>Please fill the fields</h2>
+            <form action="{{ url_for('adduser') }}" onsubmit="alertmessage()" method="POST">
+                Username:
+                <input id="username" type="text" name="username" title="username" required class="login-input">
+                <br>
+                Password:
+                <input id="password" type="password" name="password" title="password" required class="login-input">
+                <br>
+                <button type="submit" class="btn btn-dark login-button">
+                    Sign Up
+                </button>
+            </form>
+            <br>
+            <button type="button" class="btn btn-secondary login-button">
+                <a href="{{ url_for('start') }}">
+                    Back
+                </a>
+            </button>
+        </div>
+    </div>
+</div>
+<script>
+    function alertmessage() {
+
+        alert("Thank you for your registration. We will redirect you on the start page, and you can Log in your given username and password");
+
+    }
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</body>
+</html>

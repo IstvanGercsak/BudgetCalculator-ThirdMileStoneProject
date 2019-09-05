@@ -1,0 +1,28 @@
+html, body {
+    background-color: #10707f;
+}
+
+table, th, td {
+    border: 1px solid black;
+}
+
+.no-textdecoration-on-links, a:link, a:visited, a:hover, a:active {
+    color: #000000;
+!important;
+    text-decoration: none !important;
+}
+
+.login-container {
+    text-align: center;
+    margin: 0 auto;
+}
+
+.login-input {
+    margin: 10px;
+}
+
+.login-button {
+    margin: 15px;
+    height: 50px;
+    width: 80px;
+}
