@@ -3,8 +3,9 @@
 [View my project](https://budgetcalculator-thirdproject.herokuapp.com)
 
 This website was made as my second Milestone project at [Code Institute](https://codeinstitute.net/).
-My goal with this web application is to create a Budget calculator. With the use of the application we can register ourselves
-and log in with using cookie session. The password is stored encrypted to increase the users security.
+This Project is a Budget Calculator. It means that we can handle our financial more consciously. With using the in build CRUD (Create, Read, Update and Delete) functionality we can organize 
+our incomes and outcomes. We can see our Income/Expanse ratio on visible graphs. With the use of the application we can register ourselves
+and log into the application. To increase the security for the users and hide theirs financial and personal details from the public the passwords are stored encrypted and the users using cookie session as well.
 
 ## UX
 
@@ -57,7 +58,7 @@ Demo page where I test the features from Data Centric Development lecture and co
 
 ### Features Left to Implement
 
-
+We get back estimation about how much money we have if we continue the saving or spending
 
 ## Technologies Used
 
