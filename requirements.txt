@@ -6,7 +6,7 @@ dnspython==1.16.0
 Flask==1.0.2
 Flask-PyMongo==2.2.0
 itsdangerous==1.1.0
-jinja2==2.10
+jinja2==2.10.2
 lxml==4.2.6
 MarkupSafe==1.1.1
 passlib==1.7.1
