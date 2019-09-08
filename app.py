@@ -91,6 +91,7 @@ def dashboard():
                  "DATE_MONTH desc"
     mydatescursor.execute(sqlmydates, username)
     mydates = mydatescursor.fetchall()
+    print(mydates)
 
     sqlfullsum = "SELECT " \
                  "USERS.USERNAME, " \
@@ -206,19 +207,10 @@ def editgroup(id, group_id):
     roweditgroup = (givengroup, givenyear, givenmonth, id)
     rowexistingrowcheck = (givengroup, givenyear, givenmonth, group_id)
 
-    # ToDo: ha van ugyan ilyen nev ev honap kombinacioval ennek a usernek (user join) akkor return reset
-
     sql = "SELECT * FROM GROUP_ITEM WHERE GROUP_NAME=%s AND DATE_YEAR=%s AND DATE_MONTH=%s and GROUP_ID=%s"
     checkexistinggroupname.execute(sql, rowexistingrowcheck)
     connection.commit()
     result = checkexistinggroupname.fetchone()
-    print(result)
-
-    # sqleditgroup = "UPDATE GROUP_ITEM SET GROUP_NAME=%s, DATE_YEAR=%s, DATE_MONTH=%s where ID=%s"
-    # updategroupcursor.execute(sqleditgroup, roweditgroup)
-    # connection.commit()
-    # flash('You successfully updated the group')
-    # return redirect(url_for("dashboard"))
 
     if (result == None):
         sqleditgroup = "UPDATE GROUP_ITEM SET GROUP_NAME=%s, DATE_YEAR=%s, DATE_MONTH=%s where ID=%s"
