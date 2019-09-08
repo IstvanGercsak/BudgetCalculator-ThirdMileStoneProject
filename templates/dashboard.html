@@ -75,7 +75,7 @@
                                         <div class="modal-body">
                                             <p>Currently:</p>
                                             <p>{{ group_item.GROUP_NAME }} {{ group_item.DATE_YEAR }} {{ dates.DATE_MONTH }}</p>
-                                            <form action="{{ url_for('editgroup', id=group_item.ID) }}" method="POST">
+                                            <form action="{{ url_for('editgroup', id=group_item.ID, group_id=group_item.GROUP_ID) }}" method="POST">
                                                 <p>Group type name</p>
                                                 <select name="group" id="group" title="group" required>
                                                     <option disabled selected value>-- Select a Group type --</option>

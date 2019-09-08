@@ -29,6 +29,7 @@ summoneycursor = connection.cursor(pymysql.cursors.DictCursor)
 groupsum = connection.cursor(pymysql.cursors.DictCursor)
 updatesubitemcursor = connection.cursor(pymysql.cursors.DictCursor)
 updategroupcursor = connection.cursor(pymysql.cursors.DictCursor)
+checkexistinggroupname = connection.cursor(pymysql.cursors.DictCursor)
 
 
 @app.route('/')
@@ -196,21 +197,38 @@ def addgroup():
         return redirect(url_for("dashboard"))
 
 
-@app.route('/editgroup/<id>', methods=['POST'])
-def editgroup(id):
+@app.route('/editgroup/<id>/<group_id>', methods=['POST'])
+def editgroup(id, group_id):
     givengroup = request.form['group']
     givenyear = request.form['year']
     givenmonth = request.form['month']
 
     roweditgroup = (givengroup, givenyear, givenmonth, id)
+    rowexistingrowcheck = (givengroup, givenyear, givenmonth, group_id)
 
     # ToDo: ha van ugyan ilyen nev ev honap kombinacioval ennek a usernek (user join) akkor return reset
 
-    sqleditgroup = "UPDATE GROUP_ITEM SET GROUP_NAME=%s, DATE_YEAR=%s, DATE_MONTH=%s where ID=%s"
-    updategroupcursor.execute(sqleditgroup, roweditgroup)
+    sql = "SELECT * FROM GROUP_ITEM WHERE GROUP_NAME=%s AND DATE_YEAR=%s AND DATE_MONTH=%s and GROUP_ID=%s"
+    checkexistinggroupname.execute(sql, rowexistingrowcheck)
     connection.commit()
-    flash('You successfully updated the group')
-    return redirect(url_for("dashboard"))
+    result = checkexistinggroupname.fetchone()
+    print(result)
+
+    # sqleditgroup = "UPDATE GROUP_ITEM SET GROUP_NAME=%s, DATE_YEAR=%s, DATE_MONTH=%s where ID=%s"
+    # updategroupcursor.execute(sqleditgroup, roweditgroup)
+    # connection.commit()
+    # flash('You successfully updated the group')
+    # return redirect(url_for("dashboard"))
+
+    if (result == None):
+        sqleditgroup = "UPDATE GROUP_ITEM SET GROUP_NAME=%s, DATE_YEAR=%s, DATE_MONTH=%s where ID=%s"
+        updategroupcursor.execute(sqleditgroup, roweditgroup)
+        connection.commit()
+        flash('You successfully updated the group')
+        return redirect(url_for("dashboard"))
+    else:
+        flash('tHIS GROUP IS ALREADY EXIST WITH THIS NAME, YEAR AND MONTH COMBINATION ')
+        return redirect(url_for("dashboard"))
 
 
 @app.route('/viewdetails/<groupyear>/<month>/<groupname>')
