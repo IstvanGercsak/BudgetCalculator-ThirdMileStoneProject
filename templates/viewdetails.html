@@ -40,10 +40,11 @@
                 {{ subgroup.GIVEN_DATE }}
             </td>
             <td>
-                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#{{ subgroup.SUBID }}">
+                <button type="button" class="btn btn-warning" data-toggle="modal"
+                        data-target="#{{ subgroup.SUBID + subgroup.SUBITEMID * 33}}">
                     Modify Sub item
                 </button>
-                <div class="modal fade" id="{{ subgroup.SUBID }}" tabindex="-1" role="dialog"
+                <div class="modal fade" id="{{ subgroup.SUBID + subgroup.SUBITEMID * 33}}" tabindex="-1" role="dialog"
                      aria-labelledby="modify-sub-item"
                      aria-hidden="true">
                     <div class="modal-dialog" role="document">
@@ -83,7 +84,8 @@
                 </div>
             </td>
             <td>
-                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#{{ subgroup.SUBID }}">
+                <button type="button" class="btn btn-danger" data-toggle="modal"
+                        data-target="#{{ subgroup.SUBID }}">
                     Remove Sub item
                 </button>
                 <div class="modal fade" id="{{ subgroup.SUBID }}" tabindex="-1" role="dialog"

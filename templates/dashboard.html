@@ -57,11 +57,12 @@
                             </button>
                         </td>
                         <td>
-                            <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#{{ group_item.ID }}">
+                            <button type="button" class="btn btn-warning" data-toggle="modal"
+                                    data-target="#{{ group_item.ID * 66 }}">
                                 Edit Group
                             </button>
                             {#Edit Group pop up#}
-                            <div class="modal fade" id="{{ group_item.ID }}" tabindex="-1" role="dialog"
+                            <div class="modal fade" id="{{ group_item.ID * 66 }}" tabindex="-1" role="dialog"
                                  aria-labelledby="edit-group-Label"
                                  aria-hidden="true">
                                 <div class="modal-dialog" role="document">
@@ -131,7 +132,36 @@
                             </div>
                         </td>
                         <td>
-                            <button><a href="#">Remove Group</a></button>
+                            <button type="button" class="btn btn-danger" data-toggle="modal"
+                                    data-target="#{{ group_item.ID }}">
+                                Remove Group item
+                            </button>
+                            <div class="modal fade" id="{{ group_item.ID }}" tabindex="-1" role="dialog"
+                                 aria-labelledby="remove-sub-item-Label"
+                                 aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="remove-sub-item-Label">Remove Group Item!</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Are you sure you want to delete this group Item?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                                Close
+                                            </button>
+                                            <form action="{{ url_for('removegroupitem', id=group_item.ID, group_id=group_item.GROUP_ID, group_name=group_item.GROUP_NAME ,date_year=group_item.DATE_YEAR, date_month=group_item.DATE_MONTH) }}"
+                                                  method="POST">
+                                                <input type="submit" value="Delete Group Item" class="btn btn-danger">
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </td>
                     </tr>
                 {% endif %}

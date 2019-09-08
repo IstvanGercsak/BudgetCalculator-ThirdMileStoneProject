@@ -1,7 +1,8 @@
 import os
+
 import pymysql
-from passlib.hash import sha256_crypt
 from flask import Flask, flash, render_template, url_for, redirect, request, session
+from passlib.hash import sha256_crypt
 
 app = Flask(__name__)
 app.secret_key = os.urandom(12)
@@ -30,6 +31,8 @@ groupsum = connection.cursor(pymysql.cursors.DictCursor)
 updatesubitemcursor = connection.cursor(pymysql.cursors.DictCursor)
 updategroupcursor = connection.cursor(pymysql.cursors.DictCursor)
 checkexistinggroupname = connection.cursor(pymysql.cursors.DictCursor)
+checkcontainssubitems = connection.cursor(pymysql.cursors.DictCursor)
+deletegroupitem = connection.cursor(pymysql.cursors.DictCursor)
 
 
 @app.route('/')
@@ -91,7 +94,6 @@ def dashboard():
                  "DATE_MONTH desc"
     mydatescursor.execute(sqlmydates, username)
     mydates = mydatescursor.fetchall()
-    print(mydates)
 
     sqlfullsum = "SELECT " \
                  "USERS.USERNAME, " \
@@ -223,11 +225,30 @@ def editgroup(id, group_id):
         return redirect(url_for("dashboard"))
 
 
+@app.route('/removegroupitem/<id>/<group_id>/<group_name>/<date_year>/<date_month>', methods=['POST'])
+def removegroupitem(id, group_id, group_name, date_year, date_month):
+    rowcheckexistingsubitem = (group_id, group_name, date_year, date_month)
+    sql = "SELECT * FROM GROUP_ITEM JOIN GROUP_SUB_ITEM ON GROUP_ITEM.ID = GROUP_SUB_ITEM.ITEM_ID WHERE GROUP_ITEM.GROUP_ID=%s AND GROUP_ITEM.GROUP_NAME=%s AND GROUP_ITEM.DATE_YEAR=%s AND GROUP_ITEM.DATE_MONTH=%s"
+    checkcontainssubitems.execute(sql, rowcheckexistingsubitem)
+    connection.commit()
+    result = checkcontainssubitems.fetchone()
+
+    if (result == None):
+        sql = "DELETE FROM GROUP_ITEM WHERE ID = %s"
+        deletegroupitem.execute(sql, id)
+        connection.commit()
+        flash('Group Delete was successful!')
+        return redirect(url_for("dashboard"))
+    else:
+        flash('There is existing sub item under this Group')
+        return redirect(url_for("dashboard"))
+
+
 @app.route('/viewdetails/<groupyear>/<month>/<groupname>')
 def viewdetails(groupyear, month, groupname):
     rowgroup = (session['username'], groupname, groupyear, month)
     sqlviewthemonth = "SELECT " \
-                      "GROUP_SUB_ITEM.ID AS SUBID, " \
+                      "GROUP_SUB_ITEM.ID AS SUBID, GROUP_SUB_ITEM.ITEM_ID AS SUBITEMID, " \
                       "GROUP_SUB_ITEM.SUB_ITEM_NAME AS SUB_ITEM_NAME, " \
                       "GROUP_SUB_ITEM.VALUE AS VALUE, " \
                       "GROUP_SUB_ITEM.GIVEN_DATE AS GIVEN_DATE " \
