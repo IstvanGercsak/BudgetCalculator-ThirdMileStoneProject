@@ -19,9 +19,88 @@ Everything about UX
 
 ### User Stories
 
+#### Responsiveness
+
+- As a user, I want to use the website on Pc, Tablet and Mobile Phone so that on different devices it will work with the same functionality.
+
+#### Non-Functional
+
+- As a user, I can see the charts on my dashboard
+- As a user, I want to get feedback if
+    - Sign up:
+        - The username is used by somebody else
+        - I could sign up
+    - Log in:
+        - I give a wrong username or password
+        - I logged in
+    - Log out:
+        - I logged out
+    - Create:
+        - New group item
+        - New sub group item
+    - Edit:
+        - Group item
+        - There is an existing year-month-group combination exist under the username
+        - Sub group item 
+    - Delete:
+        - Group item
+        - Sub group item    
+- As a user I want see the Incomes in green
+- As a user I want see the Expenses in red
+- As a user I want see the Zero balance in black
+
+#### Database
+
+- As a user, I want to store the data into the database so I can reach the data later on
+
+#### Security
+
+- As a user, I want to store my password encrypted
+- As a user, I want to use cookie session
+- As a user, I don't want to see my username on the url
+
 #### Sign Up
+  
+- As a user, I want to sign up for the page so I can log in into the application
+     
 #### Log In
+
+- As a user, I want to log in with the application with my details
+- As a user, I want to have a unique username 
+
 #### Log out
+
+- As a user, I want log out from the application
+
+#### Add new group item
+
+- As a user, I want to add a new group item
+
+#### Edit group item
+
+- As a user, I want to edit a group item
+
+#### Delete group item
+
+- As a user, I want to delete item
+
+#### Add new sub group item
+
+- As a user, I want to add a new sub group item
+
+#### Edit sub group item
+
+- As a user, I want to edit a group item 
+
+#### Delete sub group item
+
+- As a user, I want to delete a sub group item
+
+#### Summarize
+
+- As a user, I want to see my full Balance
+- As a user, I want to see my balance based on my groups
+
 
 ## Features
 
@@ -76,7 +155,7 @@ We get back estimation about how much money we have if we continue the saving or
 - [Git](https://git-scm.com/)
     - Git is a distributed version-control system for tracking changes in source code during software development.
 - [GitHub](https://github.com/)
-    -  GitHub Inc. is a web-based hosting service for version control using Git.
+    - GitHub Inc. is a web-based hosting service for version control using Git.
 - [Flask](https://palletsprojects.com/p/flask/)
     - Flask is a micro web framework written in Python. It is classified as a microframework because it does not require particular tools or libraries. It has no database abstraction layer, form validation, or any other components where pre-existing third-party libraries provide common functions
 - [Python](https://www.python.org/)
@@ -84,7 +163,8 @@ We get back estimation about how much money we have if we continue the saving or
 - [Heroku](https://www.heroku.com/)
     - Heroku is a platform as a service (PaaS) that enables developers to build, run, and operate applications entirely in the cloud
 - [MySQL server](https://www.mysql.com/)
-    -  MySQL is an Oracle-backed open source relational database management system (RDBMS) based on Structured Query Language (SQL)
+    - MySQL is an Oracle-backed open source relational database management system (RDBMS) based on Structured Query Language (SQL)
+    - [RemoteMySQL](https://remotemysql.com) is a Free Remote MySQL server
 - [Jinja2](https://palletsprojects.com/p/jinja/)
     - Jinja is a web template engine for the Python programming language. Jinja2 is a modern and designer-friendly templating language for Python, modelled after Django's templates.
 
@@ -119,9 +199,18 @@ After this I copied the code snippets in this public repository, and explained t
         5. Paste the link there that you copied before
         6. For additional help you can more information under this [link](https://help.github.com/en/articles/cloning-a-repository)
     - Online: (Need to expand)
-        1. I used heroku:
-        2. Create project
-        3. Choose github project that is connected to Heroku
+        1. I used Heroku:
+        2. Create project with unique name
+        3. I choose the project and under the Deploy tab I connect the github project where the source code are
         4. Set the deployment to Autodeploy so after every commit there will be a new deployment into Heroku.
-        5. Create requirements.txt file:
-        6. pip freeze > requirements.txt
+        5. Create requirements.txt file: pip freeze > requirements.txt (In this way the Heroku will know what kind of extensions should be installed)
+        6. I set the Config Vars under the Settings (IP=0.0.0.0 and PORT=5000)
+        7. The application up and running and available under this [link](https://budgetcalculator-thirdproject.herokuapp.com)
+        
+# ToDO: (Need to expand)
+- User stories
+- Testing documentation
+- Project description
+- UX/UI description
+- Existing features
+- Features Left to Implement

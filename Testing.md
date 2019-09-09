@@ -1,1 +1,9 @@
-# Testing Document of the Budget Caluclator
+# Testing Document of the Budget Calculator
+
+## Manual tests
+
+
+
+## Automated tests
+
+
