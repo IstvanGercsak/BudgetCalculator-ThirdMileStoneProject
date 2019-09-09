@@ -21,24 +21,25 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-12 login-container">
-            <h2>Please fill the fields</h2>
-            <form action="{{ url_for('adduser') }}" onsubmit="alertmessage()" method="POST">
-                Username:
-                <input id="username" type="text" name="username" title="username" required class="login-input">
-                <br>
-                Password:
-                <input id="password" type="password" name="password" title="password" required class="login-input">
-                <br>
-                <button type="submit" class="btn btn-dark login-button">
-                    Sign Up
-                </button>
-            </form>
-            <br>
-            <a href="{{ url_for('start') }}">
-                <button type="button" class="btn btn-secondary login-button">
-                    Back
-                </button>
-            </a>
+            <h2>Sign up</h2>
+            <div class="details">
+                <form action="{{ url_for('adduser') }}" onsubmit="alertmessage()" method="POST">
+                    <p>Username:</p>
+                    <input id="username" type="text" name="username" title="username" required class="login-input">
+                    <br>
+                    <p>Password:</p>
+                    <input id="password" type="password" name="password" title="password" required class="login-input">
+                    <br>
+                    <button type="submit" class="btn btn-dark login-button">
+                        Sign Up
+                    </button>
+                </form>
+                <a href="{{ url_for('start') }}">
+                    <button type="button" class="btn btn-secondary login-button">
+                        Back
+                    </button>
+                </a>
+            </div>
         </div>
     </div>
 </div>
