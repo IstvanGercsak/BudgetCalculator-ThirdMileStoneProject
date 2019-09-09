@@ -50,11 +50,11 @@
                             {% endfor %}
                         </td>
                         <td>
-                            <button type="button" class="btn btn-info">
-                                <a href="{{ url_for('viewdetails',month=group_item.DATE_MONTH, groupname=group_item.GROUP_NAME, groupyear=group_item.DATE_YEAR) }}">
+                            <a href="{{ url_for('viewdetails',month=group_item.DATE_MONTH, groupname=group_item.GROUP_NAME, groupyear=group_item.DATE_YEAR) }}">
+                                <button type="button" class="btn btn-info">
                                     View
-                                </a>
-                            </button>
+                                </button>
+                            </a>
                         </td>
                         <td>
                             <button type="button" class="btn btn-warning" data-toggle="modal"
@@ -173,11 +173,11 @@
 <h4>Sum money: {{ summoney.sum_money }}</h4>
 
 <br>
-<button type="button" class="btn btn-secondary">
-    <a href="{{ url_for('logout') }}">
+<a href="{{ url_for('logout') }}">
+    <button type="button" class="btn btn-secondary">
         Logout
-    </a>
-</button>
+    </button>
+</a>
 
 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#add-group">
     Add Group
