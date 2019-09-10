@@ -214,3 +214,11 @@ After this I copied the code snippets in this public repository, and explained t
 - UX/UI description
 - Existing features
 - Features Left to Implement
+
+# Useful links:
+
+## Sign up
+https://colorlib.com/wp/free-bootstrap-registration-forms/
+
+## Table format
+https://getbootstrap.com/docs/4.3/content/tables/

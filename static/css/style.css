@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto:400,500,700,900&display=swap');
 
 html, body {
-    background-color: #10707f;
+    background-color: #173F5F;
     font-family: 'Roboto', sans-serif;
 }
 
@@ -17,11 +17,11 @@ table, th, td {
 
 .login-container {
     text-align: center;
-    margin: 17% auto;
+    margin: 15% auto;
 }
 
 .details {
-    background: #d1ecf1;
+    background: #20639B;
     margin: 0 auto;
     border-radius: 25px;
     width: 500px;
@@ -32,6 +32,14 @@ table, th, td {
     padding-top: 5px;
     font-weight: bold;
 
+}
+
+.details i {
+    width: 25px;
+    height: 25px;
+    padding: 5px;
+    color: white;
+    background: #3CAEA3;
 }
 
 .login-input {
@@ -46,6 +54,6 @@ table, th, td {
 
 @media only screen and (max-width: 530px) {
     .details {
-        width: 300px;
+        width: 350px;
     }
 }

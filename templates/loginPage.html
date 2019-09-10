@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" type="text/css">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" type="text/css">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
 </head>
 <body>
 
@@ -14,11 +16,11 @@
             <h2>Log in</h2>
             <div class="details">
                 <form action="{{ url_for('login') }}" method="POST">
-                    <p>Username:</p>
-                    <input id="username" type="text" name="username" title="username" required class="login-input">
+                    <i class="fas fa-user"></i>
+                    <input id="username" type="text" name="username" title="username" placeholder="Username" required class="login-input">
                     <br>
-                    <p>Password:</p>
-                    <input id="password" type="password" name="password" title="password" required class="login-input">
+                    <i class="fas fa-key"></i>
+                    <input id="password" type="password" name="password" title="password" placeholder="Password" required class="login-input">
                     <br>
                     <button type="submit" class="btn btn-primary no-textdecoration-on-links login-button">
                         Login
