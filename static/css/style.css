@@ -3,6 +3,7 @@
 html, body {
     background-color: #173F5F;
     font-family: 'Roboto', sans-serif;
+    padding-bottom: 50px;
 }
 
 table, th, td {
@@ -17,13 +18,13 @@ table, th, td {
 
 .login-container {
     text-align: center;
-    margin: 15% auto;
+    margin: 10% auto;
 }
 
 .details {
     background: #20639B;
     margin: 0 auto;
-    border-radius: 25px;
+    border-radius: 5px;
     width: 350px;
     height: 350px;
 }
@@ -39,7 +40,7 @@ table, th, td {
     width: 25px;
     height: 25px;
     padding: 5px;
-    color: white;
+    color: #9fcdff;
     background: #3CAEA3;
 }
 
@@ -52,6 +53,43 @@ table, th, td {
     height: 50px;
     width: 80px;
 }
+
+/* TABLE FORMAT*/
+
+.table-size {
+    margin-left: 30px;
+    margin-right: 30px;
+}
+
+/* MODAL BODY */
+
+.modal-body p {
+    color: #20c997;
+}
+
+/* FLASH MESSAGES */
+
+.over {
+    width: 600px;
+
+}
+
+/* FOOTER*/
+
+footer {
+    position: fixed;
+    background: chocolate;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    opacity: 0.7;
+}
+
+.social-link-container {
+
+}
+
+/* MEDIA QUERY */
 
 @media only screen and (max-width: 530px) {
     .details {

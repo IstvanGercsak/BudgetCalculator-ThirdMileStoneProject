@@ -3,22 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <title>Sign Up</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" type="text/css">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" type="text/css">
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
 </head>
 <body>
-
-{% with messages = get_flashed_messages() %}
-    {% if messages %}
-        <ul class=flashes>
-            {% for message in messages %}
-                <li>{{ message }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}
-{% endwith %}
-
+<div class="over">
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul class=flashes>
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+</div>
 <div class="container-fluid">
     <div class="row">
         <div class="col-12 login-container">
@@ -44,6 +45,29 @@
         </div>
     </div>
 </div>
+<footer>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 col-sm-6">
+                <p>Third Milestone project - Created by Istvan Gercsak</p>
+            </div>
+            <div class="col-12 col-sm-6 list-inline social-link-container">
+                <ul>
+                    <li class="list-inline-item">
+                        <a href="https://github.com/IstvanGercsak" target="_blank">
+                            <i class="fab fa-github-square fa-3x"></i>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="https://www.linkedin.com/in/istvangercsak/" target="_blank">
+                            <i class="fab fa-linkedin fa-3x"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
 <script>
     function alertmessage() {
 
@@ -51,6 +75,8 @@
 
     }
 </script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="{{ url_for('static', filename='script/popper.min.js') }}"></script>
+<script src="{{ url_for('static', filename='script/jquery.min.js') }}"></script>
+<script src="{{ url_for('static', filename='script/bootstrap.min.js') }}"></script>
 </body>
 </html>

@@ -3,122 +3,125 @@
 <head>
     <meta charset="UTF-8">
     <title>ViewDetails</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" type="text/css">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" type="text/css">
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
 </head>
 <body>
-
-{% with messages = get_flashed_messages() %}
-    {% if messages %}
-        <ul class=flashes>
-            {% for message in messages %}
-                <li>{{ message }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}
-{% endwith %}
-
+<div class="over">
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul class=flashes>
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+</div>
 <h1>View details with {{ session['username'] }}</h1>
 <h2>On the year of {{ groupyear }}</h2>
 <h2>On the month of {{ month }}</h2>
-
-<table class="table table-striped table-dark">
-    <tr>
-        <th>Item</th>
-        <th>Value</th>
-        <th>Date</th>
-    </tr>
-    {% for subgroup in datesdetails %}
+<div class="table-size">
+    <table class="table table-striped table-dark">
         <tr>
-            <td>
-                {{ subgroup.SUB_ITEM_NAME }}
-            </td>
-            <td>
-                {{ subgroup.VALUE }}
-            </td>
-            <td>
-                {{ subgroup.GIVEN_DATE }}
-            </td>
-            <td>
-                <button type="button" class="btn btn-warning" data-toggle="modal"
-                        data-target="#{{ subgroup.SUBID + subgroup.SUBITEMID * 33 }}">
-                    Modify Sub item
-                </button>
-                <div class="modal fade" id="{{ subgroup.SUBID + subgroup.SUBITEMID * 33 }}" tabindex="-1" role="dialog"
-                     aria-labelledby="modify-sub-item"
-                     aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="modify-sub-item">Modify Sub Item!</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <p>Are you sure you want to delete this Sub Item?</p>
-                                <p>Currently:</p>
-                                <p>{{ subgroup.SUB_ITEM_NAME }} {{ subgroup.VALUE }} {{ subgroup.GIVEN_DATE }}</p>
-                                <form action="{{ url_for('updateupdatesubitem', id=subgroup.SUBID, groupname=groupname, groupyear=groupyear,month=month) }}"
-                                      method="POST">
-                                    <p>New sub item name</p>
-                                    <input type="text" id="subitem" name="subitem" title="subitem" required>
-                                    <br>
-                                    <p>New Sub item value</p>
-                                    <input type="number" id="subitemvalue" name="subitemvalue" title="subitemvalue"
-                                           required>
-                                    <br>
-                                    <p>Expanse date:</p>
-                                    <input type="date" name="date" id="date" title="date" required>
-                                    <br>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                                            Close
-                                        </button>
-                                        <input type="submit" value="Update Sub Item" class="btn btn-warning">
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </td>
-            <td>
-                <button type="button" class="btn btn-danger" data-toggle="modal"
-                        data-target="#{{ subgroup.SUBID }}">
-                    Remove Sub item
-                </button>
-                <div class="modal fade" id="{{ subgroup.SUBID }}" tabindex="-1" role="dialog"
-                     aria-labelledby="remove-sub-item-Label"
-                     aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="remove-sub-item-Label">Remove Sub Item!</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                Are you sure you want to delete this Sub Item?
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                                    Close
-                                </button>
-                                <form action="{{ url_for('deletesubitem', id=subgroup.SUBID, month=month, groupname=groupname, groupyear=groupyear) }}"
-                                      method="POST">
-                                    <input type="submit" value="Delete Sub Item" class="btn btn-danger">
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </td>
+            <th>Item</th>
+            <th>Value</th>
+            <th>Date</th>
         </tr>
-    {% endfor %}
-</table>
+        {% for subgroup in datesdetails %}
+            <tr>
+                <td>
+                    {{ subgroup.SUB_ITEM_NAME }}
+                </td>
+                <td>
+                    {{ subgroup.VALUE }}
+                </td>
+                <td>
+                    {{ subgroup.GIVEN_DATE }}
+                </td>
+                <td>
+                    <button type="button" class="btn btn-warning" data-toggle="modal"
+                            data-target="#{{ subgroup.SUBID + subgroup.SUBITEMID * 33 }}">
+                        Modify Sub item
+                    </button>
+                    <div class="modal fade" id="{{ subgroup.SUBID + subgroup.SUBITEMID * 33 }}" tabindex="-1"
+                         role="dialog"
+                         aria-labelledby="modify-sub-item"
+                         aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="modify-sub-item">Modify Sub Item!</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>Are you sure you want to delete this Sub Item?</p>
+                                    <p>Currently:</p>
+                                    <p>{{ subgroup.SUB_ITEM_NAME }} {{ subgroup.VALUE }} {{ subgroup.GIVEN_DATE }}</p>
+                                    <form action="{{ url_for('updateupdatesubitem', id=subgroup.SUBID, groupname=groupname, groupyear=groupyear,month=month) }}"
+                                          method="POST">
+                                        <p>New sub item name</p>
+                                        <input type="text" id="subitem" name="subitem" title="subitem" required>
+                                        <br>
+                                        <p>New Sub item value</p>
+                                        <input type="number" id="subitemvalue" name="subitemvalue" title="subitemvalue"
+                                               required>
+                                        <br>
+                                        <p>Expanse date:</p>
+                                        <input type="date" name="date" id="date" title="date" required>
+                                        <br>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                                Close
+                                            </button>
+                                            <input type="submit" value="Update Sub Item" class="btn btn-warning">
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <button type="button" class="btn btn-danger" data-toggle="modal"
+                            data-target="#{{ subgroup.SUBID }}">
+                        Remove Sub item
+                    </button>
+                    <div class="modal fade" id="{{ subgroup.SUBID }}" tabindex="-1" role="dialog"
+                         aria-labelledby="remove-sub-item-Label"
+                         aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="remove-sub-item-Label">Remove Sub Item!</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>Are you sure you want to delete this Sub Item</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                        Close
+                                    </button>
+                                    <form action="{{ url_for('deletesubitem', id=subgroup.SUBID, month=month, groupname=groupname, groupyear=groupyear) }}"
+                                          method="POST">
+                                        <input type="submit" value="Delete Sub Item" class="btn btn-danger">
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+</div>
 <h4>
     Sum value of this Sub Group: {{ datesdetails | sum(attribute='VALUE') }}
 </h4>
@@ -170,6 +173,31 @@
     </div>
 </div>
 
+<footer>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 col-sm-6">
+                <p>Third Milestone project - Created by Istvan Gercsak</p>
+            </div>
+            <div class="col-12 col-sm-6 list-inline social-link-container">
+                <ul>
+                    <li class="list-inline-item">
+                        <a href="https://github.com/IstvanGercsak" target="_blank">
+                            <i class="fab fa-github-square fa-3x"></i>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="https://www.linkedin.com/in/istvangercsak/" target="_blank">
+                            <i class="fab fa-linkedin fa-3x"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
 <!-- Optional JavaScript -->
 <script>
 
@@ -178,11 +206,8 @@
     })
 
 </script>
-
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-
+<script src="{{ url_for('static', filename='script/popper.min.js') }}"></script>
+<script src="{{ url_for('static', filename='script/jquery.min.js') }}"></script>
+<script src="{{ url_for('static', filename='script/bootstrap.min.js') }}"></script>
 </body>
 </html>

@@ -3,174 +3,192 @@
 <head>
     <meta charset="UTF-8">
     <title>Dashboard</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" type="text/css">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" type="text/css">
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
 </head>
 <body>
 
-{% with messages = get_flashed_messages() %}
-    {% if messages %}
-        <ul class=flashes>
-            {% for message in messages %}
-                <li>{{ message }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}
-{% endwith %}
+<nav class="navbar navbar-light bg-light justify-content-between">
+  <a class="navbar-brand">Navbar</a>
+  <form class="form-inline">
+    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+  </form>
+</nav>
 
+<div class="over">
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul class=flashes>
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+</div>
 <h1>Welcome <span class="username">{{ session['username'] }}</span></h1>
 <br>
 <h3>Dashboard</h3>
 
-<table class="table table-striped table-dark">
-    <tr>
-        <th>Date</th>
-        <th>Groups</th>
-        <th>Sum</th>
-    </tr>
-    {% for dates in mydates %}
+<div class="table-size">
+    <table class="table table-dark">
+        <thead>
         <tr>
-            <td>
-                {{ dates.DATE_YEAR }} {{ dates.DATE_MONTH }}
-            </td>
-            {% for group_item in mygroups %}
-                {% if ((dates.DATE_MONTH in group_item.DATE_MONTH) and (dates.DATE_YEAR == group_item.DATE_YEAR)) %}
-                    <tr>
-                        <td>
-
-                        </td>
-                        <td>
-                            {{ group_item.GROUP_NAME }}
-                        </td>
-                        <td>
-                            {% for sum in groupsumlist %}
-                                {% if ((group_item.GROUP_NAME in sum.GROUP_NAME) and (dates.DATE_YEAR == sum.DATE_YEAR) and (dates.DATE_MONTH in sum.DATE_MONTH)) %}
-                                    {{ sum.SUMVALUE }}
-                                {% endif %}
-                            {% endfor %}
-                        </td>
-                        <td>
-                            <a href="{{ url_for('viewdetails',month=group_item.DATE_MONTH, groupname=group_item.GROUP_NAME, groupyear=group_item.DATE_YEAR) }}">
-                                <button type="button" class="btn btn-info">
-                                    View
-                                </button>
-                            </a>
-                        </td>
-                        <td>
-                            <button type="button" class="btn btn-warning" data-toggle="modal"
-                                    data-target="#{{ group_item.ID * 66 }}">
-                                Edit Group
-                            </button>
-                            {#Edit Group pop up#}
-                            <div class="modal fade" id="{{ group_item.ID * 66 }}" tabindex="-1" role="dialog"
-                                 aria-labelledby="edit-group-Label"
-                                 aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="edit-group-Label">Edit Group!</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <p>Currently:</p>
-                                            <p>{{ group_item.GROUP_NAME }} {{ group_item.DATE_YEAR }} {{ dates.DATE_MONTH }}</p>
-                                            <form action="{{ url_for('editgroup', id=group_item.ID, group_id=group_item.GROUP_ID) }}"
-                                                  method="POST">
-                                                <p>Group type name</p>
-                                                <select name="group" id="group" title="group" required>
-                                                    <option disabled selected value>-- Select a Group type --</option>
-                                                    <option disabled value>->* INCOME *<-</option>
-                                                    <option value="Income">Income</option>
-                                                    <option disabled value>->* EXPANSE *<-</option>
-                                                    <option value="Bills">Bills</option>
-                                                    <option value="Other">Other</option>
-                                                    <option value="Savings">Savings</option>
-                                                    <option value="Shopping">Shopping</option>
-                                                </select>
-
-                                                <br>
-                                                <p>Year(number)</p>
-
-                                                <select name="year" id="year" title="year" required>
-                                                    <option disabled selected value> -- Select a year --</option>
-                                                    <option value="2018">2018</option>
-                                                    <option value="2019">2019</option>
-                                                    <option value="2020">2020</option>
-                                                </select>
-                                                <br>
-                                                <p>Month</p>
-                                                <select name="month" id="month" title="month" required>
-                                                    <option disabled selected value> -- Select a month --</option>
-                                                    <option value="January">January</option>
-                                                    <option value="February">February</option>
-                                                    <option value="March">March</option>
-                                                    <option value="April">April</option>
-                                                    <option value="May">May</option>
-                                                    <option value="June">June</option>
-                                                    <option value="July">July</option>
-                                                    <option value="August">August</option>
-                                                    <option value="September">September</option>
-                                                    <option value="October">October</option>
-                                                    <option value="November">November</option>
-                                                    <option value="December">December</option>
-                                                </select>
-                                                <br>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary"
-                                                            data-dismiss="modal">
-                                                        Close
-                                                    </button>
-                                                    <input type="submit" value="Edit Group Item"
-                                                           class="btn btn-warning">
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </td>
-                        <td>
-                            <button type="button" class="btn btn-danger" data-toggle="modal"
-                                    data-target="#{{ group_item.ID }}">
-                                Remove Group item
-                            </button>
-                            <div class="modal fade" id="{{ group_item.ID }}" tabindex="-1" role="dialog"
-                                 aria-labelledby="remove-sub-item-Label"
-                                 aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="remove-sub-item-Label">Remove Group Item!</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            Are you sure you want to delete this group Item?
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                                                Close
-                                            </button>
-                                            <form action="{{ url_for('removegroupitem', id=group_item.ID, group_id=group_item.GROUP_ID, group_name=group_item.GROUP_NAME ,date_year=group_item.DATE_YEAR, date_month=group_item.DATE_MONTH) }}"
-                                                  method="POST">
-                                                <input type="submit" value="Delete Group Item" class="btn btn-danger">
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                {% endif %}
-            {% endfor %}
+            <th scope="col">Date</th>
+            <th scope="col">Groups</th>
+            <th scope="col">Sum</th>
         </tr>
-    {% endfor %}
-</table>
+        </thead>
+        {% for dates in mydates %}
+            <tr>
+                <td>
+                    {{ dates.DATE_YEAR }} {{ dates.DATE_MONTH }}
+                </td>
+                {% for group_item in mygroups %}
+                    {% if ((dates.DATE_MONTH in group_item.DATE_MONTH) and (dates.DATE_YEAR == group_item.DATE_YEAR)) %}
+                        <tr>
+                            <td>
 
+                            </td>
+                            <td>
+                                {{ group_item.GROUP_NAME }}
+                            </td>
+                            <td>
+                                {% for sum in groupsumlist %}
+                                    {% if ((group_item.GROUP_NAME in sum.GROUP_NAME) and (dates.DATE_YEAR == sum.DATE_YEAR) and (dates.DATE_MONTH in sum.DATE_MONTH)) %}
+                                        {{ sum.SUMVALUE }}
+                                    {% endif %}
+                                {% endfor %}
+                            </td>
+                            <td>
+                                <a href="{{ url_for('viewdetails',month=group_item.DATE_MONTH, groupname=group_item.GROUP_NAME, groupyear=group_item.DATE_YEAR) }}">
+                                    <button type="button" class="btn btn-info">
+                                        View
+                                    </button>
+                                </a>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-warning" data-toggle="modal"
+                                        data-target="#{{ group_item.ID * 66 }}">
+                                    Edit Group
+                                </button>
+                                {#Edit Group pop up#}
+                                <div class="modal fade" id="{{ group_item.ID * 66 }}" tabindex="-1" role="dialog"
+                                     aria-labelledby="edit-group-Label"
+                                     aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="edit-group-Label">Edit Group!</h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p>Currently:</p>
+                                                <p>{{ group_item.GROUP_NAME }} {{ group_item.DATE_YEAR }} {{ dates.DATE_MONTH }}</p>
+                                                <form action="{{ url_for('editgroup', id=group_item.ID, group_id=group_item.GROUP_ID) }}"
+                                                      method="POST">
+                                                    <p>Group type name</p>
+                                                    <select name="group" id="group" title="group" required>
+                                                        <option disabled selected value>-- Select a Group type --
+                                                        </option>
+                                                        <option disabled value>->* INCOME *<-</option>
+                                                        <option value="Income">Income</option>
+                                                        <option disabled value>->* EXPANSE *<-</option>
+                                                        <option value="Bills">Bills</option>
+                                                        <option value="Other">Other</option>
+                                                        <option value="Savings">Savings</option>
+                                                        <option value="Shopping">Shopping</option>
+                                                    </select>
+
+                                                    <br>
+                                                    <p>Year(number)</p>
+
+                                                    <select name="year" id="year" title="year" required>
+                                                        <option disabled selected value> -- Select a year --</option>
+                                                        <option value="2018">2018</option>
+                                                        <option value="2019">2019</option>
+                                                        <option value="2020">2020</option>
+                                                    </select>
+                                                    <br>
+                                                    <p>Month</p>
+                                                    <select name="month" id="month" title="month" required>
+                                                        <option disabled selected value> -- Select a month --</option>
+                                                        <option value="January">January</option>
+                                                        <option value="February">February</option>
+                                                        <option value="March">March</option>
+                                                        <option value="April">April</option>
+                                                        <option value="May">May</option>
+                                                        <option value="June">June</option>
+                                                        <option value="July">July</option>
+                                                        <option value="August">August</option>
+                                                        <option value="September">September</option>
+                                                        <option value="October">October</option>
+                                                        <option value="November">November</option>
+                                                        <option value="December">December</option>
+                                                    </select>
+                                                    <br>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                                data-dismiss="modal">
+                                                            Close
+                                                        </button>
+                                                        <input type="submit" value="Edit Group Item"
+                                                               class="btn btn-warning">
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-danger" data-toggle="modal"
+                                        data-target="#{{ group_item.ID }}">
+                                    Remove Group item
+                                </button>
+                                <div class="modal fade" id="{{ group_item.ID }}" tabindex="-1" role="dialog"
+                                     aria-labelledby="remove-sub-item-Label"
+                                     aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="remove-sub-item-Label">Remove Group
+                                                    Item!</h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p>Are you sure you want to delete this group Item?</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                                    Close
+                                                </button>
+                                                <form action="{{ url_for('removegroupitem', id=group_item.ID, group_id=group_item.GROUP_ID, group_name=group_item.GROUP_NAME ,date_year=group_item.DATE_YEAR, date_month=group_item.DATE_MONTH) }}"
+                                                      method="POST">
+                                                    <input type="submit" value="Delete Group Item"
+                                                           class="btn btn-danger">
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+            </tr>
+        {% endfor %}
+    </table>
+</div>
 <h4>Sum money: {{ summoney.sum_money }}</h4>
 
 <br>
@@ -247,10 +265,31 @@
         </div>
     </div>
 </div>
-
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<footer>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 col-sm-6">
+                <p>Third Milestone project - Created by Istvan Gercsak</p>
+            </div>
+            <div class="col-12 col-sm-6 list-inline social-link-container">
+                <ul>
+                    <li class="list-inline-item">
+                        <a href="https://github.com/IstvanGercsak" target="_blank">
+                            <i class="fab fa-github-square fa-3x"></i>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="https://www.linkedin.com/in/istvangercsak/" target="_blank">
+                            <i class="fab fa-linkedin fa-3x"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+<script src="{{ url_for('static', filename='script/popper.min.js') }}"></script>
+<script src="{{ url_for('static', filename='script/jquery.min.js') }}"></script>
+<script src="{{ url_for('static', filename='script/bootstrap.min.js') }}"></script>
 </body>
 </html>
