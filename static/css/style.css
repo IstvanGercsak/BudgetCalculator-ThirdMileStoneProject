@@ -24,7 +24,8 @@ table, th, td {
     background: #20639B;
     margin: 0 auto;
     border-radius: 25px;
-    width: 500px;
+    width: 350px;
+    height: 350px;
 }
 
 .details p {

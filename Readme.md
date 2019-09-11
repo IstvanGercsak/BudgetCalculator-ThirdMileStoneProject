@@ -222,3 +222,6 @@ https://colorlib.com/wp/free-bootstrap-registration-forms/
 
 ## Table format
 https://getbootstrap.com/docs/4.3/content/tables/
+
+## Charts
+https://plot.ly/python/pie-charts/
