@@ -2,6 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Dashboard</title>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" type="text/css">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}" type="text/css">
@@ -10,13 +13,27 @@
 </head>
 <body>
 
-<nav class="navbar navbar-light bg-light justify-content-between">
-  <a class="navbar-brand">Navbar</a>
-  <form class="form-inline">
-    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-  </form>
+<nav class="navbar navbar-light bg-light">
+    <a class="navbar-brand">Dashboard | User: {{ session['username'] }}</a>
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a href="{{ url_for('logout') }}" class="nav-link">
+                <button type="button" class="btn btn-secondary">
+                    <i class="fas fa-sign-out-alt"></i>Logout
+                </button>
+            </a>
+        </li>
+    </ul>
 </nav>
+
+<div class="search">
+    <h2>Search after your item:</h2>
+    <form>
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <br>
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fas fa-search"></i>Search</button>
+    </form>
+</div>
 
 <div class="over">
     {% with messages = get_flashed_messages() %}
@@ -66,14 +83,14 @@
                             <td>
                                 <a href="{{ url_for('viewdetails',month=group_item.DATE_MONTH, groupname=group_item.GROUP_NAME, groupyear=group_item.DATE_YEAR) }}">
                                     <button type="button" class="btn btn-info">
-                                        View
+                                        <i class="fas fa-binoculars"></i>View
                                     </button>
                                 </a>
                             </td>
                             <td>
                                 <button type="button" class="btn btn-warning" data-toggle="modal"
                                         data-target="#{{ group_item.ID * 66 }}">
-                                    Edit Group
+                                    <i class="fas fa-edit"></i>Edit Group
                                 </button>
                                 {#Edit Group pop up#}
                                 <div class="modal fade" id="{{ group_item.ID * 66 }}" tabindex="-1" role="dialog"
@@ -150,7 +167,7 @@
                             <td>
                                 <button type="button" class="btn btn-danger" data-toggle="modal"
                                         data-target="#{{ group_item.ID }}">
-                                    Remove Group item
+                                    <i class="fas fa-trash-alt"></i> Remove Group
                                 </button>
                                 <div class="modal fade" id="{{ group_item.ID }}" tabindex="-1" role="dialog"
                                      aria-labelledby="remove-sub-item-Label"
@@ -192,14 +209,9 @@
 <h4>Sum money: {{ summoney.sum_money }}</h4>
 
 <br>
-<a href="{{ url_for('logout') }}">
-    <button type="button" class="btn btn-secondary">
-        Logout
-    </button>
-</a>
 
 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#add-group">
-    Add Group
+    <i class="fas fa-plus"></i>Add Group
 </button>
 
 {#Add new Group pop up#}

@@ -10,6 +10,10 @@ table, th, td {
     border: 1px solid black;
 }
 
+button {
+    white-space: nowrap;
+}
+
 .no-textdecoration-on-links, a:link, a:visited, a:hover, a:active {
     color: #000000;
 !important;
@@ -52,6 +56,24 @@ table, th, td {
     margin: 15px;
     height: 50px;
     width: 80px;
+}
+
+/* SEARCH*/
+
+.search {
+    padding: 15px;
+    text-align: center;
+    margin: 0 auto;
+    width: 40%;
+}
+
+.search p {
+    font-size: 20px;
+    padding: 5px;
+}
+
+.search-button{
+    padding: 3px;
 }
 
 /* TABLE FORMAT*/
@@ -114,5 +136,9 @@ footer i {
 @media only screen and (max-width: 530px) {
     .details {
         width: 350px;
+    }
+
+    body {
+        font-size: 14px;
     }
 }
