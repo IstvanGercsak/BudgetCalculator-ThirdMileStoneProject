@@ -70,7 +70,9 @@ table, th, td {
 /* FLASH MESSAGES */
 
 .over {
+    position: absolute;
     width: 800px;
+    z-index: 1;
 }
 
 /* FOOTER*/
@@ -82,10 +84,29 @@ footer {
     left: 0;
     width: 100%;
     opacity: 0.7;
+    text-align: center;
 }
 
-.social-link-container {
+footer p {
+    margin: 0;
+    padding-top: 10px;
+}
 
+footer ul {
+    margin: 0;
+    padding: 0;
+}
+
+footer i {
+    color: #5a6268;
+    transition: all 0.5s ease-in-out;
+}
+
+.social-link-container i:hover {
+    transition: all 0.5s ease-in-out;
+    opacity: 1;
+    cursor: pointer;
+    color: #80bdff;
 }
 
 /* MEDIA QUERY */

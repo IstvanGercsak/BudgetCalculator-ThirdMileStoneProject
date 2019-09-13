@@ -137,7 +137,8 @@ Demo page where I test the features from Data Centric Development lecture and co
 
 ### Features Left to Implement
 
-We get back estimation about how much money we have if we continue the saving or spending
+- We get back estimation about how much money we have if we continue the saving or spending
+- Password reset with email
 
 ## Technologies Used
 
@@ -171,7 +172,6 @@ We get back estimation about how much money we have if we continue the saving or
 ## Testing
 
 You can find the testing document in the [Testing.md](https://github.com/IstvanGercsak/BudgetCalculator-ThirdMileStoneProject/blob/master/Testing.md) file.
-
 
 ## Deployment
 
