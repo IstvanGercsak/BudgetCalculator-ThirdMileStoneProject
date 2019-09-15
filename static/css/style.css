@@ -66,10 +66,9 @@ html, body {
 /* SEARCH */
 
 .search {
-    padding: 15px;
+    padding: 10px;
     text-align: center;
     margin: 0 auto;
-    width: 40%;
 }
 
 .search p {

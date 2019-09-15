@@ -14,7 +14,7 @@
 <body>
 
 <nav class="navbar navbar-light bg-light justify-content-between">
-    <a class="navbar-link">Details | User: {{ session['username'] }}</a>
+    <a class="navbar-link">User: {{ session['username'] }}</a>
     <a href="{{ url_for('dashboard') }}" class="nav-link">
         <button type="button" class="btn btn-secondary">
             <i class="fas fa-house-damage"></i>Dashboard
@@ -33,6 +33,29 @@
 
 <h2>You searched after: "{{ search_criteria }}"</h2>
 
+<div class="table-size">
+    <table class="table table-dark">
+        <thead>
+        <tr>
+            <th scope="col">Date</th>
+            <th scope="col">Group</th>
+            <th scope="col">Item</th>
+            <th scope="col">Amount</th>
+            <th scope="col">Exact Date</th>
+        </tr>
+
+        </thead>
+        {% for list in resultlist %}
+            <tr>
+                <td>{{ list.DATE_YEAR }} {{ list.DATE_MONTH }}</td>
+                <td>{{ list.GROUP_NAME }}</td>
+                <td>{{ list.SUB_ITEM_NAME }}</td>
+                <td>{{ list.VALUE }}</td>
+                <td>{{ list.GIVEN_DATE }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+</div>
 <footer>
     <div class="container-fluid">
         <div class="row">
