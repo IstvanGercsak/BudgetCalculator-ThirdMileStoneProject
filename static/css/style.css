@@ -6,12 +6,15 @@ html, body {
     padding-bottom: 50px;
 }
 
-table, th, td {
-    border: 1px solid black;
+.navbar{
+    height: 60px;
 }
 
-button {
-    white-space: nowrap;
+/* LOGIN PAGE */
+.nav-header {
+    text-align: center;
+    width: 100%;
+    margin: 0 auto;
 }
 
 .no-textdecoration-on-links, a:link, a:visited, a:hover, a:active {
@@ -22,7 +25,7 @@ button {
 
 .login-container {
     text-align: center;
-    margin: 10% auto;
+    margin: 5% auto;
 }
 
 .details {
@@ -58,7 +61,9 @@ button {
     width: 80px;
 }
 
-/* SEARCH*/
+/* DASHBOARD */
+
+/* SEARCH */
 
 .search {
     padding: 15px;
@@ -72,11 +77,19 @@ button {
     padding: 5px;
 }
 
-.search-button{
+.search-button {
     padding: 3px;
 }
 
 /* TABLE FORMAT*/
+
+table, th, td {
+    border: 1px solid black;
+}
+
+button {
+    white-space: nowrap;
+}
 
 .table-size {
     margin-left: 30px;
@@ -94,7 +107,15 @@ button {
 .over {
     position: absolute;
     width: 800px;
+    top: 65px;
+    left: 5px;
     z-index: 1;
+}
+
+.center {
+    margin: 0 auto;
+    text-align: center;
+    position: center;
 }
 
 /* FOOTER*/

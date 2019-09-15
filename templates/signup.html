@@ -12,21 +12,28 @@
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
 </head>
 <body>
-<div class="over">
-    {% with messages = get_flashed_messages() %}
-        {% if messages %}
-            <ul class=flashes>
-                {% for message in messages %}
-                    <li>{{ message }}</li>
-                {% endfor %}
-            </ul>
-        {% endif %}
-    {% endwith %}
-</div>
+
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <div class="toast over" data-autohide="true" data-delay="2000">
+            <div class="toast-body">
+                <ul class=flashes>
+                    {% for message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    {% endif %}
+{% endwith %}
+
+<nav class="navbar navbar-light bg-light">
+    <h2 class="nav-header">Sign up</h2>
+</nav>
+
 <div class="container-fluid">
     <div class="row">
         <div class="col-12 login-container">
-            <h2>Sign up</h2>
             <div class="details">
                 <form action="{{ url_for('adduser') }}" onsubmit="alertmessage()" method="POST">
                     <p>Username:</p>
@@ -73,13 +80,16 @@
 </footer>
 <script>
     function alertmessage() {
-
         alert("Thank you for your registration. We will redirect you on the start page, and you can Log in your given username and password");
-
     }
 </script>
 <script src="{{ url_for('static', filename='script/popper.min.js') }}"></script>
 <script src="{{ url_for('static', filename='script/jquery.min.js') }}"></script>
 <script src="{{ url_for('static', filename='script/bootstrap.min.js') }}"></script>
+<script>
+    $(document).ready(function () {
+        $('.toast').toast('show');
+    });
+</script>
 </body>
 </html>

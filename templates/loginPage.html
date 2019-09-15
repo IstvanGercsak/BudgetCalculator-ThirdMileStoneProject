@@ -13,24 +13,27 @@
 </head>
 <body>
 
-<div class="toast over" data-autohide="true" data-delay="2000">
-    <div class="toast-body">
-        {% with messages = get_flashed_messages() %}
-            {% if messages %}
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <div class="toast over" data-autohide="true" data-delay="2000">
+            <div class="toast-body">
                 <ul class=flashes>
                     {% for message in messages %}
                         <li>{{ message }}</li>
                     {% endfor %}
                 </ul>
-            {% endif %}
-        {% endwith %}
-    </div>
-</div>
+            </div>
+        </div>
+    {% endif %}
+{% endwith %}
 
+<nav class="navbar navbar-light bg-light">
+    <h2 class="nav-header">Welcome, Please log in or Sign up</h2>
+</nav>
+<h1 class="nav-header">Budget Calculator</h1>
 <div class="container-fluid">
     <div class="row">
         <div class="col-12 login-container">
-            <h2>Log in</h2>
             <div class="details">
                 <form action="{{ url_for('login') }}" method="POST">
                     <i class="fas fa-user"></i>
@@ -54,6 +57,7 @@
         </div>
     </div>
 </div>
+
 <footer>
     <div class="container-fluid">
         <div class="row">

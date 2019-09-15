@@ -13,8 +13,23 @@
 </head>
 <body>
 
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <div class="toast over" data-autohide="true" data-delay="2000">
+            <div class="toast-body">
+                <ul class=flashes>
+                    {% for message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    {% endif %}
+{% endwith %}
+
+
 <nav class="navbar navbar-light bg-light">
-    <a class="navbar-brand">Dashboard | User: {{ session['username'] }}</a>
+    <a href="{{ url_for('dashboard') }}" class="navbar-brand">Dashboard | User: {{ session['username'] }}</a>
     <ul class="navbar-nav">
         <li class="nav-item">
             <a href="{{ url_for('logout') }}" class="nav-link">
@@ -35,20 +50,7 @@
     </form>
 </div>
 
-<div class="over">
-    {% with messages = get_flashed_messages() %}
-        {% if messages %}
-            <ul class=flashes>
-                {% for message in messages %}
-                    <li>{{ message }}</li>
-                {% endfor %}
-            </ul>
-        {% endif %}
-    {% endwith %}
-</div>
-<h1>Welcome <span class="username">{{ session['username'] }}</span></h1>
-<br>
-<h3>Dashboard</h3>
+<h3>Your Dashboard:</h3>
 
 <div class="table-size">
     <table class="table table-dark">
@@ -300,12 +302,20 @@
         </div>
     </div>
 </footer>
-<script src="{{ url_for('static', filename='script/popper.min.js') }}"></script>
-<script src="{{ url_for('static', filename='script/jquery.min.js') }}"></script>
-<script src="{{ url_for('static', filename='script/bootstrap.min.js') }}"></script>
+
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+<script src="{{ url_for('static', filename='script/popper.min.js') }}"></script>
+<script src="{{ url_for('static', filename='script/jquery.min.js') }}"></script>
+<script src="{{ url_for('static', filename='script/bootstrap.min.js') }}"></script>
+<script>
+    $(document).ready(function () {
+        $('.toast').toast('show');
+    });
+</script>
+
 </body>
 </html>

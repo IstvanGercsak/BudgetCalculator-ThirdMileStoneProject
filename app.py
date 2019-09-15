@@ -35,11 +35,13 @@ checkcontainssubitems = connection.cursor(pymysql.cursors.DictCursor)
 deletegroupitem = connection.cursor(pymysql.cursors.DictCursor)
 
 
+# Start the application
 @app.route('/')
 def start():
     return render_template("loginPage.html")
 
 
+# Login and drop back if the username-password combination is not right
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     session['username'] = request.form['username']
@@ -68,6 +70,7 @@ def login():
         return render_template("loginPage.html")
 
 
+# Arrive to the Dashboard
 @app.route('/dashboard')
 def dashboard():
     username = session['username']
@@ -151,6 +154,7 @@ def adduser():
         return render_template("signup.html")
 
 
+# Add Group
 @app.route('/addgroup', methods=['POST'])
 def addgroup():
     givengroup = request.form['group']
@@ -200,6 +204,7 @@ def addgroup():
         return redirect(url_for("dashboard"))
 
 
+# Edit Group
 @app.route('/editgroup/<id>/<group_id>', methods=['POST'])
 def editgroup(id, group_id):
     givengroup = request.form['group']
@@ -225,6 +230,7 @@ def editgroup(id, group_id):
         return redirect(url_for("dashboard"))
 
 
+# Remove Group item
 @app.route('/removegroupitem/<id>/<group_id>/<group_name>/<date_year>/<date_month>', methods=['POST'])
 def removegroupitem(id, group_id, group_name, date_year, date_month):
     rowcheckexistingsubitem = (group_id, group_name, date_year, date_month)
@@ -270,6 +276,7 @@ def viewdetails(groupyear, month, groupname):
                            datesdetails=datesdetails)
 
 
+# Add sub item
 @app.route('/<groupyear>/<month>/<groupname>/addnewsubitempage', methods=['POST'])
 def addnewsubitem(groupyear, month, groupname):
     givensubitemname = request.form['subitem']
@@ -301,19 +308,7 @@ def addnewsubitem(groupyear, month, groupname):
     return redirect(url_for('viewdetails', groupyear=groupyear, month=month, groupname=groupname))
 
 
-@app.route('/deletesubitem/<id>/<groupname>/<groupyear>/<month>', methods=['POST'])
-def deletesubitem(id, groupname, groupyear, month):
-    sql = "DELETE " \
-          "FROM " \
-          "GROUP_SUB_ITEM " \
-          "WHERE ID=%s"
-    deletesubitemcursor.execute(sql, id)
-    deletesubitemcursor.fetchone()
-    connection.commit()
-    flash('Given Sub Item was deleted!')
-    return redirect(url_for('viewdetails', groupname=groupname, groupyear=groupyear, month=month))
-
-
+# Update sub item
 @app.route('/updateupdatesubitem/<id>/<groupname>/<groupyear>/<month>', methods=['POST'])
 def updateupdatesubitem(id, groupname, groupyear, month):
     givensubitemname = request.form['subitem']
@@ -327,6 +322,20 @@ def updateupdatesubitem(id, groupname, groupyear, month):
     flash('Given Sub Item was Updated!')
     return redirect(url_for('viewdetails', groupname=groupname, groupyear=groupyear,
                             month=month))
+
+
+# Delete sub item
+@app.route('/deletesubitem/<id>/<groupname>/<groupyear>/<month>', methods=['POST'])
+def deletesubitem(id, groupname, groupyear, month):
+    sql = "DELETE " \
+          "FROM " \
+          "GROUP_SUB_ITEM " \
+          "WHERE ID=%s"
+    deletesubitemcursor.execute(sql, id)
+    deletesubitemcursor.fetchone()
+    connection.commit()
+    flash('Given Sub Item was deleted!')
+    return redirect(url_for('viewdetails', groupname=groupname, groupyear=groupyear, month=month))
 
 
 @app.route("/logout")
