@@ -33,6 +33,7 @@ updategroupcursor = connection.cursor(pymysql.cursors.DictCursor)
 checkexistinggroupname = connection.cursor(pymysql.cursors.DictCursor)
 checkcontainssubitems = connection.cursor(pymysql.cursors.DictCursor)
 deletegroupitem = connection.cursor(pymysql.cursors.DictCursor)
+searchitemcursor = connection.cursor(pymysql.cursors.DictCursor)
 
 
 # Start the application
@@ -119,6 +120,23 @@ def dashboard():
 
     return render_template("dashboard.html", mygroups=mygroups, mydates=mydates, summoney=summoney,
                            groupsumlist=groupsumlist)
+
+
+@app.route('/searchresult', methods=['POST'])
+def search():
+    search = request.form['search']
+    username = session['username']
+
+    # Result should be Date-Groups-Date-Item-Value-Expanse date
+    percentsign = "%"
+    rowsearchitem = (username, percentsign, search, percentsign)
+    sqlsearchitem = "SELECT GROUP_ITEM.GROUP_NAME, GROUP_ITEM.DATE_YEAR, GROUP_ITEM.DATE_MONTH, GROUP_SUB_ITEM.SUB_ITEM_NAME, GROUP_SUB_ITEM.VALUE, GROUP_SUB_ITEM.GIVEN_DATE FROM GROUP_SUB_ITEM JOIN GROUP_ITEM ON GROUP_SUB_ITEM.ITEM_ID = GROUP_ITEM.ID JOIN USERS ON USERS.ID = GROUP_ITEM.GROUP_ID WHERE USERS.USERNAME = %s AND GROUP_SUB_ITEM.SUB_ITEM_NAME like %s %s %s"
+
+    searchitemcursor.execute(sqlsearchitem, rowsearchitem)
+    result = searchitemcursor.fetchall()
+    print(result)
+
+    return render_template('searchresult.html', search_criteria=search)
 
 
 @app.route('/signup')
