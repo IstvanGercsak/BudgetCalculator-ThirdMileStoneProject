@@ -31,7 +31,7 @@
 <nav class="container-fluid navbar-light bg-light">
     <div class="row">
         <div class="col-4 username nav-item-padding">
-            <p>{{ session['username'] }}</p>
+            <p>{{ session['username'] }} - {{ session['currency'] }}</p>
         </div>
         <div class="col-4 set-center nav-item-padding">
             <p>Dashboard</p>
@@ -49,7 +49,7 @@
 <div class="container-fluid">
     <div class="row">
         <div class="search col-sm-6">
-            <p>Sum money: {{ summoney.sum_money }}</p>
+            <p>Sum money: {{ summoney.sum_money }} {{ session['currency'] }}</p>
             <button type="button" class="btn btn-success" data-toggle="modal" data-target="#add-group">
                 <i class="fas fa-plus"></i>Add Group
             </button>
@@ -97,7 +97,7 @@
                             <td>
                                 {% for sum in groupsumlist %}
                                     {% if ((group_item.GROUP_NAME in sum.GROUP_NAME) and (dates.DATE_YEAR == sum.DATE_YEAR) and (dates.DATE_MONTH in sum.DATE_MONTH)) %}
-                                        <p class="set-margin-data">{{ sum.SUMVALUE }}</p>
+                                        <p class="set-margin-data">{{ sum.SUMVALUE }} {{ session['currency'] }}</p>
                                     {% endif %}
                                 {% endfor %}
                             </td>

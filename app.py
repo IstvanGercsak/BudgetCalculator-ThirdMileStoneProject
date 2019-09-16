@@ -33,6 +33,7 @@ check_existing_group_name_cursor = connection.cursor(pymysql.cursors.DictCursor)
 check_contains_sub_item_cursor = connection.cursor(pymysql.cursors.DictCursor)
 delete_group_item_cursor = connection.cursor(pymysql.cursors.DictCursor)
 search_item_cursor = connection.cursor(pymysql.cursors.DictCursor)
+get_currency_cursor = connection.cursor(pymysql.cursors.DictCursor)
 
 
 # Start the application
@@ -74,6 +75,11 @@ def dashboard():
     sql_my_groups = "SELECT * FROM GROUP_ITEM JOIN USERS ON GROUP_ITEM.GROUP_ID = USERS.ID WHERE USERS.USERNAME = %s"
     check_existing_group_cursor.execute(sql_my_groups, username)
     my_groups = check_existing_group_cursor.fetchall()
+
+    sql_get_currency = "SELECT DISTINCT CURRENCY FROM USERS WHERE USERNAME = %s"
+    get_currency_cursor.execute(sql_get_currency, username)
+    currency = get_currency_cursor.fetchone()
+    session['currency'] = currency['CURRENCY']
 
     sql_my_dates = "SELECT distinct DATE_YEAR, DATE_MONTH FROM GROUP_ITEM JOIN USERS ON GROUP_ITEM.GROUP_ID = USERS.ID " \
                    "WHERE USERS.USERNAME = %s ORDER BY DATE_YEAR desc, " \
@@ -135,15 +141,16 @@ def sign_up():
 def add_user():
     user = request.form['username']
     password = request.form['password']
+    currency = request.form['currency']
 
     sha_password = sha256_crypt.encrypt(password)
 
-    row_user = (user, sha_password)
+    row_user = (user, sha_password, currency)
     sql = "SELECT USERNAME FROM USERS WHERE USERNAME = %s"
     check_username_cursor.execute(sql, user)
     result = check_username_cursor.fetchone()
     if (result == None):
-        sql_insert_user = "INSERT INTO USERS (USERNAME, PASSWORD) VALUES (%s, %s)"
+        sql_insert_user = "INSERT INTO USERS (USERNAME, PASSWORD, CURRENCY) VALUES (%s, %s, %s)"
         insert_user_cursor.execute(sql_insert_user, row_user)
         connection.commit()
         return render_template("login_page.html")

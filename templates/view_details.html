@@ -30,7 +30,7 @@
 <nav class="container-fluid navbar-light bg-light">
     <div class="row">
         <div class="col-4 username nav-item-padding">
-            <p>{{ session['username'] }}</p>
+            <p>{{ session['username'] }} - {{ session['currency'] }}</p>
         </div>
         <div class="col-4 set-center nav-item-padding">
             <a href="{{ url_for('dashboard') }}">
@@ -51,7 +51,7 @@
 
 <p class="align-center letter-font-color">Details of the {{ groupyear }} {{ month }} period</p>
 
-<p class="align-center letter-font-color"> Sum value of this Sub Group: {{ datesdetails | sum(attribute='VALUE') }} </p>
+<p class="align-center letter-font-color"> Sum value of this Sub Group: {{ datesdetails | sum(attribute='VALUE') }} {{ session['currency'] }} </p>
 
 <div class="align-center">
     <button type="button" class="btn btn-success align-center" data-toggle="modal" data-target="#add-new-sub-item">
@@ -73,7 +73,7 @@
                     <p class="set-margin-data">{{ subgroup.SUB_ITEM_NAME }}</p>
                 </td>
                 <td>
-                    <p class="set-margin-data">{{ subgroup.VALUE }}</p>
+                    <p class="set-margin-data">{{ subgroup.VALUE }} {{ session['currency'] }}</p>
                 </td>
                 <td>
                     <p class="set-margin-data">{{ subgroup.GIVEN_DATE }}</p>
@@ -104,7 +104,7 @@
                                         <p>New sub item name</p>
                                         <input type="text" id="subitem" name="subitem" title="subitem" required>
                                         <br>
-                                        <p>New Sub item value</p>
+                                        <p>New Sub item value in {{ session['currency'] }}</p>
                                         <input type="number" id="subitemvalue" name="subitemvalue" title="subitemvalue"
                                                required>
                                         <br>
@@ -177,7 +177,7 @@
                     <p>New sub item name</p>
                     <input type="text" id="subitem" name="subitem" title="subitem" required>
                     <br>
-                    <p>New Sub item value</p>
+                    <p>New Sub item value {{ session['currency'] }}</p>
                     <input type="number" id="subitemvalue" name="subitemvalue" title="subitemvalue" required>
                     <br>
                     <p>Expanse date:</p>

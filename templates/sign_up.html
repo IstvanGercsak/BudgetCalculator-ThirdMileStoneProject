@@ -37,10 +37,17 @@
             <div class="details">
                 <form action="{{ url_for('add_user') }}" onsubmit="alertmessage()" method="POST">
                     <p>Username:</p>
-                    <input id="username" type="text" name="username" title="username" required class="login-input">
+                    <input id="username" type="text" name="username" title="username" required class="login-input"
+                           minlength="4" maxlength="8">
                     <br>
                     <p>Password:</p>
                     <input id="password" type="password" name="password" title="password" required class="login-input">
+                    <br>
+                    <select name="currency" title="currency">
+                        <option value="€" selected>Euro</option>
+                        <option value="Ft">Hungarian Forint</option>
+                        <option value="$">United States Dollar</option>
+                    </select>
                     <br>
                     <button type="submit" class="btn btn-dark login-button">
                         Sign Up
