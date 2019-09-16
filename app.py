@@ -90,6 +90,7 @@ def dashboard():
     sql_full_sum = "SELECT USERS.USERNAME, SUM(GROUP_SUB_ITEM.VALUE) AS sum_money FROM USERS JOIN GROUP_ITEM ON " \
                    "USERS.ID = GROUP_ITEM.GROUP_ID JOIN GROUP_SUB_ITEM ON GROUP_ITEM.ID = GROUP_SUB_ITEM.ITEM_ID " \
                    "WHERE USERS.USERNAME = %s GROUP BY USERS.USERNAME"
+
     sum_money_cursor.execute(sql_full_sum, username)
     sum_money = sum_money_cursor.fetchone()
 
@@ -266,6 +267,10 @@ def add_new_sub_item(groupyear, month, groupname):
     given_date = request.form['date']
 
     row_for_id = (session['username'], groupname, groupyear, month)
+
+    if groupname == "Bills" or groupname == "Others" or groupname == "Shopping":
+        given_sub_item_value = int(given_sub_item_value) * -1
+
     sql_id_from_group = "SELECT GROUP_ITEM.ID FROM GROUP_ITEM JOIN USERS ON GROUP_ITEM.GROUP_ID = USERS.ID " \
                         "WHERE USERS.USERNAME=%s " \
                         "AND GROUP_ITEM.GROUP_NAME=%s AND GROUP_ITEM.DATE_YEAR=%s AND GROUP_ITEM.DATE_MONTH=%s"

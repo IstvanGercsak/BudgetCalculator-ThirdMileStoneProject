@@ -37,6 +37,7 @@ th, td {
     width: 100%;
     margin: 0 auto;
     font-size: 50px;
+    color: white;
 }
 
 .no-textdecoration-on-links, a:link, a:visited, a:hover, a:active {
