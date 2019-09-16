@@ -6,7 +6,7 @@ html, body {
     padding-bottom: 50px;
 }
 
-.navbar{
+.navbar {
     height: 60px;
 }
 
@@ -141,11 +141,21 @@ footer ul {
 
 footer i {
     color: #5a6268;
-    transition: all 0.5s ease-in-out;
+    /* Webkit browsers like Chrome and Safari */
+    -webkit-transition: all 0.5s ease-in-out;
+    /* Mozilla FireFox */
+    -moz-transition: all 0.5s ease-in-out;
+    /* Internet Explorer */
+    -ms-transition: all 0.5s ease-in-out;
+    /* Opera */
+    -o-transition: all 0.5s ease-in-out;
 }
 
 .social-link-container i:hover {
-    transition: all 0.5s ease-in-out;
+    -webkit-transition: all 0.5s ease-in-out;
+    -moz-transition: all 0.5s ease-in-out;
+    -ms-transition: all 0.5s ease-in-out;
+    -o-transition: all 0.5s ease-in-out;
     opacity: 1;
     cursor: pointer;
     color: #80bdff;

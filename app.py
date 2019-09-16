@@ -1,5 +1,4 @@
 import os
-
 import pymysql
 from flask import Flask, flash, render_template, url_for, redirect, request, session
 from passlib.hash import sha256_crypt
@@ -15,60 +14,56 @@ connection = pymysql.connect(
     db='uHGCP9ySEe'
 )
 
-insertuser = connection.cursor()
-existinggroupcursor = connection.cursor(pymysql.cursors.DictCursor)
-creategroupcursor = connection.cursor()
-mydatescursor = connection.cursor(pymysql.cursors.DictCursor)
-viewdatedetails = connection.cursor(pymysql.cursors.DictCursor)
-insertsubitem = connection.cursor(pymysql.cursors.DictCursor)
-userpasswordparsing = connection.cursor(pymysql.cursors.DictCursor)
-chekisavailable = connection.cursor(pymysql.cursors.DictCursor)
-idforgroup = connection.cursor(pymysql.cursors.DictCursor)
-deletesubitemcursor = connection.cursor(pymysql.cursors.DictCursor)
-checkusername = connection.cursor(pymysql.cursors.DictCursor)
-summoneycursor = connection.cursor(pymysql.cursors.DictCursor)
-groupsum = connection.cursor(pymysql.cursors.DictCursor)
-updatesubitemcursor = connection.cursor(pymysql.cursors.DictCursor)
-updategroupcursor = connection.cursor(pymysql.cursors.DictCursor)
-checkexistinggroupname = connection.cursor(pymysql.cursors.DictCursor)
-checkcontainssubitems = connection.cursor(pymysql.cursors.DictCursor)
-deletegroupitem = connection.cursor(pymysql.cursors.DictCursor)
-searchitemcursor = connection.cursor(pymysql.cursors.DictCursor)
+insert_user_cursor = connection.cursor()
+check_existing_group_cursor = connection.cursor(pymysql.cursors.DictCursor)
+create_group_cursor = connection.cursor()
+my_dates_cursor = connection.cursor(pymysql.cursors.DictCursor)
+view_date_details_cursor = connection.cursor(pymysql.cursors.DictCursor)
+insert_sub_item_cursor = connection.cursor(pymysql.cursors.DictCursor)
+user_password_parsing_cursor = connection.cursor(pymysql.cursors.DictCursor)
+check_is_available_cursor = connection.cursor(pymysql.cursors.DictCursor)
+id_for_group_cursor = connection.cursor(pymysql.cursors.DictCursor)
+delete_sub_item_cursor = connection.cursor(pymysql.cursors.DictCursor)
+check_username_cursor = connection.cursor(pymysql.cursors.DictCursor)
+sum_money_cursor = connection.cursor(pymysql.cursors.DictCursor)
+group_sum_cursor = connection.cursor(pymysql.cursors.DictCursor)
+update_sub_item_cursor = connection.cursor(pymysql.cursors.DictCursor)
+update_group_cursor = connection.cursor(pymysql.cursors.DictCursor)
+check_existing_group_name_cursor = connection.cursor(pymysql.cursors.DictCursor)
+check_contains_sub_item_cursor = connection.cursor(pymysql.cursors.DictCursor)
+delete_group_item_cursor = connection.cursor(pymysql.cursors.DictCursor)
+search_item_cursor = connection.cursor(pymysql.cursors.DictCursor)
 
 
 # Start the application
 @app.route('/')
 def start():
-    return render_template("loginPage.html")
+    return render_template("login_page.html")
 
 
 # Login and drop back if the username-password combination is not right
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     session['username'] = request.form['username']
-    givenpassword = request.form['password']
+    given_password = request.form['password']
 
-    getpasswordfromdbsql = "SELECT " \
-                           "PASSWORD as pass " \
-                           "FROM " \
-                           "USERS " \
-                           "WHERE USERNAME = %s"
-    userpasswordparsing.execute(getpasswordfromdbsql, session['username'])
-    result = userpasswordparsing.fetchone()
+    sql_get_password_from_db = "SELECT PASSWORD as pass FROM USERS WHERE USERNAME = %s"
+    user_password_parsing_cursor.execute(sql_get_password_from_db, session['username'])
+    result = user_password_parsing_cursor.fetchone()
 
     try:
-        parsing = (sha256_crypt.verify(givenpassword, result['pass']))
+        parsing = (sha256_crypt.verify(given_password, result['pass']))
     except:
         flash('Wrong Username or Password')
-        return render_template("loginPage.html")
+        return render_template("login_page.html")
 
-    if (sha256_crypt.verify(givenpassword, result['pass'])):
+    if (sha256_crypt.verify(given_password, result['pass'])):
         session['logged_in'] = True
         flash('You were successfully logged in')
         return redirect(url_for("dashboard"))
     else:
-        flash('You weren`t logged in')
-        return render_template("loginPage.html")
+        flash('You were not logged in')
+        return render_template("login_page.html")
 
 
 # Arrive to the Dashboard
@@ -76,144 +71,113 @@ def login():
 def dashboard():
     username = session['username']
 
-    sqlmygroups = "SELECT " \
-                  "* " \
-                  "FROM " \
-                  "GROUP_ITEM JOIN USERS " \
-                  "ON " \
-                  "GROUP_ITEM.GROUP_ID = USERS.ID " \
-                  "WHERE USERS.USERNAME = %s"
-    existinggroupcursor.execute(sqlmygroups, username)
-    mygroups = existinggroupcursor.fetchall()
+    sql_my_groups = "SELECT * FROM GROUP_ITEM JOIN USERS ON GROUP_ITEM.GROUP_ID = USERS.ID WHERE USERS.USERNAME = %s"
+    check_existing_group_cursor.execute(sql_my_groups, username)
+    my_groups = check_existing_group_cursor.fetchall()
 
-    sqlmydates = "SELECT " \
-                 "distinct DATE_YEAR, " \
-                 "DATE_MONTH " \
-                 "FROM " \
-                 "GROUP_ITEM JOIN USERS " \
-                 "ON " \
-                 "GROUP_ITEM.GROUP_ID = USERS.ID " \
-                 "WHERE USERS.USERNAME = %s " \
-                 "ORDER BY DATE_YEAR desc, " \
-                 "FIELD(DATE_MONTH,'January','February','March','April','May','June','July','August','September','October','November','December') desc"
-    mydatescursor.execute(sqlmydates, username)
-    mydates = mydatescursor.fetchall()
+    sql_my_dates = "SELECT distinct DATE_YEAR, DATE_MONTH FROM GROUP_ITEM JOIN USERS ON GROUP_ITEM.GROUP_ID = USERS.ID " \
+                   "WHERE USERS.USERNAME = %s ORDER BY DATE_YEAR desc, " \
+                   "FIELD(DATE_MONTH,'January','February','March','April','May','June','July','August','September','October','November','December') desc"
+    my_dates_cursor.execute(sql_my_dates, username)
+    my_dates = my_dates_cursor.fetchall()
 
-    sqlfullsum = "SELECT " \
-                 "USERS.USERNAME, " \
-                 "SUM(GROUP_SUB_ITEM.VALUE) AS sum_money " \
-                 "FROM USERS JOIN GROUP_ITEM " \
-                 "ON " \
-                 "USERS.ID = GROUP_ITEM.GROUP_ID JOIN GROUP_SUB_ITEM " \
-                 "ON " \
-                 "GROUP_ITEM.ID = GROUP_SUB_ITEM.ITEM_ID " \
-                 "WHERE USERS.USERNAME = %s " \
-                 "GROUP BY USERS.USERNAME"
-    summoneycursor.execute(sqlfullsum, username)
-    summoney = summoneycursor.fetchone()
+    sql_full_sum = "SELECT USERS.USERNAME, SUM(GROUP_SUB_ITEM.VALUE) AS sum_money FROM USERS JOIN GROUP_ITEM ON " \
+                   "USERS.ID = GROUP_ITEM.GROUP_ID JOIN GROUP_SUB_ITEM ON GROUP_ITEM.ID = GROUP_SUB_ITEM.ITEM_ID " \
+                   "WHERE USERS.USERNAME = %s GROUP BY USERS.USERNAME"
+    sum_money_cursor.execute(sql_full_sum, username)
+    sum_money = sum_money_cursor.fetchone()
 
-    rowgroupsum = (session['username'])
-    groupsumsql = "SELECT GROUP_ITEM.GROUP_NAME, GROUP_ITEM.DATE_YEAR, GROUP_ITEM.DATE_MONTH, SUM(GROUP_SUB_ITEM.VALUE) AS SUMVALUE FROM GROUP_SUB_ITEM JOIN GROUP_ITEM ON GROUP_SUB_ITEM.ITEM_ID = GROUP_ITEM.ID JOIN USERS ON USERS.ID = GROUP_ITEM.GROUP_ID WHERE USERS.USERNAME = %s GROUP BY GROUP_SUB_ITEM.ITEM_ID"
+    row_group_sum = (session['username'])
+    sql_group_sum = "SELECT GROUP_ITEM.GROUP_NAME, GROUP_ITEM.DATE_YEAR, GROUP_ITEM.DATE_MONTH, " \
+                    "SUM(GROUP_SUB_ITEM.VALUE) AS SUMVALUE " \
+                    "FROM GROUP_SUB_ITEM JOIN GROUP_ITEM ON GROUP_SUB_ITEM.ITEM_ID = GROUP_ITEM.ID JOIN USERS " \
+                    "ON USERS.ID = GROUP_ITEM.GROUP_ID WHERE USERS.USERNAME = %s GROUP BY GROUP_SUB_ITEM.ITEM_ID"
 
-    groupsum.execute(groupsumsql, rowgroupsum)
-    groupsumlist = groupsum.fetchall()
+    group_sum_cursor.execute(sql_group_sum, row_group_sum)
+    group_sum_list = group_sum_cursor.fetchall()
 
-    return render_template("dashboard.html", mygroups=mygroups, mydates=mydates, summoney=summoney,
-                           groupsumlist=groupsumlist)
+    return render_template("dashboard.html", mygroups=my_groups, mydates=my_dates, summoney=sum_money,
+                           groupsumlist=group_sum_list)
 
 
+# Search after item
 @app.route('/searchresult', methods=['POST'])
 def search():
     search = request.form['search']
     username = session['username']
 
-    # Result should be Date-Groups-Date-Item-Value-Expanse date
-    percentsign = "%"
-    rowsearchitem = (username, percentsign, search, percentsign)
-    sqlsearchitem = "SELECT GROUP_ITEM.GROUP_NAME AS GROUP_NAME, GROUP_ITEM.DATE_YEAR AS DATE_YEAR, GROUP_ITEM.DATE_MONTH AS DATE_MONTH, GROUP_SUB_ITEM.SUB_ITEM_NAME AS SUB_ITEM_NAME, GROUP_SUB_ITEM.VALUE AS VALUE, GROUP_SUB_ITEM.GIVEN_DATE AS GIVEN_DATE FROM GROUP_SUB_ITEM JOIN GROUP_ITEM ON GROUP_SUB_ITEM.ITEM_ID = GROUP_ITEM.ID JOIN USERS ON USERS.ID = GROUP_ITEM.GROUP_ID WHERE USERS.USERNAME = %s AND GROUP_SUB_ITEM.SUB_ITEM_NAME like %s %s %s"
+    percent_sign = "%"
+    row_search_item = (username, percent_sign, search, percent_sign)
+    sql_search_item = "SELECT GROUP_ITEM.GROUP_NAME AS GROUP_NAME, " \
+                      "GROUP_ITEM.DATE_YEAR AS DATE_YEAR, " \
+                      "GROUP_ITEM.DATE_MONTH AS DATE_MONTH, " \
+                      "GROUP_SUB_ITEM.SUB_ITEM_NAME AS SUB_ITEM_NAME, " \
+                      "GROUP_SUB_ITEM.VALUE AS VALUE, GROUP_SUB_ITEM.GIVEN_DATE AS GIVEN_DATE " \
+                      "FROM GROUP_SUB_ITEM JOIN GROUP_ITEM ON GROUP_SUB_ITEM.ITEM_ID = GROUP_ITEM.ID JOIN USERS " \
+                      "ON USERS.ID = GROUP_ITEM.GROUP_ID " \
+                      "WHERE USERS.USERNAME = %s AND GROUP_SUB_ITEM.SUB_ITEM_NAME like %s %s %s"
 
-    searchitemcursor.execute(sqlsearchitem, rowsearchitem)
-    result = searchitemcursor.fetchall()
+    search_item_cursor.execute(sql_search_item, row_search_item)
+    result = search_item_cursor.fetchall()
     print(result)
 
-    return render_template('searchresult.html', search_criteria=search, resultlist=result)
+    return render_template('search_result.html', search_criteria=search, resultlist=result)
 
 
+# Sign up
 @app.route('/signup')
-def signup():
-    return render_template('signup.html')
+def sign_up():
+    return render_template('sign_up.html')
 
 
+# Sign in
 @app.route('/signin', methods=['POST'])
-def adduser():
+def add_user():
     user = request.form['username']
     password = request.form['password']
 
-    shapassword = sha256_crypt.encrypt(password)
+    sha_password = sha256_crypt.encrypt(password)
 
-    rowuser = (user, shapassword)
-    sql = "SELECT " \
-          "USERNAME " \
-          "FROM " \
-          "USERS " \
-          "WHERE USERNAME = %s"
-    checkusername.execute(sql, user)
-    result = checkusername.fetchone()
+    row_user = (user, sha_password)
+    sql = "SELECT USERNAME FROM USERS WHERE USERNAME = %s"
+    check_username_cursor.execute(sql, user)
+    result = check_username_cursor.fetchone()
     if (result == None):
-        sqlinsertuser = "INSERT INTO " \
-                        "USERS (USERNAME, PASSWORD) " \
-                        "VALUES " \
-                        "(%s, %s)"
-        insertuser.execute(sqlinsertuser, rowuser)
+        sql_insert_user = "INSERT INTO USERS (USERNAME, PASSWORD) VALUES (%s, %s)"
+        insert_user_cursor.execute(sql_insert_user, row_user)
         connection.commit()
-        return render_template("loginPage.html")
+        return render_template("login_page.html")
     else:
         flash('This username is not unique! Please choose another one!')
-        return render_template("signup.html")
+        return render_template("sign_up.html")
 
 
 # Add Group
 @app.route('/addgroup', methods=['POST'])
-def addgroup():
-    givengroup = request.form['group']
-    givenyear = request.form['year']
-    givenmonth = request.form['month']
+def add_group():
+    given_group = request.form['group']
+    given_year = request.form['year']
+    given_month = request.form['month']
 
-    rowgroup = (session['username'], givengroup, givenyear, givenmonth)
+    row_group = (session['username'], given_group, given_year, given_month)
 
-    sql = "SELECT " \
-          "USERS.USERNAME, " \
-          "GROUP_ITEM.GROUP_NAME, " \
-          "GROUP_ITEM.DATE_YEAR, " \
-          "GROUP_ITEM.DATE_MONTH " \
-          "FROM " \
-          "GROUP_ITEM JOIN USERS " \
-          "ON " \
-          "GROUP_ITEM.GROUP_ID = USERS.ID " \
-          "WHERE USERS.USERNAME = %s " \
-          "AND GROUP_NAME=%s " \
-          "AND DATE_YEAR=%s " \
-          "AND DATE_MONTH=%s"
-    chekisavailable.execute(sql, rowgroup)
-    result = chekisavailable.fetchone()
+    sql_check_existing_group = "SELECT USERS.USERNAME, GROUP_ITEM.GROUP_NAME, GROUP_ITEM.DATE_YEAR, GROUP_ITEM.DATE_MONTH " \
+                               "FROM GROUP_ITEM JOIN USERS ON " \
+                               "GROUP_ITEM.GROUP_ID = USERS.ID " \
+                               "WHERE USERS.USERNAME = %s AND GROUP_NAME=%s AND DATE_YEAR=%s AND DATE_MONTH=%s"
+    check_is_available_cursor.execute(sql_check_existing_group, row_group)
+    result_existing_group = check_is_available_cursor.fetchone()
 
-    sqlidforuser = "SELECT " \
-                   "ID " \
-                   "FROM " \
-                   "USERS " \
-                   "WHERE USERNAME=%s"
-    idforgroup.execute(sqlidforuser, session['username'])
-    userID = idforgroup.fetchone()
+    sql_id_for_user = "SELECT ID FROM USERS WHERE USERNAME=%s"
+    id_for_group_cursor.execute(sql_id_for_user, session['username'])
+    user_id = id_for_group_cursor.fetchone()
 
-    rowforinsertnewgroup = (userID['ID'], givengroup, givenyear, givenmonth)
+    row_for_insert_new_group = (user_id['ID'], given_group, given_year, given_month)
 
-    if (result == None):
-        sqlinsertgroup = "INSERT INTO " \
-                         "GROUP_ITEM " \
-                         "(GROUP_ID, GROUP_NAME, DATE_YEAR ,DATE_MONTH) " \
-                         "VALUES " \
-                         "(%s, %s, %s, %s)"
-        creategroupcursor.execute(sqlinsertgroup, rowforinsertnewgroup)
+    if (result_existing_group == None):
+        sql_insert_group = "INSERT INTO GROUP_ITEM (GROUP_ID, GROUP_NAME, DATE_YEAR ,DATE_MONTH) " \
+                           "VALUES (%s, %s, %s, %s)"
+        create_group_cursor.execute(sql_insert_group, row_for_insert_new_group)
         connection.commit()
         flash('New Group Successfully created!')
         return redirect(url_for("dashboard"))
@@ -224,22 +188,22 @@ def addgroup():
 
 # Edit Group
 @app.route('/editgroup/<id>/<group_id>', methods=['POST'])
-def editgroup(id, group_id):
-    givengroup = request.form['group']
-    givenyear = request.form['year']
-    givenmonth = request.form['month']
+def edit_group(id, group_id):
+    given_group = request.form['group']
+    given_year = request.form['year']
+    given_month = request.form['month']
 
-    roweditgroup = (givengroup, givenyear, givenmonth, id)
-    rowexistingrowcheck = (givengroup, givenyear, givenmonth, group_id)
+    row_edit_group = (given_group, given_year, given_month, id)
+    row_existing_row_check = (given_group, given_year, given_month, group_id)
 
     sql = "SELECT * FROM GROUP_ITEM WHERE GROUP_NAME=%s AND DATE_YEAR=%s AND DATE_MONTH=%s and GROUP_ID=%s"
-    checkexistinggroupname.execute(sql, rowexistingrowcheck)
+    check_existing_group_name_cursor.execute(sql, row_existing_row_check)
     connection.commit()
-    result = checkexistinggroupname.fetchone()
+    result = check_existing_group_name_cursor.fetchone()
 
     if (result == None):
-        sqleditgroup = "UPDATE GROUP_ITEM SET GROUP_NAME=%s, DATE_YEAR=%s, DATE_MONTH=%s where ID=%s"
-        updategroupcursor.execute(sqleditgroup, roweditgroup)
+        sql_edit_group = "UPDATE GROUP_ITEM SET GROUP_NAME=%s, DATE_YEAR=%s, DATE_MONTH=%s where ID=%s"
+        update_group_cursor.execute(sql_edit_group, row_edit_group)
         connection.commit()
         flash('You successfully updated the group')
         return redirect(url_for("dashboard"))
@@ -250,16 +214,18 @@ def editgroup(id, group_id):
 
 # Remove Group item
 @app.route('/removegroupitem/<id>/<group_id>/<group_name>/<date_year>/<date_month>', methods=['POST'])
-def removegroupitem(id, group_id, group_name, date_year, date_month):
-    rowcheckexistingsubitem = (group_id, group_name, date_year, date_month)
-    sql = "SELECT * FROM GROUP_ITEM JOIN GROUP_SUB_ITEM ON GROUP_ITEM.ID = GROUP_SUB_ITEM.ITEM_ID WHERE GROUP_ITEM.GROUP_ID=%s AND GROUP_ITEM.GROUP_NAME=%s AND GROUP_ITEM.DATE_YEAR=%s AND GROUP_ITEM.DATE_MONTH=%s"
-    checkcontainssubitems.execute(sql, rowcheckexistingsubitem)
+def remove_group_item(id, group_id, group_name, date_year, date_month):
+    row_check_existing_sub_item = (group_id, group_name, date_year, date_month)
+    sql = "SELECT * FROM GROUP_ITEM JOIN GROUP_SUB_ITEM ON GROUP_ITEM.ID = GROUP_SUB_ITEM.ITEM_ID " \
+          "WHERE GROUP_ITEM.GROUP_ID=%s " \
+          "AND GROUP_ITEM.GROUP_NAME=%s AND GROUP_ITEM.DATE_YEAR=%s AND GROUP_ITEM.DATE_MONTH=%s"
+    check_contains_sub_item_cursor.execute(sql, row_check_existing_sub_item)
     connection.commit()
-    result = checkcontainssubitems.fetchone()
+    result = check_contains_sub_item_cursor.fetchone()
 
     if (result == None):
         sql = "DELETE FROM GROUP_ITEM WHERE ID = %s"
-        deletegroupitem.execute(sql, id)
+        delete_group_item_cursor.execute(sql, id)
         connection.commit()
         flash('Group Delete was successful!')
         return redirect(url_for("dashboard"))
@@ -268,96 +234,75 @@ def removegroupitem(id, group_id, group_name, date_year, date_month):
         return redirect(url_for("dashboard"))
 
 
+# View item details
 @app.route('/viewdetails/<groupyear>/<month>/<groupname>')
-def viewdetails(groupyear, month, groupname):
-    rowgroup = (session['username'], groupname, groupyear, month)
-    sqlviewthemonth = "SELECT " \
-                      "GROUP_SUB_ITEM.ID AS SUBID, GROUP_SUB_ITEM.ITEM_ID AS SUBITEMID, " \
-                      "GROUP_SUB_ITEM.SUB_ITEM_NAME AS SUB_ITEM_NAME, " \
-                      "GROUP_SUB_ITEM.VALUE AS VALUE, " \
-                      "GROUP_SUB_ITEM.GIVEN_DATE AS GIVEN_DATE " \
-                      "FROM " \
-                      "GROUP_ITEM JOIN GROUP_SUB_ITEM " \
-                      "ON " \
-                      "GROUP_ITEM.ID = GROUP_SUB_ITEM.ITEM_ID JOIN USERS " \
-                      "ON " \
-                      "USERS.ID = GROUP_ITEM.GROUP_ID " \
-                      "WHERE USERS.USERNAME = %s " \
-                      "AND GROUP_ITEM.GROUP_NAME = %s " \
-                      "AND GROUP_ITEM.DATE_YEAR = %s " \
-                      "AND GROUP_ITEM.DATE_MONTH = %s " \
-                      "ORDER BY GIVEN_DATE asc"
+def view_details(groupyear, month, groupname):
+    row_group = (session['username'], groupname, groupyear, month)
+    sql_view_the_month = "SELECT GROUP_SUB_ITEM.ID AS SUBID, GROUP_SUB_ITEM.ITEM_ID AS SUBITEMID, " \
+                         "GROUP_SUB_ITEM.SUB_ITEM_NAME AS SUB_ITEM_NAME, GROUP_SUB_ITEM.VALUE AS VALUE, " \
+                         "GROUP_SUB_ITEM.GIVEN_DATE AS GIVEN_DATE " \
+                         "FROM GROUP_ITEM JOIN GROUP_SUB_ITEM ON GROUP_ITEM.ID = GROUP_SUB_ITEM.ITEM_ID JOIN USERS " \
+                         "ON USERS.ID = GROUP_ITEM.GROUP_ID WHERE USERS.USERNAME = %s AND GROUP_ITEM.GROUP_NAME = %s " \
+                         "AND GROUP_ITEM.DATE_YEAR = %s AND GROUP_ITEM.DATE_MONTH = %s ORDER BY GIVEN_DATE asc"
 
-    viewdatedetails.execute(sqlviewthemonth, rowgroup)
-    datesdetails = viewdatedetails.fetchall()
-    return render_template("viewdetails.html", groupyear=groupyear, month=month, groupname=groupname,
-                           datesdetails=datesdetails)
+    view_date_details_cursor.execute(sql_view_the_month, row_group)
+    dates_details = view_date_details_cursor.fetchall()
+    return render_template("view_details.html", groupyear=groupyear, month=month, groupname=groupname,
+                           datesdetails=dates_details)
 
 
 # Add sub item
 @app.route('/<groupyear>/<month>/<groupname>/addnewsubitempage', methods=['POST'])
-def addnewsubitem(groupyear, month, groupname):
-    givensubitemname = request.form['subitem']
-    givensubitemvalue = request.form['subitemvalue']
-    givendate = request.form['date']
+def add_new_sub_item(groupyear, month, groupname):
+    given_sub_item_name = request.form['subitem']
+    given_sub_item_value = request.form['subitemvalue']
+    given_date = request.form['date']
 
-    rowforid = (session['username'], groupname, groupyear, month)
-    sqlidfromgroup = "SELECT " \
-                     "GROUP_ITEM.ID " \
-                     "FROM " \
-                     "GROUP_ITEM JOIN USERS " \
-                     "ON " \
-                     "GROUP_ITEM.GROUP_ID = USERS.ID " \
-                     "WHERE USERS.USERNAME=%s " \
-                     "AND GROUP_ITEM.GROUP_NAME=%s " \
-                     "AND GROUP_ITEM.DATE_YEAR=%s " \
-                     "AND GROUP_ITEM.DATE_MONTH=%s"
-    idforgroup.execute(sqlidfromgroup, rowforid)
-    test = idforgroup.fetchone()
+    row_for_id = (session['username'], groupname, groupyear, month)
+    sql_id_from_group = "SELECT GROUP_ITEM.ID FROM GROUP_ITEM JOIN USERS ON GROUP_ITEM.GROUP_ID = USERS.ID " \
+                        "WHERE USERS.USERNAME=%s " \
+                        "AND GROUP_ITEM.GROUP_NAME=%s AND GROUP_ITEM.DATE_YEAR=%s AND GROUP_ITEM.DATE_MONTH=%s"
+    id_for_group_cursor.execute(sql_id_from_group, row_for_id)
+    test = id_for_group_cursor.fetchone()
 
-    rowgroup = (test['ID'], givensubitemname, givensubitemvalue, givendate)
-    sqlinsertsubitem = "INSERT " \
-                       "INTO GROUP_SUB_ITEM(ITEM_ID, " \
-                       "SUB_ITEM_NAME, VALUE, GIVEN_DATE) " \
-                       "VALUES (%s,%s,%s,%s)"
-    insertsubitem.execute(sqlinsertsubitem, rowgroup)
+    row_group = (test['ID'], given_sub_item_name, given_sub_item_value, given_date)
+    sql_insert_sub_item = "INSERT INTO GROUP_SUB_ITEM(ITEM_ID, SUB_ITEM_NAME, VALUE, GIVEN_DATE) VALUES (%s,%s,%s,%s)"
+    insert_sub_item_cursor.execute(sql_insert_sub_item, row_group)
     connection.commit()
     flash('Sub Item added successfully!')
-    return redirect(url_for('viewdetails', groupyear=groupyear, month=month, groupname=groupname))
+    return redirect(url_for('view_details', groupyear=groupyear, month=month, groupname=groupname))
 
 
 # Update sub item
 @app.route('/updateupdatesubitem/<id>/<groupname>/<groupyear>/<month>', methods=['POST'])
-def updateupdatesubitem(id, groupname, groupyear, month):
-    givensubitemname = request.form['subitem']
-    givensubitemvalue = request.form['subitemvalue']
-    givendate = request.form['date']
-    rowtoupdate = (givensubitemname, givensubitemvalue, givendate, id)
+def update_sub_item(id, groupname, groupyear, month):
+    given_sub_item_name = request.form['subitem']
+    given_sub_item_value = request.form['subitemvalue']
+    given_date = request.form['date']
+    row_to_update = (given_sub_item_name, given_sub_item_value, given_date, id)
     sql = "UPDATE GROUP_SUB_ITEM SET SUB_ITEM_NAME=%s, VALUE=%s, GIVEN_DATE=%s where ID=%s"
-    updatesubitemcursor.execute(sql, rowtoupdate)
-    updatesubitemcursor.fetchone()
+    update_sub_item_cursor.execute(sql, row_to_update)
+    update_sub_item_cursor.fetchone()
     connection.commit()
     flash('Given Sub Item was Updated!')
-    return redirect(url_for('viewdetails', groupname=groupname, groupyear=groupyear,
+    return redirect(url_for('view_details', groupname=groupname, groupyear=groupyear,
                             month=month))
 
 
 # Delete sub item
 @app.route('/deletesubitem/<id>/<groupname>/<groupyear>/<month>', methods=['POST'])
-def deletesubitem(id, groupname, groupyear, month):
-    sql = "DELETE " \
-          "FROM " \
-          "GROUP_SUB_ITEM " \
-          "WHERE ID=%s"
-    deletesubitemcursor.execute(sql, id)
-    deletesubitemcursor.fetchone()
+def delete_sub_item(id, groupname, groupyear, month):
+    sql = "DELETE FROM GROUP_SUB_ITEM WHERE ID=%s"
+    delete_sub_item_cursor.execute(sql, id)
+    delete_sub_item_cursor.fetchone()
     connection.commit()
     flash('Given Sub Item was deleted!')
-    return redirect(url_for('viewdetails', groupname=groupname, groupyear=groupyear, month=month))
+    return redirect(url_for('view_details', groupname=groupname, groupyear=groupyear, month=month))
 
 
+# Logging out
 @app.route("/logout")
-def logout():
+def log_out():
     session.clear()
     flash('You have successfully logged out!')
     return start()
