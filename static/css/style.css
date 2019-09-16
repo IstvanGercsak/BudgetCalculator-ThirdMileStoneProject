@@ -63,6 +63,18 @@ html, body {
 
 /* DASHBOARD */
 
+.username {
+    text-align: left;
+}
+
+.set-center {
+    text-align: center;
+}
+
+.logout {
+    text-align: right;
+}
+
 /* SEARCH */
 
 .search {

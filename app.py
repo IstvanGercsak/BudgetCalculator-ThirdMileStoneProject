@@ -57,7 +57,7 @@ def login():
         flash('Wrong Username or Password')
         return render_template("login_page.html")
 
-    if (sha256_crypt.verify(given_password, result['pass'])):
+    if sha256_crypt.verify(given_password, result['pass']):
         session['logged_in'] = True
         flash('You were successfully logged in')
         return redirect(url_for("dashboard"))
@@ -101,7 +101,7 @@ def dashboard():
 
 
 # Search after item
-@app.route('/searchresult', methods=['POST'])
+@app.route('/search_result', methods=['POST'])
 def search():
     search = request.form['search']
     username = session['username']
@@ -125,13 +125,13 @@ def search():
 
 
 # Sign up
-@app.route('/signup')
+@app.route('/sign_up')
 def sign_up():
     return render_template('sign_up.html')
 
 
 # Sign in
-@app.route('/signin', methods=['POST'])
+@app.route('/sign_in', methods=['POST'])
 def add_user():
     user = request.form['username']
     password = request.form['password']
@@ -153,7 +153,7 @@ def add_user():
 
 
 # Add Group
-@app.route('/addgroup', methods=['POST'])
+@app.route('/add_group', methods=['POST'])
 def add_group():
     given_group = request.form['group']
     given_year = request.form['year']
@@ -187,7 +187,7 @@ def add_group():
 
 
 # Edit Group
-@app.route('/editgroup/<id>/<group_id>', methods=['POST'])
+@app.route('/edit_group/<id>/<group_id>', methods=['POST'])
 def edit_group(id, group_id):
     given_group = request.form['group']
     given_year = request.form['year']
@@ -213,7 +213,7 @@ def edit_group(id, group_id):
 
 
 # Remove Group item
-@app.route('/removegroupitem/<id>/<group_id>/<group_name>/<date_year>/<date_month>', methods=['POST'])
+@app.route('/remove_group_item/<id>/<group_id>/<group_name>/<date_year>/<date_month>', methods=['POST'])
 def remove_group_item(id, group_id, group_name, date_year, date_month):
     row_check_existing_sub_item = (group_id, group_name, date_year, date_month)
     sql = "SELECT * FROM GROUP_ITEM JOIN GROUP_SUB_ITEM ON GROUP_ITEM.ID = GROUP_SUB_ITEM.ITEM_ID " \
@@ -235,7 +235,7 @@ def remove_group_item(id, group_id, group_name, date_year, date_month):
 
 
 # View item details
-@app.route('/viewdetails/<groupyear>/<month>/<groupname>')
+@app.route('/view_details/<groupyear>/<month>/<groupname>')
 def view_details(groupyear, month, groupname):
     row_group = (session['username'], groupname, groupyear, month)
     sql_view_the_month = "SELECT GROUP_SUB_ITEM.ID AS SUBID, GROUP_SUB_ITEM.ITEM_ID AS SUBITEMID, " \
@@ -274,7 +274,7 @@ def add_new_sub_item(groupyear, month, groupname):
 
 
 # Update sub item
-@app.route('/updateupdatesubitem/<id>/<groupname>/<groupyear>/<month>', methods=['POST'])
+@app.route('/update_sub_item/<id>/<groupname>/<groupyear>/<month>', methods=['POST'])
 def update_sub_item(id, groupname, groupyear, month):
     given_sub_item_name = request.form['subitem']
     given_sub_item_value = request.form['subitemvalue']
@@ -290,7 +290,7 @@ def update_sub_item(id, groupname, groupyear, month):
 
 
 # Delete sub item
-@app.route('/deletesubitem/<id>/<groupname>/<groupyear>/<month>', methods=['POST'])
+@app.route('/delete_sub_item/<id>/<groupname>/<groupyear>/<month>', methods=['POST'])
 def delete_sub_item(id, groupname, groupyear, month):
     sql = "DELETE FROM GROUP_SUB_ITEM WHERE ID=%s"
     delete_sub_item_cursor.execute(sql, id)
@@ -301,7 +301,7 @@ def delete_sub_item(id, groupname, groupyear, month):
 
 
 # Logging out
-@app.route("/logout")
+@app.route("/log_out")
 def log_out():
     session.clear()
     flash('You have successfully logged out!')
