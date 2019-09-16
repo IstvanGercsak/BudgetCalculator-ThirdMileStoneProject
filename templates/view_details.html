@@ -49,9 +49,9 @@
     </div>
 </nav>
 
-<h2 class="align-center">Details of the {{ groupyear }} {{ month }} period</h2>
+<p class="align-center letter-font-color">Details of the {{ groupyear }} {{ month }} period</p>
 
-<h4 class="align-center"> Sum value of this Sub Group: {{ datesdetails | sum(attribute='VALUE') }} </h4>
+<p class="align-center letter-font-color"> Sum value of this Sub Group: {{ datesdetails | sum(attribute='VALUE') }} </p>
 
 <div class="align-center">
     <button type="button" class="btn btn-success align-center" data-toggle="modal" data-target="#add-new-sub-item">
@@ -70,13 +70,13 @@
         {% for subgroup in datesdetails %}
             <tr>
                 <td>
-                    {{ subgroup.SUB_ITEM_NAME }}
+                    <p class="set-margin-data">{{ subgroup.SUB_ITEM_NAME }}</p>
                 </td>
                 <td>
-                    {{ subgroup.VALUE }}
+                    <p class="set-margin-data">{{ subgroup.VALUE }}</p>
                 </td>
                 <td>
-                    {{ subgroup.GIVEN_DATE }}
+                    <p class="set-margin-data">{{ subgroup.GIVEN_DATE }}</p>
                 </td>
                 <td>
                     <button type="button" class="btn btn-warning" data-toggle="modal"

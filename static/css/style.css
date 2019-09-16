@@ -6,6 +6,11 @@ html, body {
     padding-bottom: 50px;
 }
 
+.letter-font-color {
+    color: #c6c8ca;
+    font-size: 28px;
+}
+
 td {
     text-align: center;
 }
@@ -37,7 +42,7 @@ th, td {
 }
 
 .details {
-    background: #20639B;
+    background: #709CAA;
     margin: 0 auto;
     border-radius: 5px;
     width: 350px;
@@ -70,6 +75,14 @@ th, td {
 }
 
 /* DASHBOARD */
+
+.set-margin-data-date {
+    margin: 0;
+}
+
+.set-margin-data {
+    margin: 10px 0 0 0;
+}
 
 .username {
     text-align: left;
@@ -109,7 +122,8 @@ th, td {
 }
 
 .search p {
-    font-size: 20px;
+    font-size: 28px;
+    color: #c6c8ca;
     padding: 5px;
 }
 
@@ -231,18 +245,22 @@ footer i {
     }
 
     .table-size th {
-        font-size: 12px;
+        font-size: 15px;
         text-align: center;
         padding: 3px;
     }
 
     .table-size td {
-        font-size: 10px;
+        font-size: 13px;
         padding: 3px;
         white-space: normal;
     }
 
-    .table-size p {
+    .set-margin-data {
+        margin: 10px 0 0 0;
+    }
+
+    .set-margin-data-date {
         margin: 0;
     }
 

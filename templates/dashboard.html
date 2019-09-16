@@ -49,13 +49,13 @@
 <div class="container-fluid">
     <div class="row">
         <div class="search col-sm-6">
-            <h4>Sum money: {{ summoney.sum_money }}</h4>
+            <p>Sum money: {{ summoney.sum_money }}</p>
             <button type="button" class="btn btn-success" data-toggle="modal" data-target="#add-group">
                 <i class="fas fa-plus"></i>Add Group
             </button>
         </div>
         <div class="search col-sm-6">
-            <h2>Search after your item:</h2>
+            <p>Search after your item:</p>
             <form action="{{ url_for('search') }}" method="POST">
                 <input id="search" name="search" class="form-control" type="search" placeholder="Search"
                        aria-label="Search" required>
@@ -83,7 +83,7 @@
         {% for dates in mydates %}
             <tr>
                 <td>
-                    <p>{{ dates.DATE_YEAR }} {{ dates.DATE_MONTH }}</p>
+                    <p class="set-margin-data-date">{{ dates.DATE_YEAR }} {{ dates.DATE_MONTH }}</p>
                 </td>
                 {% for group_item in mygroups %}
                     {% if ((dates.DATE_MONTH in group_item.DATE_MONTH) and (dates.DATE_YEAR == group_item.DATE_YEAR)) %}
@@ -92,12 +92,12 @@
 
                             </td>
                             <td>
-                                {{ group_item.GROUP_NAME }}
+                                <p class="set-margin-data">{{ group_item.GROUP_NAME }}</p>
                             </td>
                             <td>
                                 {% for sum in groupsumlist %}
                                     {% if ((group_item.GROUP_NAME in sum.GROUP_NAME) and (dates.DATE_YEAR == sum.DATE_YEAR) and (dates.DATE_MONTH in sum.DATE_MONTH)) %}
-                                        {{ sum.SUMVALUE }}
+                                        <p class="set-margin-data">{{ sum.SUMVALUE }}</p>
                                     {% endif %}
                                 {% endfor %}
                             </td>
