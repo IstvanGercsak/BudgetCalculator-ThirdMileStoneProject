@@ -28,7 +28,7 @@
 {% endwith %}
 
 <nav class="navbar navbar-light bg-light">
-    <p class="nav-header-welcome">Welcome, Please log in or Sign up</p>
+    <p class="nav-header-welcome">Welcome, Log in or Sign up</p>
 </nav>
 <p class="nav-header-title">Budget Calculator</p>
 <div class="container-fluid">
@@ -44,12 +44,12 @@
                     <input id="password" type="password" name="password" title="password" placeholder="Password"
                            required class="login-input">
                     <br>
-                    <button type="submit" class="btn btn-primary no-textdecoration-on-links login-button">
+                    <button type="submit" class="btn btn-success no-textdecoration-on-links login-button">
                         Login
                     </button>
                 </form>
                 <a href="{{ url_for('sign_up') }}">
-                    <button type="button" class="btn btn-primary no-textdecoration-on-links login-button">
+                    <button type="button" class="btn btn-light no-textdecoration-on-links login-button">
                         Sign up
                     </button>
                 </a>
