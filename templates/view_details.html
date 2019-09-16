@@ -29,17 +29,17 @@
 
 <nav class="container-fluid navbar-light bg-light">
     <div class="row">
-        <div class="col-3 col-sm-4 username">
-            <p>User: {{ session['username'] }}</p>
+        <div class="col-4 username nav-item-padding">
+            <p>{{ session['username'] }}</p>
         </div>
-        <div class="col-4 col-sm-4 set-center">
+        <div class="col-4 set-center nav-item-padding">
             <a href="{{ url_for('dashboard') }}">
                 <button type="button" class="btn btn-secondary">
                     <i class="fas fa-house-damage"></i>Dashboard
                 </button>
             </a>
         </div>
-        <div class="col-5 col-sm-4 logout">
+        <div class="col-4 logout nav-item-padding">
             <a href="{{ url_for('log_out') }}">
                 <button type="button" class="btn btn-secondary">
                     <i class="fas fa-sign-out-alt"></i>Logout
@@ -49,13 +49,23 @@
     </div>
 </nav>
 
-<h2>Details of the {{ groupyear }} {{ month }} period</h2>
+<h2 class="align-center">Details of the {{ groupyear }} {{ month }} period</h2>
+
+<h4 class="align-center"> Sum value of this Sub Group: {{ datesdetails | sum(attribute='VALUE') }} </h4>
+
+<div class="align-center">
+    <button type="button" class="btn btn-success align-center" data-toggle="modal" data-target="#add-new-sub-item">
+        <i class="fas fa-plus"></i>Add new sub item
+    </button>
+</div>
 <div class="table-size">
     <table class="table table-striped table-dark">
         <tr>
-            <th>Item</th>
-            <th>Value</th>
-            <th>Date</th>
+            <th scope="col">Item</th>
+            <th scope="col">Value</th>
+            <th scope="col">Date</th>
+            <th scope="col" class="hide-tablet-pc">Edit</th>
+            <th scope="col" class="hide-tablet-pc">Remove</th>
         </tr>
         {% for subgroup in datesdetails %}
             <tr>
@@ -71,7 +81,7 @@
                 <td>
                     <button type="button" class="btn btn-warning" data-toggle="modal"
                             data-target="#{{ subgroup.SUBID + subgroup.SUBITEMID * 33 }}">
-                        <i class="fas fa-edit"></i>Modify Sub item
+                        <i class="fas fa-edit"></i><span class="hide-mobile">Modify Sub item</span>
                     </button>
                     <div class="modal fade" id="{{ subgroup.SUBID + subgroup.SUBITEMID * 33 }}" tabindex="-1"
                          role="dialog"
@@ -116,7 +126,7 @@
                 <td>
                     <button type="button" class="btn btn-danger" data-toggle="modal"
                             data-target="#{{ subgroup.SUBID }}">
-                        <i class="fas fa-trash-alt"></i>Remove item
+                        <i class="fas fa-trash-alt"></i><span class="hide-mobile">Remove item</span>
                     </button>
                     <div class="modal fade" id="{{ subgroup.SUBID }}" tabindex="-1" role="dialog"
                          aria-labelledby="remove-sub-item-Label"
@@ -149,13 +159,7 @@
         {% endfor %}
     </table>
 </div>
-<h4>
-    Sum value of this Sub Group: {{ datesdetails | sum(attribute='VALUE') }}
-</h4>
 
-<button type="button" class="btn btn-success" data-toggle="modal" data-target="#add-new-sub-item">
-    <i class="fas fa-plus"></i>Add new sub item
-</button>
 <div class="modal fade" id="add-new-sub-item" tabindex="-1" role="dialog"
      aria-labelledby="add-new-sub-item"
      aria-hidden="true">
