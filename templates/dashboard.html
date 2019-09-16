@@ -31,7 +31,7 @@
 <nav class="container-fluid navbar-light bg-light">
     <div class="row">
         <div class="col-4 username nav-item-padding">
-            <p>{{ session['username'] }} - {{ session['currency'] }}</p>
+            <p class="username-color">{{ session['username'] }}</p>
         </div>
         <div class="col-4 set-center nav-item-padding">
             <p>Dashboard</p>
@@ -49,7 +49,7 @@
 <div class="container-fluid">
     <div class="row">
         <div class="search col-sm-6">
-            <p>Sum money: {{ summoney.sum_money }} {{ session['currency'] }}</p>
+            <p>Sum money: {{ summoney.sum_money }}</p>
             <button type="button" class="btn btn-success" data-toggle="modal" data-target="#add-group">
                 <i class="fas fa-plus"></i>Add Group
             </button>

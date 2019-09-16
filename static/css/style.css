@@ -76,16 +76,20 @@ th, td {
 
 /* DASHBOARD */
 
+.username-color {
+    background: #5a6268;
+    color: white;
+    border-radius: 10px;
+    text-align: center;
+    width: 100%;
+}
+
 .set-margin-data-date {
     margin: 0;
 }
 
 .set-margin-data {
     margin: 10px 0 0 0;
-}
-
-.username {
-    text-align: left;
 }
 
 .username p {
@@ -106,7 +110,7 @@ th, td {
 }
 
 .nav-item-padding {
-    padding: 10px;
+    padding: 5px 2px;
 }
 
 .logout {
