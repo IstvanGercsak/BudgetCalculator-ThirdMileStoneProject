@@ -28,13 +28,13 @@
 {% endwith %}
 
 <nav class="navbar navbar-light bg-light">
-    <h2 class="nav-header">Sign up</h2>
+    <p class="nav-header-welcome">Sign up</p>
 </nav>
 
 <div class="container-fluid">
     <div class="row">
         <div class="col-12 login-container">
-            <div class="details">
+            <div class="details-signup">
                 <form action="{{ url_for('add_user') }}" onsubmit="alertmessage()" method="POST">
                     <p>Username:</p>
                     <input id="username" type="text" name="username" title="username" required class="login-input"
@@ -43,10 +43,11 @@
                     <p>Password:</p>
                     <input id="password" type="password" name="password" title="password" required class="login-input">
                     <br>
-                    <select name="currency" title="currency">
-                        <option value="€" selected>Euro</option>
-                        <option value="Ft">Hungarian Forint</option>
-                        <option value="$">United States Dollar</option>
+                    <p>Currency:</p>
+                    <select name="currency" title="currency" class="currency-sign-up">
+                        <option value="€" selected>Euro - €</option>
+                        <option value="Ft">Hungarian Forint - Ft</option>
+                        <option value="$">United States Dollar - $</option>
                     </select>
                     <br>
                     <button type="submit" class="btn btn-dark login-button">

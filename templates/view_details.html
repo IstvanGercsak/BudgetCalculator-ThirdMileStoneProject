@@ -49,9 +49,11 @@
     </div>
 </nav>
 
-<p class="align-center letter-font-color">Details of the {{ groupyear }} {{ month }} period</p>
+<p class="align-center letter-font-color details-paragraph">Details of the {{ groupyear }} {{ month }} period</p>
 
-<p class="align-center letter-font-color"> Sum value of this Sub Group: {{ datesdetails | sum(attribute='VALUE') }} {{ session['currency'] }} </p>
+<p class="align-center letter-font-color details-paragraph"> Sum value of this Sub
+    Group:</p>
+<p class="align-center letter-font-color details-paragraph">{{ datesdetails | sum(attribute='VALUE') }} {{ session['currency'] }} </p>
 
 <div class="align-center">
     <button type="button" class="btn btn-success align-center" data-toggle="modal" data-target="#add-new-sub-item">

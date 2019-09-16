@@ -24,10 +24,19 @@ th, td {
 }
 
 /* LOGIN PAGE */
-.nav-header {
+
+.nav-header-welcome {
     text-align: center;
     width: 100%;
     margin: 0 auto;
+    font-size: 35px;
+}
+
+.nav-header-title {
+    text-align: center;
+    width: 100%;
+    margin: 0 auto;
+    font-size: 50px;
 }
 
 .no-textdecoration-on-links, a:link, a:visited, a:hover, a:active {
@@ -41,7 +50,7 @@ th, td {
     margin: 5% auto;
 }
 
-.details {
+.details-login, .details-signup {
     background: #709CAA;
     margin: 0 auto;
     border-radius: 5px;
@@ -49,14 +58,18 @@ th, td {
     height: 350px;
 }
 
-.details p {
+.details-signup {
+    height: 380px;
+}
+
+.details-login p, .details-signup p {
     margin: 0;
     padding-top: 5px;
     font-weight: bold;
 
 }
 
-.details i {
+.details-login i, .details-signup i {
     width: 25px;
     height: 25px;
     padding: 5px;
@@ -72,6 +85,10 @@ th, td {
     margin: 15px;
     height: 50px;
     width: 80px;
+}
+
+.currency-sign-up {
+    margin: 10px;
 }
 
 /* DASHBOARD */
@@ -92,6 +109,10 @@ th, td {
     margin: 10px 0 0 0;
 }
 
+.username {
+    text-align: left;
+}
+
 .username p {
     font-size: 20px;
     margin: 0;
@@ -109,15 +130,19 @@ th, td {
     padding-top: 3px;
 }
 
-.nav-item-padding {
-    padding: 5px 2px;
-}
-
 .logout {
     text-align: right;
 }
 
+.nav-item-padding {
+    padding: 5px 2px;
+}
+
 /* SEARCH */
+.search-criteria {
+    margin: 10px;
+    text-align: center;
+}
 
 .search {
     padding: 10px;
@@ -187,7 +212,7 @@ button {
 
 footer {
     position: fixed;
-    background: chocolate;
+    background: #f8f9fa;
     bottom: 0;
     left: 0;
     width: 100%;
@@ -237,6 +262,14 @@ footer i {
     .hide-tablet-pc {
         visibility: visible;
     }
+
+    .nav-header-welcome {
+        font-size: 25px;
+    }
+
+    .nav-header-title {
+        font-size: 40px;
+    }
 }
 
 @media only screen and (max-width: 530px) {
@@ -249,19 +282,20 @@ footer i {
     }
 
     .table-size th {
-        font-size: 15px;
+        font-size: 14px;
         text-align: center;
         padding: 3px;
     }
 
     .table-size td {
-        font-size: 13px;
+        font-size: 12px;
         padding: 3px;
         white-space: normal;
     }
 
     .set-margin-data {
         margin: 10px 0 0 0;
+        white-space: nowrap;
     }
 
     .set-margin-data-date {
@@ -275,4 +309,17 @@ footer i {
     .table-size {
         margin: 0;
     }
+
+    .details-paragraph {
+        font-size: 20px;
+    }
+
+    .nav-header-welcome {
+        font-size: 25px;
+    }
+
+    .nav-header-title {
+        font-size: 40px;
+    }
+
 }
