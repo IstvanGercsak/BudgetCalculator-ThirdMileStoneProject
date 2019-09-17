@@ -156,14 +156,14 @@ def search():
     return render_template('search_result.html', search_criteria=search, resultlist=result)
 
 
-# Sign up redirection
-@app.route('/redirect_to_sign_up')
+# Sign up
+@app.route('/sign_up')
 def sign_up():
     return render_template('sign_up.html')
 
 
-# Sign up
-@app.route('/sign_up', methods=['POST'])
+# Sign in
+@app.route('/sign_in', methods=['POST'])
 def add_user():
     user = request.form['username']
     password = request.form['password']
