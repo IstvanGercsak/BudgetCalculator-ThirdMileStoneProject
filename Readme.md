@@ -19,11 +19,25 @@ Everything about UX
 
 ### User Stories
 
+#### Non-Functional:
+
 #### Responsiveness
 
 - As a user, I want to use the website on Pc, Tablet and Mobile Phone so that on different devices it will work with the same functionality.
 
-#### Non-Functional
+#### Alert messages
+
+- As a user I want to see alert messages if:
+    - I create something
+    - I edit something
+    - I delete something
+    - Something is not possible
+
+#### Order dates
+
+- As a user, I want to see my dates by descending
+
+#### Functional
 
 - As a user, I can see the charts on my dashboard
 - As a user, I want to get feedback if
@@ -41,13 +55,15 @@ Everything about UX
     - Edit:
         - Group item
         - There is an existing year-month-group combination exist under the username
+        - The actual group contains sub item(s)
         - Sub group item 
     - Delete:
         - Group item
         - Sub group item    
 - As a user I want see the Incomes in green
 - As a user I want see the Expenses in red
-- As a user I want see the Zero balance in black
+- As a user I want see the Zero balance in blank
+- As a user I want to see my currency 
 
 #### Database
 
@@ -62,6 +78,7 @@ Everything about UX
 #### Sign Up
   
 - As a user, I want to sign up for the page so I can log in into the application
+- As a user, I want to give my username, password currency during the registration
      
 #### Log In
 
@@ -96,11 +113,14 @@ Everything about UX
 
 - As a user, I want to delete a sub group item
 
+#### Search functionality
+
+- As a user, I want to search after item 
+
 #### Summarize
 
 - As a user, I want to see my full Balance
 - As a user, I want to see my balance based on my groups
-
 
 ## Features
 
@@ -134,6 +154,7 @@ Demo page where I test the features from Data Centric Development lecture and co
 - Uniqueness
     - Unique username
     - Unique group name 
+- Search functionality
 
 ### Features Left to Implement
 
