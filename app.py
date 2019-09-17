@@ -97,8 +97,10 @@ def dashboard():
                    "WHERE USERS.USERNAME = %s GROUP BY USERS.USERNAME"
     sum_money_cursor.execute(sql_full_sum, username)
     sum_money = sum_money_cursor.fetchone()
-    sum_money_value = sum_money['SUM_MONEY']
-
+    if sum_money is None:
+        sum_money_value = 0
+    else:
+        sum_money_value = sum_money['SUM_MONEY']
     # Saving
 
     sql_savings_for_user = "SELECT SUM(GROUP_SUB_ITEM.VALUE) AS SUM_SAVING FROM USERS " \
