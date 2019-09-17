@@ -62,7 +62,8 @@
         <div class="search col-sm-6">
             <p>Search after your item:</p>
             <form action="{{ url_for('search') }}" method="POST">
-                <input id="search" name="search" class="form-control" type="search" placeholder="Search after your items"
+                <input id="search" name="search" class="form-control" type="search"
+                       placeholder="Search after your items"
                        aria-label="Search" required>
                 <br>
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fas fa-search"></i>Search
@@ -140,6 +141,10 @@
                                                     <select name="group" id="group" title="group" required>
                                                         <option disabled selected value>-- Select a Group type --
                                                         </option>
+                                                        <option disabled selected value> -- Select a Cashflow --
+                                                        </option>
+                                                        <option disabled value>->* INITIAL BALANCE *<-</option>
+                                                        <option value="Initial Balance">Initial balance</option>
                                                         <option disabled value>->* INCOME *<-</option>
                                                         <option value="Income">Income</option>
                                                         <option disabled value>->* EXPANSE *<-</option>
@@ -154,9 +159,9 @@
 
                                                     <select name="year" id="year" title="year" required>
                                                         <option disabled selected value> -- Select a year --</option>
-                                                        <option value="2018">2018</option>
                                                         <option value="2019">2019</option>
                                                         <option value="2020">2020</option>
+                                                        <option value="2021">2021</option>
                                                     </select>
                                                     <br>
                                                     <p>Month</p>
@@ -250,7 +255,9 @@
                 <form action="{{ url_for('add_group') }}" method="POST">
                     <p>Group type name</p>
                     <select name="group" id="group" title="group" required>
-                        <option disabled selected value>-- Select a Group type --</option>
+                        <option disabled selected value> -- Select a Cashflow --</option>
+                        <option disabled value>->* INITIAL BALANCE *<-</option>
+                        <option value="Initial Balance">Initial balance</option>
                         <option disabled value>->* INCOME *<-</option>
                         <option value="Income">Income</option>
                         <option disabled value>->* EXPANSE *<-</option>
@@ -263,9 +270,9 @@
                     <p>Year(number)</p>
                     <select name="year" id="year" title="year" required>
                         <option disabled selected value> -- Select a year --</option>
-                        <option value="2018">2018</option>
                         <option value="2019">2019</option>
                         <option value="2020">2020</option>
+                        <option value="2021">2021</option>
                     </select>
                     <br>
                     <p>Month</p>
