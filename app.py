@@ -139,7 +139,8 @@ def search():
                       "GROUP_SUB_ITEM.VALUE AS VALUE, GROUP_SUB_ITEM.GIVEN_DATE AS GIVEN_DATE " \
                       "FROM GROUP_SUB_ITEM JOIN GROUP_ITEM ON GROUP_SUB_ITEM.ITEM_ID = GROUP_ITEM.ID JOIN USERS " \
                       "ON USERS.ID = GROUP_ITEM.GROUP_ID " \
-                      "WHERE USERS.USERNAME = %s AND GROUP_SUB_ITEM.SUB_ITEM_NAME like %s %s %s"
+                      "WHERE USERS.USERNAME = %s AND GROUP_SUB_ITEM.SUB_ITEM_NAME like %s %s %s " \
+                      "ORDER BY GROUP_ITEM.DATE_YEAR, GROUP_ITEM.DATE_MONTH DESC"
 
     search_item_cursor.execute(sql_search_item, row_search_item)
     result = search_item_cursor.fetchall()
