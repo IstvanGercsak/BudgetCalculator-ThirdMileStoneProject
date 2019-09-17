@@ -102,7 +102,7 @@
                             <td>
                                 {% for sum in groupsumlist %}
                                     {% if ((group_item.GROUP_NAME in sum.GROUP_NAME) and (dates.DATE_YEAR == sum.DATE_YEAR) and (dates.DATE_MONTH in sum.DATE_MONTH)) %}
-                                        <p class="set-margin-data">{{ sum.SUMVALUE }} {{ session['currency'] }}</p>
+                                        <p class="set-margin-data color-by-value">{{ sum.SUMVALUE }} {{ session['currency'] }}</p>
                                     {% endif %}
                                 {% endfor %}
                             </td>
@@ -333,6 +333,10 @@
         $('.toast').toast('show');
     });
 </script>
+<script>
 
+    $(".color-by-value:contains('-')").css('color', 'red');
+
+</script>
 </body>
 </html>

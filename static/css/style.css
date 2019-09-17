@@ -186,6 +186,11 @@ button {
     margin: 10px 0 0 0;
 }
 
+.color-by-value {
+    color: green;
+    font-weight: 500;
+}
+
 /* VIEW DETAILS */
 
 .align-center {
