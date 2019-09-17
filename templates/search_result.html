@@ -56,7 +56,7 @@
                 <td>{{ list.DATE_YEAR }} {{ list.DATE_MONTH }}</td>
                 <td>{{ list.GROUP_NAME }}</td>
                 <td>{{ list.SUB_ITEM_NAME }}</td>
-                <td>{{ list.VALUE }} {{ session['currency'] }}</td>
+                <td class="color-by-value">{{ list.VALUE }} {{ session['currency'] }}</td>
                 <td>{{ list.GIVEN_DATE }}</td>
             </tr>
         {% endfor %}
@@ -99,6 +99,10 @@
         $('.toast').toast('show');
     });
 </script>
+<script>
 
+    $(".color-by-value:contains('-')").css('color', 'red');
+
+</script>
 </body>
 </html>

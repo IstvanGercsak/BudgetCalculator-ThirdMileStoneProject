@@ -56,7 +56,7 @@
             <p>Available balance: {{ sumbalance }} {{ session['currency'] }}</p>
             <p>Sum money: {{ summoney }} {{ session['currency'] }}</p>
             <button type="button" class="btn btn-success" data-toggle="modal" data-target="#add-group">
-                <i class="fas fa-plus"></i>Add Group
+                <i class="fas fa-plus"></i> Add Group
             </button>
         </div>
         <div class="search col-sm-6">
@@ -103,7 +103,7 @@
                             <td>
                                 {% for sum in groupsumlist %}
                                     {% if ((group_item.GROUP_NAME in sum.GROUP_NAME) and (dates.DATE_YEAR == sum.DATE_YEAR) and (dates.DATE_MONTH in sum.DATE_MONTH)) %}
-                                        <p class="set-margin-data color-by-value">{{ sum.SUMVALUE }} {{ session['currency'] }}</p>
+                                        <p class="set-margin-data">{{ sum.SUMVALUE }} {{ session['currency'] }}</p>
                                     {% endif %}
                                 {% endfor %}
                             </td>
@@ -124,7 +124,7 @@
                                      aria-labelledby="edit-group-Label"
                                      aria-hidden="true">
                                     <div class="modal-dialog" role="document">
-                                        <div class="modal-content">
+                                        <div class="modal-content modal-content-dark-yellow">
                                             <div class="modal-header">
                                                 <h5 class="modal-title" id="edit-group-Label">Edit Group!</h5>
                                                 <button type="button" class="close" data-dismiss="modal"
@@ -133,16 +133,12 @@
                                                 </button>
                                             </div>
                                             <div class="modal-body">
-                                                <p>Currently:</p>
-                                                <p>{{ group_item.GROUP_NAME }} {{ group_item.DATE_YEAR }} {{ dates.DATE_MONTH }}</p>
                                                 <form action="{{ url_for('edit_group', id=group_item.ID, group_id=group_item.GROUP_ID) }}"
                                                       method="POST">
-                                                    <p>Group type name</p>
+                                                    <p>GROUP TYPE NAME</p>
                                                     <select name="group" id="group" title="group" required>
-                                                        <option disabled selected value>-- Select a Group type --
-                                                        </option>
-                                                        <option disabled selected value> -- Select a Cashflow --
-                                                        </option>
+                                                        <option value="{{ group_item.GROUP_NAME }}"
+                                                                selected>{{ group_item.GROUP_NAME }}</option>
                                                         <option disabled value>->* INITIAL BALANCE *<-</option>
                                                         <option value="Initial Balance">Initial balance</option>
                                                         <option disabled value>->* INCOME *<-</option>
@@ -155,18 +151,22 @@
                                                     </select>
 
                                                     <br>
-                                                    <p>Year(number)</p>
+                                                    <p>YEAR</p>
 
                                                     <select name="year" id="year" title="year" required>
-                                                        <option disabled selected value> -- Select a year --</option>
+                                                        <option selected
+                                                                value="{{ group_item.DATE_YEAR }}"> {{ group_item.DATE_YEAR }} </option>
+                                                        <option disabled> <---></option>
                                                         <option value="2019">2019</option>
                                                         <option value="2020">2020</option>
                                                         <option value="2021">2021</option>
                                                     </select>
                                                     <br>
-                                                    <p>Month</p>
+                                                    <p>MONTH</p>
                                                     <select name="month" id="month" title="month" required>
-                                                        <option disabled selected value> -- Select a month --</option>
+                                                        <option selected
+                                                                value="{{ dates.DATE_MONTH }}">{{ dates.DATE_MONTH }}</option>
+                                                        <option disabled> <------></option>
                                                         <option value="January">January</option>
                                                         <option value="February">February</option>
                                                         <option value="March">March</option>
@@ -204,7 +204,7 @@
                                      aria-labelledby="remove-sub-item-Label"
                                      aria-hidden="true">
                                     <div class="modal-dialog" role="document">
-                                        <div class="modal-content">
+                                        <div class="modal-content modal-content-dark-red">
                                             <div class="modal-header">
                                                 <h5 class="modal-title" id="remove-sub-item-Label">Remove Group
                                                     Item!</h5>
@@ -244,7 +244,7 @@
      aria-labelledby="add-group-Label"
      aria-hidden="true">
     <div class="modal-dialog" role="document">
-        <div class="modal-content">
+        <div class="modal-content modal-content-dark-green">
             <div class="modal-header">
                 <h5 class="modal-title" id="add-group-Label">Add Group!</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -253,7 +253,7 @@
             </div>
             <div class="modal-body">
                 <form action="{{ url_for('add_group') }}" method="POST">
-                    <p>Group type name</p>
+                    <p>GROUP TYPE NAME</p>
                     <select name="group" id="group" title="group" required>
                         <option disabled selected value> -- Select a Cashflow --</option>
                         <option disabled value>->* INITIAL BALANCE *<-</option>
@@ -267,7 +267,7 @@
                         <option value="Shopping">Shopping</option>
                     </select>
                     <br>
-                    <p>Year(number)</p>
+                    <p>YEAR</p>
                     <select name="year" id="year" title="year" required>
                         <option disabled selected value> -- Select a year --</option>
                         <option value="2019">2019</option>
@@ -275,7 +275,7 @@
                         <option value="2021">2021</option>
                     </select>
                     <br>
-                    <p>Month</p>
+                    <p>MONTH</p>
                     <select name="month" id="month" title="month" required>
                         <option disabled selected value> -- Select a month --</option>
                         <option value="January">January</option>
@@ -339,11 +339,6 @@
     $(document).ready(function () {
         $('.toast').toast('show');
     });
-</script>
-<script>
-
-    $(".color-by-value:contains('-')").css('color', 'red');
-
 </script>
 </body>
 </html>

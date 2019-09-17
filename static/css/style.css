@@ -191,17 +191,44 @@ button {
     font-weight: 500;
 }
 
+/* POP UP */
+
+.modal-header {
+    color: white;
+}
+
+.modal-content-dark-red {
+    background-color: darkred;
+}
+
+.modal-content-dark-yellow {
+    background-color: #ba8b00;
+}
+
+.modal-content-dark-green {
+    background-color: darkgreen;
+}
+
+.modal-body p {
+    color: white;
+    padding: 0;
+    margin: 5px;
+    text-align: center;
+}
+
+.modal-body {
+    text-align: center;
+}
+
+#month, #date {
+    margin-bottom: 20px;
+}
+
 /* VIEW DETAILS */
 
 .align-center {
     text-align: center;
     margin: 5px auto;
-}
-
-/* MODAL BODY */
-
-.modal-body p {
-    color: #20c997;
 }
 
 /* FLASH MESSAGES */
