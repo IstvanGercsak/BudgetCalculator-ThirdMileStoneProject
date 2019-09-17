@@ -35,6 +35,7 @@ delete_group_item_cursor = connection.cursor(pymysql.cursors.DictCursor)
 search_item_cursor = connection.cursor(pymysql.cursors.DictCursor)
 get_currency_cursor = connection.cursor(pymysql.cursors.DictCursor)
 savings_for_user_cursor = connection.cursor(pymysql.cursors.DictCursor)
+contains_sub_item_cursor = connection.cursor(pymysql.cursors.DictCursor)
 
 
 # Start the application
@@ -124,14 +125,10 @@ def dashboard():
     group_sum_cursor.execute(sql_group_sum, row_group_sum)
     group_sum_list = group_sum_cursor.fetchall()
 
-    print(sum_money_value)
-    print(deduct_saving_sum_value)
-
     # Sum money - savings
     sum_money_available = int(sum_money_value) - int(deduct_saving_sum_value)
     sum_money_balance = int(sum_money_value) - int(deduct_saving_sum_value * 2)
 
-    print(sum_money_value)
     return render_template("dashboard.html", mygroups=my_groups, mydates=my_dates, summoney=sum_money_available,
                            sumbalance=sum_money_balance, groupsumlist=group_sum_list)
 
@@ -155,7 +152,6 @@ def search():
 
     search_item_cursor.execute(sql_search_item, row_search_item)
     result = search_item_cursor.fetchall()
-    print(result)
 
     return render_template('search_result.html', search_criteria=search, resultlist=result)
 
@@ -233,19 +229,30 @@ def edit_group(id, group_id):
     row_edit_group = (given_group, given_year, given_month, id)
     row_existing_row_check = (given_group, given_year, given_month, group_id)
 
+    # Check whether the actual combination is exist or not
     sql = "SELECT * FROM GROUP_ITEM WHERE GROUP_NAME=%s AND DATE_YEAR=%s AND DATE_MONTH=%s and GROUP_ID=%s"
     check_existing_group_name_cursor.execute(sql, row_existing_row_check)
     connection.commit()
     result = check_existing_group_name_cursor.fetchone()
 
-    if result is None:
+    # Check whether the group contains elements or not
+    sql_contains_sub_item = "SELECT * FROM GROUP_SUB_ITEM JOIN GROUP_ITEM ON GROUP_SUB_ITEM.ITEM_ID = GROUP_ITEM.ID " \
+                            "JOIN USERS ON GROUP_ITEM.GROUP_ID = USERS.ID " \
+                            "WHERE USERS.USERNAME = %s"
+    contains_sub_item_cursor.execute(sql_contains_sub_item, session['username'])
+    result_existing_sub_item = contains_sub_item_cursor.fetchone()
+
+    if result_existing_sub_item is not None:
+        flash("You can not change this group because you have existing Sub item under this group")
+        return redirect(url_for("dashboard"))
+    elif result is None:
         sql_edit_group = "UPDATE GROUP_ITEM SET GROUP_NAME=%s, DATE_YEAR=%s, DATE_MONTH=%s where ID=%s"
         update_group_cursor.execute(sql_edit_group, row_edit_group)
         connection.commit()
         flash('You successfully updated the group')
         return redirect(url_for("dashboard"))
     else:
-        flash('tHIS GROUP IS ALREADY EXIST WITH THIS NAME, YEAR AND MONTH COMBINATION ')
+        flash('This group is already exist with this name-year-month combination!')
         return redirect(url_for("dashboard"))
 
 
