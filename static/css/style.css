@@ -290,6 +290,11 @@ footer i {
         color: white;
     }
 
+    /* SEARCH */
+    .search p {
+        padding: 0;
+    }
+
     /*  TABLE */
     .table-size th {
         font-size: 14px;

@@ -34,6 +34,7 @@ check_contains_sub_item_cursor = connection.cursor(pymysql.cursors.DictCursor)
 delete_group_item_cursor = connection.cursor(pymysql.cursors.DictCursor)
 search_item_cursor = connection.cursor(pymysql.cursors.DictCursor)
 get_currency_cursor = connection.cursor(pymysql.cursors.DictCursor)
+savings_for_user_cursor = connection.cursor(pymysql.cursors.DictCursor)
 
 
 # Start the application
@@ -72,39 +73,65 @@ def login():
 def dashboard():
     username = session['username']
 
+    # Collect the group
     sql_my_groups = "SELECT * FROM GROUP_ITEM JOIN USERS ON GROUP_ITEM.GROUP_ID = USERS.ID WHERE USERS.USERNAME = %s"
     check_existing_group_cursor.execute(sql_my_groups, username)
     my_groups = check_existing_group_cursor.fetchall()
 
+    # Collect the currency
     sql_get_currency = "SELECT DISTINCT CURRENCY FROM USERS WHERE USERNAME = %s"
     get_currency_cursor.execute(sql_get_currency, username)
     currency = get_currency_cursor.fetchone()
     session['currency'] = currency['CURRENCY']
 
+    # Collect and order my dates
     sql_my_dates = "SELECT distinct DATE_YEAR, DATE_MONTH FROM GROUP_ITEM JOIN USERS ON GROUP_ITEM.GROUP_ID = USERS.ID " \
                    "WHERE USERS.USERNAME = %s ORDER BY DATE_YEAR desc, " \
                    "FIELD(DATE_MONTH,'January','February','March','April','May','June','July','August','September','October','November','December') desc"
     my_dates_cursor.execute(sql_my_dates, username)
     my_dates = my_dates_cursor.fetchall()
 
-    sql_full_sum = "SELECT USERS.USERNAME, SUM(GROUP_SUB_ITEM.VALUE) AS sum_money FROM USERS JOIN GROUP_ITEM ON " \
+    # Sum money
+    sql_full_sum = "SELECT USERS.USERNAME, SUM(GROUP_SUB_ITEM.VALUE) AS SUM_MONEY FROM USERS JOIN GROUP_ITEM ON " \
                    "USERS.ID = GROUP_ITEM.GROUP_ID JOIN GROUP_SUB_ITEM ON GROUP_ITEM.ID = GROUP_SUB_ITEM.ITEM_ID " \
                    "WHERE USERS.USERNAME = %s GROUP BY USERS.USERNAME"
-
     sum_money_cursor.execute(sql_full_sum, username)
     sum_money = sum_money_cursor.fetchone()
+    sum_money_value = sum_money['SUM_MONEY']
 
+    # Saving
+
+    sql_savings_for_user = "SELECT SUM(GROUP_SUB_ITEM.VALUE) AS SUM_SAVING FROM USERS " \
+                           "JOIN GROUP_ITEM ON USERS.ID = GROUP_ITEM.GROUP_ID " \
+                           "JOIN GROUP_SUB_ITEM ON GROUP_ITEM.ID = GROUP_SUB_ITEM.ITEM_ID WHERE USERS.USERNAME = %s " \
+                           "AND GROUP_ITEM.GROUP_NAME = 'Savings' " \
+                           "GROUP BY USERS.USERNAME"
+    savings_for_user_cursor.execute(sql_savings_for_user, username)
+    sum_saving = savings_for_user_cursor.fetchone()
+    if sum_saving is None:
+        deduct_saving_sum_value = 0
+    else:
+        deduct_saving_sum_value = sum_saving['SUM_SAVING']
+
+    # Sum values by group
     row_group_sum = (session['username'])
     sql_group_sum = "SELECT GROUP_ITEM.GROUP_NAME, GROUP_ITEM.DATE_YEAR, GROUP_ITEM.DATE_MONTH, " \
                     "SUM(GROUP_SUB_ITEM.VALUE) AS SUMVALUE " \
                     "FROM GROUP_SUB_ITEM JOIN GROUP_ITEM ON GROUP_SUB_ITEM.ITEM_ID = GROUP_ITEM.ID JOIN USERS " \
                     "ON USERS.ID = GROUP_ITEM.GROUP_ID WHERE USERS.USERNAME = %s GROUP BY GROUP_SUB_ITEM.ITEM_ID"
-
     group_sum_cursor.execute(sql_group_sum, row_group_sum)
     group_sum_list = group_sum_cursor.fetchall()
 
-    return render_template("dashboard.html", mygroups=my_groups, mydates=my_dates, summoney=sum_money,
-                           groupsumlist=group_sum_list)
+    print(sum_money_value)
+    print(deduct_saving_sum_value)
+
+    # Sum money - savings
+    sum_money_available = int(sum_money_value) - int(deduct_saving_sum_value)
+    sum_money_balance = int(sum_money_value) - int(deduct_saving_sum_value * 2)
+
+    print(sum_money_value)
+    return render_template("dashboard.html", mygroups=my_groups, mydates=my_dates, summoney=sum_money_available,
+                           sumbalance=sum_money_balance, groupsumlist=group_sum_list)
 
 
 # Search after item
@@ -150,7 +177,7 @@ def add_user():
     sql = "SELECT USERNAME FROM USERS WHERE USERNAME = %s"
     check_username_cursor.execute(sql, user)
     result = check_username_cursor.fetchone()
-    if (result == None):
+    if result is None:
         sql_insert_user = "INSERT INTO USERS (USERNAME, PASSWORD, CURRENCY) VALUES (%s, %s, %s)"
         insert_user_cursor.execute(sql_insert_user, row_user)
         connection.commit()
@@ -182,7 +209,7 @@ def add_group():
 
     row_for_insert_new_group = (user_id['ID'], given_group, given_year, given_month)
 
-    if (result_existing_group == None):
+    if result_existing_group is None:
         sql_insert_group = "INSERT INTO GROUP_ITEM (GROUP_ID, GROUP_NAME, DATE_YEAR ,DATE_MONTH) " \
                            "VALUES (%s, %s, %s, %s)"
         create_group_cursor.execute(sql_insert_group, row_for_insert_new_group)
@@ -209,7 +236,7 @@ def edit_group(id, group_id):
     connection.commit()
     result = check_existing_group_name_cursor.fetchone()
 
-    if (result == None):
+    if result is None:
         sql_edit_group = "UPDATE GROUP_ITEM SET GROUP_NAME=%s, DATE_YEAR=%s, DATE_MONTH=%s where ID=%s"
         update_group_cursor.execute(sql_edit_group, row_edit_group)
         connection.commit()
@@ -231,7 +258,7 @@ def remove_group_item(id, group_id, group_name, date_year, date_month):
     connection.commit()
     result = check_contains_sub_item_cursor.fetchone()
 
-    if (result == None):
+    if result is None:
         sql = "DELETE FROM GROUP_ITEM WHERE ID = %s"
         delete_group_item_cursor.execute(sql, id)
         connection.commit()

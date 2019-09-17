@@ -53,7 +53,8 @@
 <div class="container-fluid">
     <div class="row">
         <div class="search col-sm-6">
-            <p>Sum money: {{ summoney.sum_money }} {{ session['currency'] }}</p>
+            <p>Available balance: {{ sumbalance }} {{ session['currency'] }}</p>
+            <p>Sum money: {{ summoney }} {{ session['currency'] }}</p>
             <button type="button" class="btn btn-success" data-toggle="modal" data-target="#add-group">
                 <i class="fas fa-plus"></i>Add Group
             </button>
