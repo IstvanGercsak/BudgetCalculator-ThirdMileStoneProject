@@ -4,6 +4,7 @@ from flask import Flask, flash, render_template, url_for, redirect, request, ses
 from passlib.hash import sha256_crypt
 
 app = Flask(__name__)
+app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 app.secret_key = os.urandom(12)
 
 connection = pymysql.connect(
