@@ -7,14 +7,6 @@ app = Flask(__name__)
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 app.secret_key = os.urandom(12)
 
-connection = pymysql.connect(
-    host='remotemysql.com',
-    port=3306,
-    user='uHGCP9ySEe',
-    passwd='YyzSP64QOG',
-    db='uHGCP9ySEe'
-)
-
 
 # Start the application
 @app.route('/')
@@ -25,6 +17,14 @@ def start():
 # Login and drop back if the username-password combination is not right
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    connection = pymysql.connect(
+        host='remotemysql.com',
+        port=3306,
+        user='uHGCP9ySEe',
+        passwd='YyzSP64QOG',
+        db='uHGCP9ySEe'
+    )
+
     session['username'] = request.form['username']
     given_password = request.form['password']
 
@@ -52,6 +52,14 @@ def login():
 # Arrive to the Dashboard
 @app.route('/dashboard')
 def dashboard():
+    connection = pymysql.connect(
+        host='remotemysql.com',
+        port=3306,
+        user='uHGCP9ySEe',
+        passwd='YyzSP64QOG',
+        db='uHGCP9ySEe'
+    )
+
     username = session['username']
 
     # Collect the group
@@ -127,6 +135,14 @@ def dashboard():
 # Search after item
 @app.route('/search_result', methods=['POST'])
 def search():
+    connection = pymysql.connect(
+        host='remotemysql.com',
+        port=3306,
+        user='uHGCP9ySEe',
+        passwd='YyzSP64QOG',
+        db='uHGCP9ySEe'
+    )
+
     search = request.form['search']
     username = session['username']
 
@@ -159,6 +175,14 @@ def sign_up():
 # Sign in
 @app.route('/sign_in', methods=['POST'])
 def add_user():
+    connection = pymysql.connect(
+        host='remotemysql.com',
+        port=3306,
+        user='uHGCP9ySEe',
+        passwd='YyzSP64QOG',
+        db='uHGCP9ySEe'
+    )
+
     user = request.form['username']
     password = request.form['password']
     currency = request.form['currency']
@@ -187,6 +211,14 @@ def add_user():
 # Add Group
 @app.route('/add_group', methods=['POST'])
 def add_group():
+    connection = pymysql.connect(
+        host='remotemysql.com',
+        port=3306,
+        user='uHGCP9ySEe',
+        passwd='YyzSP64QOG',
+        db='uHGCP9ySEe'
+    )
+
     given_group = request.form['group']
     given_year = request.form['year']
     given_month = request.form['month']
@@ -226,6 +258,14 @@ def add_group():
 # Edit Group
 @app.route('/edit_group/<id>/<group_id>', methods=['POST'])
 def edit_group(id, group_id):
+    connection = pymysql.connect(
+        host='remotemysql.com',
+        port=3306,
+        user='uHGCP9ySEe',
+        passwd='YyzSP64QOG',
+        db='uHGCP9ySEe'
+    )
+
     given_group = request.form['group']
     given_year = request.form['year']
     given_month = request.form['month']
@@ -268,6 +308,14 @@ def edit_group(id, group_id):
 # Remove Group item
 @app.route('/remove_group_item/<id>/<group_id>/<group_name>/<date_year>/<date_month>', methods=['POST'])
 def remove_group_item(id, group_id, group_name, date_year, date_month):
+    connection = pymysql.connect(
+        host='remotemysql.com',
+        port=3306,
+        user='uHGCP9ySEe',
+        passwd='YyzSP64QOG',
+        db='uHGCP9ySEe'
+    )
+
     check_contains_sub_item_cursor = connection.cursor(pymysql.cursors.DictCursor)
     row_check_existing_sub_item = (group_id, group_name, date_year, date_month)
     sql = "SELECT * FROM GROUP_ITEM JOIN GROUP_SUB_ITEM ON GROUP_ITEM.ID = GROUP_SUB_ITEM.ITEM_ID " \
@@ -293,6 +341,14 @@ def remove_group_item(id, group_id, group_name, date_year, date_month):
 # View item details
 @app.route('/view_details/<groupyear>/<month>/<groupname>')
 def view_details(groupyear, month, groupname):
+    connection = pymysql.connect(
+        host='remotemysql.com',
+        port=3306,
+        user='uHGCP9ySEe',
+        passwd='YyzSP64QOG',
+        db='uHGCP9ySEe'
+    )
+
     view_date_details_cursor = connection.cursor(pymysql.cursors.DictCursor)
     row_group = (session['username'], groupname, groupyear, month)
     sql_view_the_month = "SELECT GROUP_SUB_ITEM.ID AS SUBID, GROUP_SUB_ITEM.ITEM_ID AS SUBITEMID, " \
@@ -312,6 +368,14 @@ def view_details(groupyear, month, groupname):
 # Add sub item
 @app.route('/<groupyear>/<month>/<groupname>/addnewsubitempage', methods=['POST'])
 def add_new_sub_item(groupyear, month, groupname):
+    connection = pymysql.connect(
+        host='remotemysql.com',
+        port=3306,
+        user='uHGCP9ySEe',
+        passwd='YyzSP64QOG',
+        db='uHGCP9ySEe'
+    )
+
     given_sub_item_name = request.form['subitem']
     given_sub_item_value = request.form['subitemvalue']
     given_date = request.form['date']
@@ -342,6 +406,14 @@ def add_new_sub_item(groupyear, month, groupname):
 # Update sub item
 @app.route('/update_sub_item/<id>/<groupname>/<groupyear>/<month>', methods=['POST'])
 def update_sub_item(id, groupname, groupyear, month):
+    connection = pymysql.connect(
+        host='remotemysql.com',
+        port=3306,
+        user='uHGCP9ySEe',
+        passwd='YyzSP64QOG',
+        db='uHGCP9ySEe'
+    )
+
     given_sub_item_name = request.form['subitem']
     given_sub_item_value = request.form['subitemvalue']
     given_date = request.form['date']
@@ -362,6 +434,14 @@ def update_sub_item(id, groupname, groupyear, month):
 # Delete sub item
 @app.route('/delete_sub_item/<id>/<groupname>/<groupyear>/<month>', methods=['POST'])
 def delete_sub_item(id, groupname, groupyear, month):
+    connection = pymysql.connect(
+        host='remotemysql.com',
+        port=3306,
+        user='uHGCP9ySEe',
+        passwd='YyzSP64QOG',
+        db='uHGCP9ySEe'
+    )
+
     delete_sub_item_cursor = connection.cursor(pymysql.cursors.DictCursor)
     sql = "DELETE FROM GROUP_SUB_ITEM WHERE ID=%s"
     delete_sub_item_cursor.execute(sql, id)
