@@ -382,7 +382,7 @@ def add_new_sub_item(groupyear, month, groupname):
 
     row_for_id = (session['username'], groupname, groupyear, month)
 
-    if groupname == "Bills" or groupname == "Others" or groupname == "Shopping":
+    if groupname == "Bills" or groupname == "Other" or groupname == "Shopping":
         given_sub_item_value = int(given_sub_item_value) * -1
 
     id_for_group_cursor = connection.cursor(pymysql.cursors.DictCursor)
@@ -419,7 +419,12 @@ def update_sub_item(id, groupname, groupyear, month):
     given_date = request.form['date']
 
     update_sub_item_cursor = connection.cursor(pymysql.cursors.DictCursor)
+
+    if groupname == "Bills" or groupname == "Other" or groupname == "Shopping":
+        given_sub_item_value = int(given_sub_item_value) * -1
+
     row_to_update = (given_sub_item_name, given_sub_item_value, given_date, id)
+
     sql = "UPDATE GROUP_SUB_ITEM SET SUB_ITEM_NAME=%s, VALUE=%s, GIVEN_DATE=%s where ID=%s"
     update_sub_item_cursor.execute(sql, row_to_update)
     update_sub_item_cursor.fetchone()

@@ -106,7 +106,7 @@
                                         <br>
                                         <p>EDIT VALUE IN {{ session['currency'] }}</p>
                                         <input type="number" id="subitemvalue" name="subitemvalue" title="subitemvalue"
-                                               required value="{{ subgroup.VALUE }}">
+                                               required value="{{ subgroup.VALUE * -1 }}">
                                         <br>
                                         <p>DATE</p>
                                         <input type="date" name="date" id="date" title="date" required
@@ -220,15 +220,6 @@
     </div>
 </footer>
 
-
-<!-- Optional JavaScript -->
-<script>
-
-    $('.test').on('shown.bs.modal', function () {
-        $('.test').trigger('focus')
-    })
-
-</script>
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
