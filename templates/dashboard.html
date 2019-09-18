@@ -182,7 +182,7 @@
                                                     </select>
                                                     <br>
                                                     <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary"
+                                                        <button type="button" class="btn btn-secondary close-left-edit"
                                                                 data-dismiss="modal">
                                                             Close
                                                         </button>
@@ -217,7 +217,7 @@
                                                 <p>Are you sure you want to delete this group Item?</p>
                                             </div>
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                                <button type="button" class="btn btn-secondary close-left-delete" data-dismiss="modal">
                                                     Close
                                                 </button>
                                                 <form action="{{ url_for('remove_group_item', id=group_item.ID, group_id=group_item.GROUP_ID, group_name=group_item.GROUP_NAME ,date_year=group_item.DATE_YEAR, date_month=group_item.DATE_MONTH) }}"
@@ -246,7 +246,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content modal-content-dark-green">
             <div class="modal-header">
-                <h5 class="modal-title" id="add-group-Label">Add Group!</h5>
+                <h5 class="modal-title" id="add-group-Label" style="text-align: center">Add Group!</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -293,7 +293,7 @@
                     </select>
                     <br>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                        <button type="button" class="btn btn-secondary close-left-add" data-dismiss="modal">
                             Close
                         </button>
                         <input type="submit" value="Add new Group Item" class="btn btn-success">

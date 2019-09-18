@@ -113,7 +113,7 @@
                                                value="{{ subgroup.GIVEN_DATE }}">
                                         <br>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                            <button type="button" class="btn btn-secondary close-left-edit" data-dismiss="modal">
                                                 Close
                                             </button>
                                             <input type="submit" value="Update Sub Item" class="btn btn-warning">
@@ -144,7 +144,7 @@
                                     <p>Are you sure you want to delete this item?</p>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                    <button type="button" class="btn btn-secondary close-left-delete" data-dismiss="modal">
                                         Close
                                     </button>
                                     <form action="{{ url_for('delete_sub_item', id=subgroup.SUBID, month=month, groupname=groupname, groupyear=groupyear) }}"
@@ -185,7 +185,7 @@
                     <input type="date" name="date" id="date" title="date" required>
                     <br>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                        <button type="button" class="btn btn-secondary close-left-add" data-dismiss="modal">
                             Close
                         </button>
                         <input type="submit" value="Add New Sub Item" class="btn btn-success">

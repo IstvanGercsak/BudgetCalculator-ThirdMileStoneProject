@@ -194,6 +194,25 @@ button {
 /* POP UP */
 
 .modal-header {
+
+}
+
+.close-left-add {
+    position: absolute;
+    left: 32px;
+}
+
+.close-left-edit {
+    position: absolute;
+    left: 32px;
+}
+
+.close-left-delete {
+    position: absolute;
+    left: 16px;
+}
+
+.modal-header {
     color: white;
 }
 
