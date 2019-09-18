@@ -233,15 +233,14 @@ def edit_group(id, group_id):
     row_edit_group = (given_group, given_year, given_month, id)
     row_existing_row_check = (given_group, given_year, given_month, group_id)
 
-    # Check whether the actual combination is exist or not
+    # Check whether the actual group-year-month combination is exist or not
     check_existing_group_name_cursor = connection.cursor(pymysql.cursors.DictCursor)
     sql = "SELECT * FROM GROUP_ITEM WHERE GROUP_NAME=%s AND DATE_YEAR=%s AND DATE_MONTH=%s and GROUP_ID=%s"
     check_existing_group_name_cursor.execute(sql, row_existing_row_check)
-    connection.commit()
-    result = check_existing_group_name_cursor.fetchone()
+    existing_group_name_exist = check_existing_group_name_cursor.fetchone()
     check_existing_group_name_cursor.close()
 
-    # Check whether the group contains elements or not
+    # Check whether the group contains sub elements or not
     contains_sub_item_cursor = connection.cursor(pymysql.cursors.DictCursor)
     sql_contains_sub_item = "SELECT * FROM GROUP_SUB_ITEM JOIN GROUP_ITEM ON GROUP_SUB_ITEM.ITEM_ID = GROUP_ITEM.ID " \
                             "JOIN USERS ON GROUP_ITEM.GROUP_ID = USERS.ID " \
@@ -250,10 +249,10 @@ def edit_group(id, group_id):
     result_existing_sub_item = contains_sub_item_cursor.fetchone()
     contains_sub_item_cursor.close()
 
-    if result_existing_sub_item is not None:
-        flash("You can not change this group because you have existing Sub item under this group")
-        return redirect(url_for("dashboard"))
-    elif result is None:
+    if existing_group_name_exist is None:
+        if result_existing_sub_item is not None:
+            flash("You can not change this group because you have existing Sub item under this group")
+            return redirect(url_for("dashboard"))
         update_group_cursor = connection.cursor(pymysql.cursors.DictCursor)
         sql_edit_group = "UPDATE GROUP_ITEM SET GROUP_NAME=%s, DATE_YEAR=%s, DATE_MONTH=%s where ID=%s"
         update_group_cursor.execute(sql_edit_group, row_edit_group)
@@ -275,7 +274,6 @@ def remove_group_item(id, group_id, group_name, date_year, date_month):
           "WHERE GROUP_ITEM.GROUP_ID=%s " \
           "AND GROUP_ITEM.GROUP_NAME=%s AND GROUP_ITEM.DATE_YEAR=%s AND GROUP_ITEM.DATE_MONTH=%s"
     check_contains_sub_item_cursor.execute(sql, row_check_existing_sub_item)
-    connection.commit()
     result = check_contains_sub_item_cursor.fetchone()
     check_contains_sub_item_cursor.close()
 
