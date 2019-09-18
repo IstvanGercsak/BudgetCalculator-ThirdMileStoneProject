@@ -106,7 +106,7 @@
                                         <br>
                                         <p>EDIT VALUE IN {{ session['currency'] }}</p>
                                         <input type="number" id="subitemvalue" name="subitemvalue" title="subitemvalue"
-                                               required>
+                                               required min="1">
                                         <br>
                                         <p>DATE</p>
                                         <input type="date" name="date" id="date" title="date" required
@@ -181,7 +181,7 @@
                     <input type="text" id="subitem" name="subitem" title="subitem" required>
                     <br>
                     <p>NEW SUB ITEM VALUE IN {{ session['currency'] }}</p>
-                    <input type="number" id="subitemvalue" name="subitemvalue" title="subitemvalue" required>
+                    <input type="number" id="subitemvalue" name="subitemvalue" title="subitemvalue" required min="1">
                     <br>
                     <p>DATE</p>
                     <input type="date" name="date" id="date" title="date" required>
