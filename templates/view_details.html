@@ -106,14 +106,15 @@
                                         <br>
                                         <p>EDIT VALUE IN {{ session['currency'] }}</p>
                                         <input type="number" id="subitemvalue" name="subitemvalue" title="subitemvalue"
-                                               required value="{{ subgroup.VALUE * -1 }}">
+                                               required>
                                         <br>
                                         <p>DATE</p>
                                         <input type="date" name="date" id="date" title="date" required
                                                value="{{ subgroup.GIVEN_DATE }}">
                                         <br>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary close-left-edit" data-dismiss="modal">
+                                            <button type="button" class="btn btn-secondary close-left-edit"
+                                                    data-dismiss="modal">
                                                 Close
                                             </button>
                                             <input type="submit" value="Update Sub Item" class="btn btn-warning">
@@ -144,7 +145,8 @@
                                     <p>Are you sure you want to delete this item?</p>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary close-left-delete" data-dismiss="modal">
+                                    <button type="button" class="btn btn-secondary close-left-delete"
+                                            data-dismiss="modal">
                                         Close
                                     </button>
                                     <form action="{{ url_for('delete_sub_item', id=subgroup.SUBID, month=month, groupname=groupname, groupyear=groupyear) }}"
