@@ -99,12 +99,14 @@
 
                             </td>
                             <td>
-                                <p class="set-margin-data">{{ group_item.GROUP_NAME }}</p>
+                                <p class="set-margin-data group_name">{{ group_item.GROUP_NAME }}</p>
                             </td>
                             <td>
                                 {% for sum in groupsumlist %}
                                     {% if ((group_item.GROUP_NAME in sum.GROUP_NAME) and (dates.DATE_YEAR == sum.DATE_YEAR) and (dates.DATE_MONTH in sum.DATE_MONTH)) %}
-                                        <p class="set-margin-data color-by-value"><span class="get-number">{{ sum.SUMVALUE }}</span> {{ session['currency'] }}</p>
+                                        <p class="set-margin-data color-by-value"><span
+                                                class="get-number">{{ sum.SUMVALUE }}</span> {{ session['currency'] }}
+                                        </p>
                                     {% endif %}
                                 {% endfor %}
                             </td>
@@ -307,8 +309,8 @@
 </div>
 <div class="container-fluid">
     <div class="row">
-        <div class="col-12">
-            <canvas id="myChart" width="150" height="150"></canvas>
+        <div class="col-10 align-center">
+            <canvas id="pie-chart"></canvas>
         </div>
     </div>
 </div>
@@ -357,15 +359,38 @@
 <script>
     {# Collect data with each command and put it in a array from the color-by-value class #}
 
-    var numbers = [];
+    numbers = [];
+    group_name = [];
 
-    console.log("Empty number array: " + numbers);
-
-    $(".get-number").each(function (index) {
-        console.log(index + ": " + $(this).text());
+    $(".get-number").each(function () {
         numbers.push($(this).text())
     });
-    console.log("Filled number array: " + numbers);
+
+    $(".group_name").each(function () {
+        group_name.push($(this).text())
+    });
+
+    console.log("Filled number array: '\n'" + numbers);
+    console.log("Filled group_name array: " + group_name);
+
+    new Chart(document.getElementById("pie-chart"), {
+        type: 'pie',
+        data: {
+            labels: group_name,
+            datasets: [{
+                label: "Budget Pie Chart",
+                backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850"],
+                data: numbers
+            }]
+        },
+        options: {
+            title: {
+                display: true,
+                text: 'Ratio of the expenses'
+            }
+        }
+    });
+
 </script>
 </body>
 </html>

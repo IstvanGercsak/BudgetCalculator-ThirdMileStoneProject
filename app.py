@@ -287,12 +287,15 @@ def edit_group(id, group_id):
     check_existing_group_name_cursor.close()
 
     # Check whether the group contains sub elements or not
+    row_for_sub_item_check = (session['username'], given_group)
     contains_sub_item_cursor = connection.cursor(pymysql.cursors.DictCursor)
     sql_contains_sub_item = "SELECT * FROM GROUP_SUB_ITEM JOIN GROUP_ITEM ON GROUP_SUB_ITEM.ITEM_ID = GROUP_ITEM.ID " \
                             "JOIN USERS ON GROUP_ITEM.GROUP_ID = USERS.ID " \
-                            "WHERE USERS.USERNAME = %s"
-    contains_sub_item_cursor.execute(sql_contains_sub_item, session['username'])
+                            "WHERE USERS.USERNAME = %s " \
+                            "AND GROUP_ITEM.GROUP_NAME = %s"
+    contains_sub_item_cursor.execute(sql_contains_sub_item, row_for_sub_item_check)
     result_existing_sub_item = contains_sub_item_cursor.fetchone()
+    print(result_existing_sub_item)
     contains_sub_item_cursor.close()
 
     if existing_group_name_exist is None:
