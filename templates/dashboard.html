@@ -87,6 +87,11 @@
             <th scope="col" class="hide-tablet-pc">Delete</th>
         </tr>
         </thead>
+        {% for chart in mygroups %}
+            <div>
+                <p class="chart-x">{{ chart.DATE_YEAR }} {{ chart.DATE_MONTH }} {{ chart.GROUP_NAME }}</p>
+            </div>
+        {% endfor %}
         {% for dates in mydates %}
             <tr>
                 <td>
@@ -364,6 +369,18 @@
     background_color_array = [];
     background_color_array_year = [];
     year_month_array = [];
+    chartx = [];
+    charty = [];
+
+
+    $(".chart-x").each(function () {
+        chartx.push($(this).text());
+    });
+
+    $(".chart-y").each(function (index) {
+        group_name.push($(this).text());
+        background_color_array[index] = getRandomColor();
+    });
 
     $(".get-number").each(function () {
         expense_value.push($(this).text());
@@ -409,7 +426,7 @@
         type: 'pie',
         data: {
             display: true,
-            labels: group_name,
+            labels: chartx,
             datasets: [{
                 label: "Budget Pie Chart",
                 data: expense_value,
