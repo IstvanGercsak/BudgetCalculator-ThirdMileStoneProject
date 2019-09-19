@@ -309,8 +309,8 @@
 </div>
 <div class="container-fluid">
     <div class="row">
-        <div class="col-10 align-center">
-            <canvas id="pie-chart"></canvas>
+        <div class="col-10 col-md-5 align-center">
+            <canvas id="pie-chart" width="500" height="500"></canvas>
         </div>
     </div>
 </div>
@@ -361,17 +361,28 @@
 
     numbers = [];
     group_name = [];
+    background_color_array = [];
 
     $(".get-number").each(function () {
         numbers.push($(this).text())
     });
 
-    $(".group_name").each(function () {
-        group_name.push($(this).text())
+    $(".group_name").each(function (index) {
+        group_name.push($(this).text());
+        background_color_array[index] = getRandomColor();
     });
 
     console.log("Filled number array: '\n'" + numbers);
     console.log("Filled group_name array: " + group_name);
+
+    function getRandomColor() {
+        let letters = '0123456789ABCDEF';
+        let color = '#';
+        for (let i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+    }
 
     new Chart(document.getElementById("pie-chart"), {
         type: 'pie',
@@ -379,7 +390,7 @@
             labels: group_name,
             datasets: [{
                 label: "Budget Pie Chart",
-                backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850"],
+                backgroundColor: background_color_array,
                 data: numbers
             }]
         },
