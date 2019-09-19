@@ -310,7 +310,7 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-10 col-md-5 align-center">
-            <canvas id="pie-chart" width="500" height="500"></canvas>
+            <canvas id="pie-chart" width="500" height="500" style="color: white"></canvas>
         </div>
     </div>
 </div>
@@ -387,17 +387,24 @@
     new Chart(document.getElementById("pie-chart"), {
         type: 'pie',
         data: {
+            display: true,
             labels: group_name,
             datasets: [{
                 label: "Budget Pie Chart",
+                data: numbers,
                 backgroundColor: background_color_array,
-                data: numbers
             }]
         },
         options: {
             title: {
                 display: true,
-                text: 'Ratio of the expenses'
+                text: 'Ratio of the expenses',
+                fontColor: "#ffffff"
+            },
+            legend: {
+                labels: {
+                    fontColor: "#ffffff"
+                },
             }
         }
     });
