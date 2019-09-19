@@ -90,7 +90,7 @@
         {% for dates in mydates %}
             <tr>
                 <td>
-                    <p class="set-margin-data-date">{{ dates.DATE_YEAR }} {{ dates.DATE_MONTH }}</p>
+                    <p class="set-margin-data-date year-month">{{ dates.DATE_YEAR }} {{ dates.DATE_MONTH }}</p>
                 </td>
                 {% for group_item in mygroups %}
                     {% if ((dates.DATE_MONTH in group_item.DATE_MONTH) and (dates.DATE_YEAR == group_item.DATE_YEAR)) %}
@@ -359,12 +359,14 @@
 <script>
     {# Collect data with each command and put it in a array from the color-by-value class #}
 
-    numbers = [];
+    expense_value = [];
     group_name = [];
     background_color_array = [];
+    background_color_array_year = [];
+    year_month_array = [];
 
     $(".get-number").each(function () {
-        numbers.push($(this).text())
+        expense_value.push($(this).text());
     });
 
     $(".group_name").each(function (index) {
@@ -372,8 +374,27 @@
         background_color_array[index] = getRandomColor();
     });
 
-    console.log("Filled number array: '\n'" + numbers);
-    console.log("Filled group_name array: " + group_name);
+    $(".year-month").each(function (index) {
+        year_month_array.push($(this).text());
+        background_color_array_year[index] = getRandomColor();
+    });
+
+    var map = new Map(
+        [
+            [2019, 'Savings', 123],
+            [2020, 'Income', 556]
+        ]
+    );
+
+    const arr = [
+        {year: 2019, group: 'Income', value: 37,},
+        {year: 2020, group: 'Savings', value: 45},
+        {year: 2021, group: 'Bills', value: -12}
+    ];
+
+    console.log("Filled number array: '\n'" + expense_value);
+    console.log("Filled group_name array: '\n'" + group_name);
+    console.log("Filled year_month_array array: '\n'" + year_month_array);
 
     function getRandomColor() {
         let letters = '0123456789ABCDEF';
@@ -391,7 +412,7 @@
             labels: group_name,
             datasets: [{
                 label: "Budget Pie Chart",
-                data: numbers,
+                data: expense_value,
                 backgroundColor: background_color_array,
             }]
         },
