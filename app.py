@@ -7,6 +7,12 @@ app = Flask(__name__)
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 app.secret_key = os.urandom(12)
 
+connection_host = 'remotemysql.com'
+connection_port = 3306
+connection_user = 'uHGCP9ySEe'
+connection_password = 'YyzSP64QOG'
+connection_db = 'uHGCP9ySEe'
+
 
 # Start the application
 @app.route('/')
@@ -18,11 +24,11 @@ def start():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     connection = pymysql.connect(
-        host='remotemysql.com',
-        port=3306,
-        user='uHGCP9ySEe',
-        passwd='YyzSP64QOG',
-        db='uHGCP9ySEe'
+        host=connection_host,
+        port=connection_port,
+        user=connection_user,
+        passwd=connection_password,
+        db=connection_db
     )
 
     session['username'] = request.form['username']
@@ -53,11 +59,11 @@ def login():
 @app.route('/dashboard')
 def dashboard():
     connection = pymysql.connect(
-        host='remotemysql.com',
-        port=3306,
-        user='uHGCP9ySEe',
-        passwd='YyzSP64QOG',
-        db='uHGCP9ySEe'
+        host=connection_host,
+        port=connection_port,
+        user=connection_user,
+        passwd=connection_password,
+        db=connection_db
     )
 
     username = session['username']
@@ -136,11 +142,11 @@ def dashboard():
 @app.route('/search_result', methods=['POST'])
 def search():
     connection = pymysql.connect(
-        host='remotemysql.com',
-        port=3306,
-        user='uHGCP9ySEe',
-        passwd='YyzSP64QOG',
-        db='uHGCP9ySEe'
+        host=connection_host,
+        port=connection_port,
+        user=connection_user,
+        passwd=connection_password,
+        db=connection_db
     )
 
     search = request.form['search']
@@ -176,11 +182,11 @@ def sign_up():
 @app.route('/sign_in', methods=['POST'])
 def add_user():
     connection = pymysql.connect(
-        host='remotemysql.com',
-        port=3306,
-        user='uHGCP9ySEe',
-        passwd='YyzSP64QOG',
-        db='uHGCP9ySEe'
+        host=connection_host,
+        port=connection_port,
+        user=connection_user,
+        passwd=connection_password,
+        db=connection_db
     )
 
     user = request.form['username']
@@ -212,11 +218,11 @@ def add_user():
 @app.route('/add_group', methods=['POST'])
 def add_group():
     connection = pymysql.connect(
-        host='remotemysql.com',
-        port=3306,
-        user='uHGCP9ySEe',
-        passwd='YyzSP64QOG',
-        db='uHGCP9ySEe'
+        host=connection_host,
+        port=connection_port,
+        user=connection_user,
+        passwd=connection_password,
+        db=connection_db
     )
 
     given_group = request.form['group']
@@ -259,11 +265,11 @@ def add_group():
 @app.route('/edit_group/<id>/<group_id>', methods=['POST'])
 def edit_group(id, group_id):
     connection = pymysql.connect(
-        host='remotemysql.com',
-        port=3306,
-        user='uHGCP9ySEe',
-        passwd='YyzSP64QOG',
-        db='uHGCP9ySEe'
+        host=connection_host,
+        port=connection_port,
+        user=connection_user,
+        passwd=connection_password,
+        db=connection_db
     )
 
     given_group = request.form['group']
@@ -309,11 +315,11 @@ def edit_group(id, group_id):
 @app.route('/remove_group_item/<id>/<group_id>/<group_name>/<date_year>/<date_month>', methods=['POST'])
 def remove_group_item(id, group_id, group_name, date_year, date_month):
     connection = pymysql.connect(
-        host='remotemysql.com',
-        port=3306,
-        user='uHGCP9ySEe',
-        passwd='YyzSP64QOG',
-        db='uHGCP9ySEe'
+        host=connection_host,
+        port=connection_port,
+        user=connection_user,
+        passwd=connection_password,
+        db=connection_db
     )
 
     check_contains_sub_item_cursor = connection.cursor(pymysql.cursors.DictCursor)
@@ -342,11 +348,11 @@ def remove_group_item(id, group_id, group_name, date_year, date_month):
 @app.route('/view_details/<groupyear>/<month>/<groupname>')
 def view_details(groupyear, month, groupname):
     connection = pymysql.connect(
-        host='remotemysql.com',
-        port=3306,
-        user='uHGCP9ySEe',
-        passwd='YyzSP64QOG',
-        db='uHGCP9ySEe'
+        host=connection_host,
+        port=connection_port,
+        user=connection_user,
+        passwd=connection_password,
+        db=connection_db
     )
 
     view_date_details_cursor = connection.cursor(pymysql.cursors.DictCursor)
@@ -369,11 +375,11 @@ def view_details(groupyear, month, groupname):
 @app.route('/<groupyear>/<month>/<groupname>/addnewsubitempage', methods=['POST'])
 def add_new_sub_item(groupyear, month, groupname):
     connection = pymysql.connect(
-        host='remotemysql.com',
-        port=3306,
-        user='uHGCP9ySEe',
-        passwd='YyzSP64QOG',
-        db='uHGCP9ySEe'
+        host=connection_host,
+        port=connection_port,
+        user=connection_user,
+        passwd=connection_password,
+        db=connection_db
     )
 
     given_sub_item_name = request.form['subitem']
@@ -407,11 +413,11 @@ def add_new_sub_item(groupyear, month, groupname):
 @app.route('/update_sub_item/<id>/<groupname>/<groupyear>/<month>', methods=['POST'])
 def update_sub_item(id, groupname, groupyear, month):
     connection = pymysql.connect(
-        host='remotemysql.com',
-        port=3306,
-        user='uHGCP9ySEe',
-        passwd='YyzSP64QOG',
-        db='uHGCP9ySEe'
+        host=connection_host,
+        port=connection_port,
+        user=connection_user,
+        passwd=connection_password,
+        db=connection_db
     )
 
     given_sub_item_name = request.form['subitem']
@@ -440,11 +446,11 @@ def update_sub_item(id, groupname, groupyear, month):
 @app.route('/delete_sub_item/<id>/<groupname>/<groupyear>/<month>', methods=['POST'])
 def delete_sub_item(id, groupname, groupyear, month):
     connection = pymysql.connect(
-        host='remotemysql.com',
-        port=3306,
-        user='uHGCP9ySEe',
-        passwd='YyzSP64QOG',
-        db='uHGCP9ySEe'
+        host=connection_host,
+        port=connection_port,
+        user=connection_user,
+        passwd=connection_password,
+        db=connection_db
     )
 
     delete_sub_item_cursor = connection.cursor(pymysql.cursors.DictCursor)
