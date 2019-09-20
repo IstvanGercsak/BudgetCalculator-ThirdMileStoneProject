@@ -400,6 +400,13 @@
     var other = 0;
     var shopping = 0;
 
+    {# equalize the goup sizes #}
+
+    for (j = group_name.length; group_name.length > expense_value.length; j--) {
+        group_name.shift();
+        console.log(group_name.length)
+    }
+
     {# Fill up Groups #}
 
     if (group_name.length === expense_value.length) {
@@ -420,36 +427,38 @@
 
     }
 
+
     var result = [
         ["Bills", "Savings", "Income", "Other", "Shopping"],
         [bills, savings, income, other, shopping]
     ];
 
-
-    new Chart(document.getElementById("pie-chart"), {
-        type: 'pie',
-        data: {
-            display: true,
-            labels: result[0],
-            datasets: [{
-                label: "Budget Pie Chart",
-                data: result[1],
-                backgroundColor: background_color_array,
-            }]
-        },
-        options: {
-            title: {
+    if (group_name.length > 0) {
+        new Chart(document.getElementById("pie-chart"), {
+            type: 'pie',
+            data: {
                 display: true,
-                text: 'Ratio of the expenses',
-                fontColor: "#ffffff"
+                labels: result[0],
+                datasets: [{
+                    label: "Budget Pie Chart",
+                    data: result[1],
+                    backgroundColor: background_color_array,
+                }]
             },
-            legend: {
-                labels: {
+            options: {
+                title: {
+                    display: true,
+                    text: 'Ratio of the expenses',
                     fontColor: "#ffffff"
                 },
+                legend: {
+                    labels: {
+                        fontColor: "#ffffff"
+                    },
+                }
             }
-        }
-    });
+        });
+    }
 
 </script>
 </body>
