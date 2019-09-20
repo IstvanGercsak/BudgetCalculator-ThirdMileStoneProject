@@ -142,8 +142,6 @@
                                                     <select name="group" id="group" title="group" required>
                                                         <option value="{{ group_item.GROUP_NAME }}"
                                                                 selected>{{ group_item.GROUP_NAME }}</option>
-                                                        <option disabled value>->* INITIAL BALANCE *<-</option>
-                                                        <option value="Initial Balance">Initial balance</option>
                                                         <option disabled value>->* INCOME *<-</option>
                                                         <option value="Income">Income</option>
                                                         <option disabled value>->* EXPENSE *<-</option>
@@ -260,8 +258,6 @@
                     <p>GROUP TYPE NAME</p>
                     <select name="group" id="group" title="group" required>
                         <option disabled selected value> -- Select a Cashflow --</option>
-                        <option disabled value>->* INITIAL BALANCE *<-</option>
-                        <option value="Initial Balance">Initial balance</option>
                         <option disabled value>->* INCOME *<-</option>
                         <option value="Income">Income</option>
                         <option disabled value>->* EXPENSE *<-</option>
@@ -317,8 +313,8 @@
 
 <div style="display: none">
     {% for chart in groupsumlist %}
-        <p class="chart-date">{{ chart.DATE_YEAR }}{{ chart_DATE_MONTH }}</p>
-        <p class="chart-group-name">{{ chart.GROUPNAME }}</p>
+        <p class="chart-date">{{ chart.DATE_YEAR }}{{ chart.DATE_MONTH }}</p>
+        <p class="chart-group-name">{{ chart.GROUP_NAME }}</p>
         <p class="chart-value">{{ chart.SUMVALUE }}</p>
     {% endfor %}
 </div>
@@ -374,29 +370,20 @@
     background_color_array_year = [];
     year_month_array = [];
 
-    var multArray = [[], [], []];
 
     $(".get-number").each(function (index_number) {
         expense_value.push($(this).text());
-        multArray[2][index_number] = $(this).text();
     });
 
     $(".group_name").each(function (index_group_name) {
         group_name.push($(this).text());
         background_color_array[index_group_name] = getRandomColor();
-        multArray[1][index_group_name] = $(this).text();
     });
 
     $(".year-month").each(function (index_year_month) {
         year_month_array.push($(this).text());
         background_color_array_year[index_year_month] = getRandomColor();
-        multArray[0][index_year_month] = $(this).text();
     });
-
-    console.log("Filled number array: '\n'" + expense_value);
-    console.log("Filled group_name array: '\n'" + group_name);
-    console.log("Filled year_month_array array: '\n'" + year_month_array);
-    console.log("Filled multiArray array: '\n'" + multArray);
 
     function getRandomColor() {
         let letters = '0123456789ABCDEF';
@@ -407,14 +394,42 @@
         return color;
     }
 
+    var bills = 0;
+    var savings = 0;
+    var income = 0;
+    var other = 0;
+    var shopping = 0;
+
+    {# Fill up Groups #}
+
+    for (var i = 0; i < group_name.length; i++) {
+        if (group_name[i] === "Bills") {
+            bills = bills + parseInt(expense_value[i]);
+        } else if (group_name[i] === "Savings") {
+            savings = savings + parseInt(expense_value[i]);
+        } else if (group_name[i] === "Income") {
+            income = income + parseInt(expense_value[i]);
+        } else if (group_name[i] === "Other") {
+            other = other + parseInt(expense_value[i]);
+        } else if (group_name[i] === "Shopping") {
+            shopping = shopping + parseInt(expense_value[i]);
+        }
+    }
+
+    var result = [
+        ["Bills", "Savings", "Income", "Other", "Shopping"],
+        [bills, savings, income, other, shopping]
+    ];
+
+
     new Chart(document.getElementById("pie-chart"), {
         type: 'pie',
         data: {
             display: true,
-            labels: multArray[1],
+            labels: result[0],
             datasets: [{
                 label: "Budget Pie Chart",
-                data: multArray[2],
+                data: result[1],
                 backgroundColor: background_color_array,
             }]
         },
