@@ -87,11 +87,6 @@
             <th scope="col" class="hide-tablet-pc">Delete</th>
         </tr>
         </thead>
-        {% for chart in mygroups %}
-            <div>
-                <p class="chart-x">{{ chart.DATE_YEAR }} {{ chart.DATE_MONTH }} {{ chart.GROUP_NAME }}</p>
-            </div>
-        {% endfor %}
         {% for dates in mydates %}
             <tr>
                 <td>
@@ -314,11 +309,20 @@
 </div>
 <div class="container-fluid">
     <div class="row">
-        <div class="col-10 col-md-5 align-center">
+        <div class="col-10 col-md-5 align-center add-chart">
             <canvas id="pie-chart" width="500" height="500"></canvas>
         </div>
     </div>
 </div>
+
+<div style="display: none">
+    {% for chart in groupsumlist %}
+        <p class="chart-date">{{ chart.DATE_YEAR }}{{ chart_DATE_MONTH }}</p>
+        <p class="chart-group-name">{{ chart.GROUPNAME }}</p>
+        <p class="chart-value">{{ chart.SUMVALUE }}</p>
+    {% endfor %}
+</div>
+
 <footer>
     <div class="container-fluid">
         <div class="row">
@@ -369,49 +373,30 @@
     background_color_array = [];
     background_color_array_year = [];
     year_month_array = [];
-    chartx = [];
-    charty = [];
 
+    var multArray = [[], [], []];
 
-    $(".chart-x").each(function () {
-        chartx.push($(this).text());
-    });
-
-    $(".chart-y").each(function (index) {
-        group_name.push($(this).text());
-        background_color_array[index] = getRandomColor();
-    });
-
-    $(".get-number").each(function () {
+    $(".get-number").each(function (index_number) {
         expense_value.push($(this).text());
+        multArray[2][index_number] = $(this).text();
     });
 
-    $(".group_name").each(function (index) {
+    $(".group_name").each(function (index_group_name) {
         group_name.push($(this).text());
-        background_color_array[index] = getRandomColor();
+        background_color_array[index_group_name] = getRandomColor();
+        multArray[1][index_group_name] = $(this).text();
     });
 
-    $(".year-month").each(function (index) {
+    $(".year-month").each(function (index_year_month) {
         year_month_array.push($(this).text());
-        background_color_array_year[index] = getRandomColor();
+        background_color_array_year[index_year_month] = getRandomColor();
+        multArray[0][index_year_month] = $(this).text();
     });
-
-    var map = new Map(
-        [
-            [2019, 'Savings', 123],
-            [2020, 'Income', 556]
-        ]
-    );
-
-    const arr = [
-        {year: 2019, group: 'Income', value: 37,},
-        {year: 2020, group: 'Savings', value: 45},
-        {year: 2021, group: 'Bills', value: -12}
-    ];
 
     console.log("Filled number array: '\n'" + expense_value);
     console.log("Filled group_name array: '\n'" + group_name);
     console.log("Filled year_month_array array: '\n'" + year_month_array);
+    console.log("Filled multiArray array: '\n'" + multArray);
 
     function getRandomColor() {
         let letters = '0123456789ABCDEF';
@@ -426,10 +411,10 @@
         type: 'pie',
         data: {
             display: true,
-            labels: chartx,
+            labels: multArray[1],
             datasets: [{
                 label: "Budget Pie Chart",
-                data: expense_value,
+                data: multArray[2],
                 backgroundColor: background_color_array,
             }]
         },
