@@ -371,7 +371,7 @@
     year_month_array = [];
 
 
-    $(".get-number").each(function (index_number) {
+    $(".get-number").each(function () {
         expense_value.push($(this).text());
     });
 
@@ -402,18 +402,22 @@
 
     {# Fill up Groups #}
 
-    for (var i = 0; i < group_name.length; i++) {
-        if (group_name[i] === "Bills") {
-            bills = bills + parseInt(expense_value[i]);
-        } else if (group_name[i] === "Savings") {
-            savings = savings + parseInt(expense_value[i]);
-        } else if (group_name[i] === "Income") {
-            income = income + parseInt(expense_value[i]);
-        } else if (group_name[i] === "Other") {
-            other = other + parseInt(expense_value[i]);
-        } else if (group_name[i] === "Shopping") {
-            shopping = shopping + parseInt(expense_value[i]);
+    if (group_name.length === expense_value.length) {
+
+        for (var i = 0; i < group_name.length; i++) {
+            if (group_name[i] === "Bills") {
+                bills = bills + parseInt(expense_value[i]);
+            } else if (group_name[i] === "Savings") {
+                savings = savings + parseInt(expense_value[i]);
+            } else if (group_name[i] === "Income") {
+                income = income + parseInt(expense_value[i]);
+            } else if (group_name[i] === "Other") {
+                other = other + parseInt(expense_value[i]);
+            } else if (group_name[i] === "Shopping") {
+                shopping = shopping + parseInt(expense_value[i]);
+            }
         }
+
     }
 
     var result = [
