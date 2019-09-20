@@ -13,9 +13,17 @@ Everything about UX
 
 ### Mockup
 
-- Adobe XD:
-    - Adobe XD is a vector-based user experience design tool for web apps and mobile apps, developed and published by Adobe Inc.
-    - [Wiremock link](https://xd.adobe.com/view/575c63b2-9432-4562-6bb7-837708d73534-216d/)
+- **Created with [Balsamiq Mockups 3](https://balsamiq.com/) that is a user interface design tool**
+    - **Log in page**:
+    ![Log in page](Mockup/PlaceFinder.png)
+    - **Sign out page**:
+    ![Sign out page](Mockup/ContactPage.png)
+    - **Dashboard page**:
+    ![Dashboard page](Mockup/ContactPage.png)
+    - **View details page**:
+    ![View details page](Mockup/ContactPage.png)
+    - **Search result page**:
+    ![Search result page](Mockup/ContactPage.png)
 
 ### User Stories
 
@@ -52,6 +60,7 @@ Everything about UX
     - Create:
         - New group item
         - New sub group item
+        - There is an existing year-month-group combination exist under the username 
     - Edit:
         - Group item
         - There is an existing year-month-group combination exist under the username
@@ -59,11 +68,13 @@ Everything about UX
         - Sub group item 
     - Delete:
         - Group item
+        - There is an existing year-month-group combination exist under the username
         - Sub group item    
 - As a user I want see the Incomes in green
 - As a user I want see the Expenses in red
 - As a user I want see the Zero balance in blank
 - As a user I want to see my currency 
+- As a user I want to see my chart
 
 #### Database
 
@@ -237,12 +248,6 @@ After this I copied the code snippets in this public repository, and explained t
 - Features Left to Implement
 
 # Useful links:
-
-## Sign up
-https://colorlib.com/wp/free-bootstrap-registration-forms/
-
-## Table format
-https://getbootstrap.com/docs/4.3/content/tables/
 
 ## Charts
 https://plot.ly/python/pie-charts/
