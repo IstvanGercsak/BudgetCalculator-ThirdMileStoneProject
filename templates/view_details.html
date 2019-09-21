@@ -13,6 +13,7 @@
 </head>
 <body>
 
+{# Toast message#}
 {% with messages = get_flashed_messages() %}
     {% if messages %}
         <div class="toast over" data-autohide="true" data-delay="2000">
@@ -27,6 +28,7 @@
     {% endif %}
 {% endwith %}
 
+{# Navigation #}
 <nav class="container-fluid navbar-light bg-light">
     <div class="row">
         <div class="col-4 username nav-item-padding">
@@ -49,18 +51,20 @@
     </div>
 </nav>
 
+{# Information about the sub group #}
 <p class="align-center letter-font-color details-paragraph"><b>{{ groupname }}</b> group</p>
-
 <p class="align-center letter-font-color details-paragraph">Details of the {{ groupyear }} {{ month }} period</p>
-
 <p class="align-center letter-font-color details-paragraph"> Sum value of this sub group:</p>
 <p class="align-center letter-font-color details-paragraph">{{ datesdetails | sum(attribute='VALUE') }} {{ session['currency'] }} </p>
 
+{# Add new sub item button #}
 <div class="align-center">
     <button type="button" class="btn btn-success align-center" data-toggle="modal" data-target="#add-new-sub-item">
         <i class="fas fa-plus"></i> Add new sub item
     </button>
 </div>
+
+{# Table for sub group #}
 <div class="table-size">
     <table class="table table-striped table-dark">
         <tr>
@@ -86,6 +90,8 @@
                             data-target="#{{ subgroup.SUBID + subgroup.SUBITEMID * 33 }}">
                         <i class="fas fa-edit"></i><span class="hide-mobile">Modify Sub item</span>
                     </button>
+
+                    {# Edit sub group item pop up #}
                     <div class="modal fade" id="{{ subgroup.SUBID + subgroup.SUBITEMID * 33 }}" tabindex="-1"
                          role="dialog"
                          aria-labelledby="modify-sub-item"
@@ -131,6 +137,8 @@
                             data-target="#{{ subgroup.SUBID }}">
                         <i class="fas fa-trash-alt"></i><span class="hide-mobile">Remove item</span>
                     </button>
+
+                    {# Remove sub group item pop up #}
                     <div class="modal fade" id="{{ subgroup.SUBID }}" tabindex="-1" role="dialog"
                          aria-labelledby="remove-sub-item-Label"
                          aria-hidden="true">
@@ -164,6 +172,7 @@
     </table>
 </div>
 
+{# Add new sub group modal #}
 <div class="modal fade" id="add-new-sub-item" tabindex="-1" role="dialog"
      aria-labelledby="add-new-sub-item"
      aria-hidden="true">
@@ -199,6 +208,7 @@
     </div>
 </div>
 
+{# Footer #}
 <footer>
     <div class="container-fluid">
         <div class="row">

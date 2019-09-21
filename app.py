@@ -134,7 +134,7 @@ def dashboard():
     sum_money_available = int(sum_money_value) - int(deduct_saving_sum_value)
     sum_money_balance = int(sum_money_value) - int(deduct_saving_sum_value * 2)
 
-    return render_template("dashboard.html", mygroups=my_groups, mydates=my_dates, summoney=sum_money_available,
+    return render_template("dashboard.html", mygroups=my_groups, mydates=my_dates, savings=deduct_saving_sum_value,
                            sumbalance=sum_money_balance, groupsumlist=group_sum_list)
 
 
