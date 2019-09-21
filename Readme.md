@@ -15,15 +15,15 @@ Everything about UX
 
 - **Created with [Balsamiq Mockups 3](https://balsamiq.com/) that is a user interface design tool**
     - **Log in page**:
-    ![Log in page](Mockup/PlaceFinder.png)
-    - **Sign out page**:
-    ![Sign out page](Mockup/ContactPage.png)
+    ![Log in page](Balsamiq/Mockup_Pictures/loginPage.png)
+    - **Sign up page**:
+    ![Sign out page](Balsamiq/Mockup_Pictures/signUpPage.png)
     - **Dashboard page**:
-    ![Dashboard page](Mockup/ContactPage.png)
+    ![Dashboard page](Balsamiq/Mockup_Pictures/dashboardPage.png)
     - **View details page**:
-    ![View details page](Mockup/ContactPage.png)
+    ![View details page](Balsamiq/Mockup_Pictures/viewDetailsPage.png)
     - **Search result page**:
-    ![Search result page](Mockup/ContactPage.png)
+    ![Search result page](Balsamiq/Mockup_Pictures/searchResultPage.png)
 
 ### User Stories
 

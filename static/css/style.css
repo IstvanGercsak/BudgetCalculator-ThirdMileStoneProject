@@ -386,4 +386,14 @@ footer i {
         width: auto;
         height: auto;
     }
+
+    /* CHART */
+    #pie-chart {
+        height: auto;
+        width: 250px;
+    }
+
+    .add-chart {
+        padding: 0;
+    }
 }
