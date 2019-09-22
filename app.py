@@ -40,10 +40,11 @@ def login():
     result = user_password_parsing_cursor.fetchone()
     user_password_parsing_cursor.close()
 
+    # Check password
     try:
         parsing = (sha256_crypt.verify(given_password, result['pass']))
     except:
-        flash('Wrong Username or Password')
+        flash('The given username or password is not correct!')
         return render_template("login_page.html")
 
     if sha256_crypt.verify(given_password, result['pass']):
@@ -51,7 +52,7 @@ def login():
         flash('You were successfully logged in')
         return redirect(url_for("dashboard"))
     else:
-        flash('You were not logged in')
+        flash('The given username or password is not correct!')
         return render_template("login_page.html")
 
 
