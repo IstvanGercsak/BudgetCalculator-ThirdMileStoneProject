@@ -56,7 +56,7 @@
 <div class="container-fluid">
     <div class="row">
         <div class="search col-sm-6">
-            <p>Available balance: {{ sumbalance }} {{ session['currency'] }}</p>
+            <p>Available balance: <span class="sum-balance">{{ sumbalance }}</span> {{ session['currency'] }}</p>
             <p>Savings: {{ savings }} {{ session['currency'] }}</p>
             <button type="button" class="btn btn-success" data-toggle="modal" data-target="#add-group">
                 <i class="fas fa-plus"></i> Add Group
@@ -400,6 +400,13 @@
     var income = 0;
     var other = 0;
     var shopping = 0;
+    var sumbalance;
+
+    sumbalance = $(".sum-balance").text();
+
+    if (sumbalance <= 0) {
+        sumbalance = 0;
+    }
 
     {# equalize the goup sizes #}
 
@@ -430,8 +437,8 @@
 
 
     var result = [
-        ["Bills", "Savings", "Income", "Other", "Shopping"],
-        [bills, savings, income, other, shopping]
+        ["Bills", "Savings", "Other", "Shopping", "Available money"],
+        [bills, savings, other, shopping, sumbalance]
     ];
 
     if (group_name.length > 0) {
