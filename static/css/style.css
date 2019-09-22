@@ -122,7 +122,6 @@ html, body {
 }
 
 .username {
-    margin-top: 1px;
     text-align: left;
 }
 
@@ -130,6 +129,7 @@ html, body {
     font-size: 20px;
     margin: 0;
     padding-top: 5px;
+    padding-bottom: 2px;
 }
 
 /* SEARCH */
@@ -395,5 +395,26 @@ footer i {
 
     .add-chart {
         padding: 0;
+    }
+}
+
+/* for Iphone SE size */
+@media only screen and (max-width: 321px) {
+
+    .btn-secondary {
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+
+    .username p {
+        font-size: 19px;
+    }
+
+    .search p {
+        font-size: 26px;
+    }
+
+    .details-paragraph {
+        font-size: 18px;
     }
 }
