@@ -36,15 +36,15 @@
         </div>
         <div class="col-4 set-center nav-item-padding">
             <a href="{{ url_for('dashboard') }}">
-                <button type="button" class="btn btn-info">
-                    <i class="fas fa-house-damage"></i>Dashboard
+                <button type="button" class="btn btn-info dashboard">
+                    <i class="fas fa-house-damage"></i> Dashboard
                 </button>
             </a>
         </div>
         <div class="col-4 logout nav-item-padding">
             <a href="{{ url_for('log_out') }}">
-                <button type="button" class="btn btn-danger">
-                    <i class="fas fa-sign-out-alt"></i>Sign out
+                <button type="button" class="btn btn-danger sign-out">
+                    <i class="fas fa-sign-out-alt"></i> Sign out
                 </button>
             </a>
         </div>
@@ -88,7 +88,7 @@
                 <td>
                     <button type="button" class="btn btn-warning" data-toggle="modal"
                             data-target="#{{ subgroup.SUBID + subgroup.SUBITEMID * 33 }}">
-                        <i class="fas fa-edit"></i><span class="hide-mobile">Modify Sub item</span>
+                        <i class="fas fa-edit"></i><span class="hide-mobile"> Modify Sub item</span>
                     </button>
 
                     {# Edit sub group item pop up #}
@@ -135,7 +135,7 @@
                 <td>
                     <button type="button" class="btn btn-danger" data-toggle="modal"
                             data-target="#{{ subgroup.SUBID }}">
-                        <i class="fas fa-trash-alt"></i><span class="hide-mobile">Remove item</span>
+                        <i class="fas fa-trash-alt"></i><span class="hide-mobile"> Remove item</span>
                     </button>
 
                     {# Remove sub group item pop up #}
@@ -188,10 +188,10 @@
                 <form action="{{ url_for('add_new_sub_item', groupname=groupname, month=month, groupyear=groupyear) }}"
                       method="POST">
                     <p>NEW SUB ITEM NAME</p>
-                    <input type="text" id="subitem" name="subitem" title="subitem" required>
+                    <input type="text" id="subitem" name="subitem" title="subitem" placeholder="Sub Item name" required>
                     <br>
                     <p>NEW SUB ITEM VALUE IN {{ session['currency'] }}</p>
-                    <input type="number" id="subitemvalue" name="subitemvalue" title="subitemvalue" required min="1">
+                    <input type="number" id="subitemvalue" name="subitemvalue" title="subitemvalue" placeholder="Sub Item Value" required min="1">
                     <br>
                     <p>DATE</p>
                     <input type="date" name="date" id="date" title="date" required>

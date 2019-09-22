@@ -30,21 +30,21 @@
 {% endwith %}
 
 {# Navigation #}
-<nav class="container-fluid navbar-light bg-light text-smaller">
+<nav class="container-fluid navbar-light bg-light">
     <div class="row">
         <div class="col-4 username nav-item-padding">
             <p class="username-color"><i class="fas fa-user"></i> {{ session['username'] }}</p>
         </div>
         <div class="col-4 set-center nav-item-padding">
             <a href="{{ url_for('dashboard') }}">
-                <button type="button" class="btn btn-info">
+                <button type="button" class="btn btn-info dashboard">
                     <i class="fas fa-house-damage"></i> Dashboard
                 </button>
             </a>
         </div>
         <div class="col-4 logout nav-item-padding">
             <a href="{{ url_for('log_out') }}">
-                <button type="button" class="btn btn-danger">
+                <button type="button" class="btn btn-danger sign-out">
                     <i class="fas fa-sign-out-alt"></i> Sign out
                 </button>
             </a>
@@ -115,14 +115,14 @@
                             <td>
                                 <a href="{{ url_for('view_details',month=group_item.DATE_MONTH, groupname=group_item.GROUP_NAME, groupyear=group_item.DATE_YEAR) }}">
                                     <button type="button" class="btn btn-info">
-                                        <i class="fas fa-binoculars"></i><span class="hide-mobile">View</span>
+                                        <i class="fas fa-binoculars"></i><span class="hide-mobile"> View</span>
                                     </button>
                                 </a>
                             </td>
                             <td>
                                 <button type="button" class="btn btn-warning" data-toggle="modal"
                                         data-target="#{{ group_item.ID * 66 }}">
-                                    <i class="fas fa-edit"></i><span class="hide-mobile">Edit Group</span>
+                                    <i class="fas fa-edit"></i><span class="hide-mobile"> Edit Group</span>
                                 </button>
 
                                 {#Edit Group pop up#}
@@ -202,7 +202,7 @@
                             <td>
                                 <button type="button" class="btn btn-danger" data-toggle="modal"
                                         data-target="#{{ group_item.ID }}">
-                                    <i class="fas fa-trash-alt"></i><span class="hide-mobile">Remove Group</span>
+                                    <i class="fas fa-trash-alt"></i><span class="hide-mobile"> Remove Group</span>
                                 </button>
 
                                 {# Remove group pop up #}
