@@ -13,6 +13,8 @@ Everything about UX
 
 ### Mockup
 
+#### Front end Mockup
+
 - **Created with [Balsamiq Mockups 3](https://balsamiq.com/) that is a user interface design tool**
     - **Log in page**:
     ![Log in page](Balsamiq/Mockup_Pictures/loginPage.png)
@@ -24,6 +26,12 @@ Everything about UX
     ![View details page](Balsamiq/Mockup_Pictures/viewDetailsPage.png)
     - **Search result page**:
     ![Search result page](Balsamiq/Mockup_Pictures/searchResultPage.png)
+
+#### Database Mockup
+
+- **Created with [dbdesigner](https://www.dbdesigner.net/):**
+    - **Database schema**:
+     ![DB_schema](Balsamiq/DB_SCHEMA/DB_SCHEMA.png)
 
 ### User Stories
 
