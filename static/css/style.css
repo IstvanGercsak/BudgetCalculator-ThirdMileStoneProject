@@ -70,11 +70,11 @@ html, body {
     margin: 0 auto;
     border-radius: 5px;
     width: 350px;
-    height: 350px;
+    height: 280px;
 }
 
 .details-signup {
-    height: 380px;
+    height: 470px;
 }
 
 .details-login p, .details-signup p {

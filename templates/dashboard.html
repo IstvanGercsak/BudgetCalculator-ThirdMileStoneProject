@@ -17,7 +17,7 @@
 {# Toast message #}
 {% with messages = get_flashed_messages() %}
     {% if messages %}
-        <div class="toast over" data-autohide="true" data-delay="2000">
+        <div class="toast over" data-autohide="true" data-delay="4000">
             <div class="toast-body">
                 <ul class=flashes>
                     {% for message in messages %}
@@ -83,7 +83,7 @@
         <tr>
             <th scope="col">Date</th>
             <th scope="col">Group</th>
-            <th scope="col">Sum</th>
+            <th scope="col">Value</th>
             <th scope="col" class="hide-tablet-pc">View</th>
             <th scope="col" class="hide-tablet-pc">Edit</th>
             <th scope="col" class="hide-tablet-pc">Delete</th>

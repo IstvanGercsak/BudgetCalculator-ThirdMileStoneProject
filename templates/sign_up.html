@@ -16,7 +16,7 @@
 {# Toast messages #}
 {% with messages = get_flashed_messages() %}
     {% if messages %}
-        <div class="toast over" data-autohide="true" data-delay="2000">
+        <div class="toast over" data-autohide="true" data-delay="4000">
             <div class="toast-body">
                 <ul class=flashes>
                     {% for message in messages %}
@@ -41,10 +41,13 @@
                 <form action="{{ url_for('add_user') }}" onsubmit="alertmessage()" method="POST">
                     <p>Username:</p>
                     <input id="username" type="text" name="username" title="username" required class="login-input" placeholder="Username"
-                           minlength="4" maxlength="8">
+                           minlength="4" maxlength="9">
                     <br>
                     <p>Password:</p>
                     <input id="password" type="password" name="password" title="password" placeholder="Password" required class="login-input">
+                    <br>
+                    <p>Password again:</p>
+                    <input id="password-again" type="password" name="password-again" placeholder="Password again" required class="login-input">
                     <br>
                     <p>Currency:</p>
                     <select name="currency" title="currency" class="currency-sign-up">

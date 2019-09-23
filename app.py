@@ -2,16 +2,12 @@ import os
 import pymysql
 from flask import Flask, flash, render_template, url_for, redirect, request, session
 from passlib.hash import sha256_crypt
+from configuration import connection_host, connection_port, connection_user, connection_password, connection_db
 
 app = Flask(__name__)
+# Set the cache to 0 -> There is no cache at all
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
-app.secret_key = os.urandom(12)
-
-connection_host = 'remotemysql.com'
-connection_port = 3306
-connection_user = 'uHGCP9ySEe'
-connection_password = 'YyzSP64QOG'
-connection_db = 'uHGCP9ySEe'
+app.config.from_object('configuration.Config')
 
 
 # Start the application
@@ -192,7 +188,12 @@ def add_user():
 
     user = request.form['username']
     password = request.form['password']
+    password_again = request.form['password-again']
     currency = request.form['currency']
+
+    if password != password_again:
+        flash('The two given password is not the same')
+        return render_template("sign_up.html")
 
     sha_password = sha256_crypt.encrypt(password)
 
