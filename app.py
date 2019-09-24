@@ -4,20 +4,21 @@ from flask import Flask, flash, render_template, url_for, redirect, request, ses
 from passlib.hash import sha256_crypt
 from configuration import connection_host, connection_port, connection_user, connection_password, connection_db
 
-app = Flask(__name__)
+main_app = Flask(__name__)
+
 # Set the cache to 0 -> There is no cache at all
-app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
-app.config.from_object('configuration.Config')
+main_app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
+main_app.config.from_object('configuration.Config')
 
 
 # Start the application
-@app.route('/')
+@main_app.route('/')
 def start():
     return render_template("login_page.html")
 
 
 # Login and drop back if the username-password combination is not right
-@app.route('/login', methods=['GET', 'POST'])
+@main_app.route('/login', methods=['GET', 'POST'])
 def login():
     connection = pymysql.connect(
         host=connection_host,
@@ -53,7 +54,7 @@ def login():
 
 
 # Arrive to the Dashboard
-@app.route('/dashboard')
+@main_app.route('/dashboard')
 def dashboard():
     connection = pymysql.connect(
         host=connection_host,
@@ -136,7 +137,7 @@ def dashboard():
 
 
 # Search after item
-@app.route('/search_result', methods=['POST'])
+@main_app.route('/search_result', methods=['POST'])
 def search():
     connection = pymysql.connect(
         host=connection_host,
@@ -170,13 +171,13 @@ def search():
 
 
 # Sign up
-@app.route('/sign_up')
+@main_app.route('/sign_up')
 def sign_up():
     return render_template('sign_up.html')
 
 
 # Sign in
-@app.route('/sign_in', methods=['POST'])
+@main_app.route('/sign_in', methods=['POST'])
 def add_user():
     connection = pymysql.connect(
         host=connection_host,
@@ -217,7 +218,7 @@ def add_user():
 
 
 # Add Group
-@app.route('/add_group', methods=['POST'])
+@main_app.route('/add_group', methods=['POST'])
 def add_group():
     connection = pymysql.connect(
         host=connection_host,
@@ -264,7 +265,7 @@ def add_group():
 
 
 # Edit Group
-@app.route('/edit_group/<id>/<group_id>', methods=['POST'])
+@main_app.route('/edit_group/<id>/<group_id>', methods=['POST'])
 def edit_group(id, group_id):
     connection = pymysql.connect(
         host=connection_host,
@@ -317,7 +318,7 @@ def edit_group(id, group_id):
 
 
 # Remove Group item
-@app.route('/remove_group_item/<id>/<group_id>/<group_name>/<date_year>/<date_month>', methods=['POST'])
+@main_app.route('/remove_group_item/<id>/<group_id>/<group_name>/<date_year>/<date_month>', methods=['POST'])
 def remove_group_item(id, group_id, group_name, date_year, date_month):
     connection = pymysql.connect(
         host=connection_host,
@@ -350,7 +351,7 @@ def remove_group_item(id, group_id, group_name, date_year, date_month):
 
 
 # View item details
-@app.route('/view_details/<groupyear>/<month>/<groupname>')
+@main_app.route('/view_details/<groupyear>/<month>/<groupname>')
 def view_details(groupyear, month, groupname):
     connection = pymysql.connect(
         host=connection_host,
@@ -377,7 +378,7 @@ def view_details(groupyear, month, groupname):
 
 
 # Add sub item
-@app.route('/<groupyear>/<month>/<groupname>/addnewsubitempage', methods=['POST'])
+@main_app.route('/<groupyear>/<month>/<groupname>/addnewsubitempage', methods=['POST'])
 def add_new_sub_item(groupyear, month, groupname):
     connection = pymysql.connect(
         host=connection_host,
@@ -415,7 +416,7 @@ def add_new_sub_item(groupyear, month, groupname):
 
 
 # Update sub item
-@app.route('/update_sub_item/<id>/<groupname>/<groupyear>/<month>', methods=['POST'])
+@main_app.route('/update_sub_item/<id>/<groupname>/<groupyear>/<month>', methods=['POST'])
 def update_sub_item(id, groupname, groupyear, month):
     connection = pymysql.connect(
         host=connection_host,
@@ -448,7 +449,7 @@ def update_sub_item(id, groupname, groupyear, month):
 
 
 # Delete sub item
-@app.route('/delete_sub_item/<id>/<groupname>/<groupyear>/<month>', methods=['POST'])
+@main_app.route('/delete_sub_item/<id>/<groupname>/<groupyear>/<month>', methods=['POST'])
 def delete_sub_item(id, groupname, groupyear, month):
     connection = pymysql.connect(
         host=connection_host,
@@ -469,7 +470,7 @@ def delete_sub_item(id, groupname, groupyear, month):
 
 
 # Logging out
-@app.route("/log_out")
+@main_app.route("/log_out")
 def log_out():
     session.clear()
     flash('You have successfully logged out!')
@@ -477,6 +478,6 @@ def log_out():
 
 
 if __name__ == '__main__':
-    app.run(host=os.environ.get('IP'),
-            port=os.environ.get('PORT'),
-            debug=True)
+    main_app.run(host=os.environ.get('IP'),
+                 port=os.environ.get('PORT'),
+                 debug=True)
