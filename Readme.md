@@ -3,16 +3,76 @@
 [View my project](https://budgetcalculator-thirdproject.herokuapp.com)
 
 This website was made as my second Milestone project at [Code Institute](https://codeinstitute.net/).
-This Project is a Budget Calculator. It means that we can handle our financial more consciously. With using the in build CRUD (Create, Read, Update and Delete) functionality we can organize 
-our incomes and outcomes. We can see our Income/Expanse ratio on visible graphs. With the use of the application we can register ourselves
-and log into the application. To increase the security for the users and hide theirs financial and personal details from the public the passwords are stored encrypted and the users using cookie session as well.
+The main goal was to create full stack web application and follow the newest UX/UI principles and create different 
+layers thereby as a user I can store/modify and reach data from remote database. 
+The idea was to create a budget calculator and with its help we can handle our financial more consciously. 
+With the use of the application we can register ourselves
+and log into the application. To increase the security for the users and hide theirs financial and personal details 
+from the public the passwords are stored encrypted and the users using cookie session as well.
+We can add/edit/remove groups and items and search after the given items. 
+We can see our Income/Expanse ratio on a colorful graphs which is shows to the user the ratio of their income and expense with 
+transparently.
 
 ## UX
 
-Everything about UX
+### Colors
+
+I empathise this part because in this way I can control the users' attention
+    
+   - Backgrounds 
+        - On chosen color Blue shade background
+        - White navigation bar and footer
+        - Silver and black font colors
+   - Buttons (Consistent buttons with white fonts)
+        - Green button
+            - Log in
+            - Add functionality
+        - Yellow button
+            - Edit functionality
+        - Red button
+            - Sign out buttons
+        - Gray button (Navigation or cancellation buttons)
+   - Pop up:
+        - Green background for Add functionality 
+        - Yellow background for Edit functionality
+        - Red background for Remove/Delete functionality
+   - Toast
+        - Informative and error messages
+   - Chart
+        - Colorful chart
+        - Change the color every time when the page is loading
+   - Numbers
+        - Green color for the positive numbers
+        - Red color for the  negative numbers
+   - Tables
+        - Black striped tables with white fonts
+        
+### Icons
+
+I imported icons from the [font awesome](https://fontawesome.com/) 
+
+- Icons
+    - User icon
+        - Next to the username field
+        - Next to the username inside the application
+    - Key icon
+        - For password
+    - Home icon
+        - Navigate on the Dashboard page
+    - Sign out icon
+        - Sig out
+    - Modification icons
+        - Plus icon for Add new group/item
+        - Edit icon for edit group/item
+        - Trash icon for delete/remove groups/items
+    - Glass Icon
+        - Search functionality
+
+### Responsive
+   
+The application is convenient to use on every resolution (Mobile/Tablet/PC)
 
 ### Mockup
-
 #### Front end Mockup
 
 - **Created with [Balsamiq Mockups 3](https://balsamiq.com/) that is a user interface design tool**
@@ -35,11 +95,10 @@ Everything about UX
 
 ### User Stories
 
-#### Non-Functional:
-
 #### Responsiveness
 
 - As a user, I want to use the website on Pc, Tablet and Mobile Phone so that on different devices it will work with the same functionality.
+- As a user, on the mobile resolution I want to see only icons in the tables
 
 #### Alert messages
 
@@ -52,10 +111,21 @@ Everything about UX
 #### Order dates
 
 - As a user, I want to see my dates by descending
+    - On the Dashboard page
+    - On the View details page
+    - On the Search result page
 
-#### Functional
+#### UI/UX
 
-- As a user, I can see the charts on my dashboard
+- As a user, I want to see the favicon on every page
+- As a user, I want to see the pop ups with different colors
+- As a user, I want to see toast message
+    - If I do a modification
+    - If there is a problem with the modification
+- As a user, I want to see my currency on every page
+
+#### Other
+
 - As a user, I want to get feedback if
     - Sign up:
         - The username is used by somebody else
@@ -81,8 +151,6 @@ Everything about UX
 - As a user I want see the Incomes in green
 - As a user I want see the Expenses in red
 - As a user I want see the Zero balance in blank
-- As a user I want to see my currency 
-- As a user I want to see my chart
 
 #### Database
 
@@ -92,12 +160,21 @@ Everything about UX
 
 - As a user, I want to store my password encrypted
 - As a user, I want to use cookie session
+- As a user, I want to be dropped out from the application if I close the actual browser
 - As a user, I don't want to see my username on the url
 
 #### Sign Up
   
 - As a user, I want to sign up for the page so I can log in into the application
 - As a user, I want to give my username, password currency during the registration
+- As a user, I want to check whether
+- As a user, I want to give my currency from the given list
+    - The username is unique and get back toast message
+    - The username character is more than 5 character and get back error message
+    - The username character is more than 9 character and get back error message
+    - The given two password is the same or not, if not I want to get back toast message
+- As a user, I want to get back JavaScript alert about the redirection to the login page after the successful sign up     
+     
      
 #### Log In
 
@@ -134,12 +211,18 @@ Everything about UX
 
 #### Search functionality
 
-- As a user, I want to search after item 
+- As a user, I want to search after my sub items 
 
 #### Summarize
 
-- As a user, I want to see my full Balance
 - As a user, I want to see my balance based on my groups
+- As a user, I want to see my savings
+
+#### Charts
+
+- As a user, I do not want to see chart if I don't have any group
+- As a user, I want to see the charts based on my group sum value
+- As a user, I want to see my charts with different colors after every page loading
 
 ## Features
 
@@ -152,6 +235,7 @@ Demo page where I test the features from Data Centric Development lecture and co
 - Sign up with user
 - Login up with user
 - Logout with user
+- Password checking whether we give the same password in the Sign up page
 - Cookie session handling 
     - Login:
         - Create active cookie session 
@@ -174,11 +258,15 @@ Demo page where I test the features from Data Centric Development lecture and co
     - Unique username
     - Unique group name 
 - Search functionality
+- Show available balance
+- Show savings
 
 ### Features Left to Implement
 
 - We get back estimation about how much money we have if we continue the saving or spending
-- Password reset with email
+- There is no Tutorial site as the project description is enough to understand the goal of the project
+- There is no user page where the user can handle its data
+- Password reset in that case because it is not belongs to this project scope
 
 ## Technologies Used
 
@@ -247,15 +335,7 @@ After this I copied the code snippets in this public repository, and explained t
         6. I set the Config Vars under the Settings (IP=0.0.0.0 and PORT=5000)
         7. The application up and running and available under this [link](https://budgetcalculator-thirdproject.herokuapp.com)
         
-# ToDO: (Need to expand)
-- User stories
-- Testing documentation
-- Project description
-- UX/UI description
-- Existing features
-- Features Left to Implement
-
-# Useful links:
-
-## Charts
-https://plot.ly/python/pie-charts/
+        
+## ToDO
+### User stories
+### Testing documentations   
