@@ -386,7 +386,7 @@ After I arrived to the testing phase I give the project link to my acquaintance 
 
 ## Testing with different devices
 
-For the testing my acquaintance and myself we used the follows for testing:
+- For the testing my acquaintance and myself we used the follows for testing:
     - Laptops
     - PC
     - Mobile devices
@@ -398,7 +398,7 @@ For the testing my acquaintance and myself we used the follows for testing:
             - iPad resolution
             - Different mobile device resolutions
 
-##Testing by different sites
+## Testing by different sites
 
 - CSS Validator [link](https://jigsaw.w3.org/css-validator/)
 - Responsive design checker [link](http://ami.responsivedesign.is/)
