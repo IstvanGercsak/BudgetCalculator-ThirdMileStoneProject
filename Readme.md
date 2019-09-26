@@ -10,14 +10,13 @@ With the use of the application we can register ourselves
 and log into the application. To increase the security for the users and hide theirs financial and personal details 
 from the public the passwords are stored encrypted and the users using cookie session as well.
 We can add/edit/remove groups and items and search after the given items. 
-We can see our Income/Expanse ratio on a colorful graphs which is shows to the user the ratio of their income and expense with 
-transparently.
+We can see our Income/Expanse ratio on a colorful graphs which is shows to the user the transparent ratio of their income and expense.
 
 ## UX
 
 ### Colors
 
-I empathise this part because in this way I can control the users' attention
+I empathise this part during the development because in this way I can control the users' attention
     
    - Backgrounds 
         - On chosen color Blue shade background
@@ -100,7 +99,7 @@ The application is convenient to use on every resolution (Mobile/Tablet/PC)
 - As a user, I want to use the website on Pc, Tablet and Mobile Phone so that on different devices it will work with the same functionality.
 - As a user, on the mobile resolution I want to see only icons in the tables
 
-#### Alert messages
+#### Alert messages (Toast messages)
 
 - As a user I want to see alert messages if:
     - I create something
@@ -119,38 +118,11 @@ The application is convenient to use on every resolution (Mobile/Tablet/PC)
 
 - As a user, I want to see the favicon on every page
 - As a user, I want to see the pop ups with different colors
-- As a user, I want to see toast message
-    - If I do a modification
-    - If there is a problem with the modification
 - As a user, I want to see my currency on every page
-
-#### Other
-
-- As a user, I want to get feedback if
-    - Sign up:
-        - The username is used by somebody else
-        - I could sign up
-    - Log in:
-        - I give a wrong username or password
-        - I logged in
-    - Log out:
-        - I logged out
-    - Create:
-        - New group item
-        - New sub group item
-        - There is an existing year-month-group combination exist under the username 
-    - Edit:
-        - Group item
-        - There is an existing year-month-group combination exist under the username
-        - The actual group contains sub item(s)
-        - Sub group item 
-    - Delete:
-        - Group item
-        - There is an existing year-month-group combination exist under the username
-        - Sub group item    
 - As a user I want see the Incomes in green
 - As a user I want see the Expenses in red
 - As a user I want see the Zero balance in blank
+
 
 #### Database
 
@@ -167,7 +139,6 @@ The application is convenient to use on every resolution (Mobile/Tablet/PC)
   
 - As a user, I want to sign up for the page so I can log in into the application
 - As a user, I want to give my username, password currency during the registration
-- As a user, I want to check whether
 - As a user, I want to give my currency from the given list
     - The username is unique and get back toast message
     - The username character is more than 5 character and get back error message
@@ -180,39 +151,56 @@ The application is convenient to use on every resolution (Mobile/Tablet/PC)
 
 - As a user, I want to log in with the application with my details
 - As a user, I want to get back feedback if the username or password is not correct 
+- As a user, I want to get feedback when I logged in
 
 #### Log out
 
 - As a user, I want log out from the application with the Sign out button
-- As a user, I want the cookie to be deleted after the 
+- As a user, I want the cookie to be deleted after I close the browser
+
+#### View details
+
+- As a user, I want to reach view details page with the View button
 
 #### Add new group item
 
 - As a user, I want to add a new group item
+- AS a user, I want to get feedback if there is an existing group combination (year-month-group combination exist)
+- As a user, I want to get feedback if I can add a new group
 
 #### Edit group item
 
 - As a user, I want to edit a group item
+- As a user, I want to see a pop up with filled field when I want to edit a group
+- As a user, I want to get feedback when I edited a group 
+- As a user, I want to get feedback when there is an existing group combination (year-month-group combination exist)
+- As a user, I want to get feedback if the actual group is contains sub items
+
 
 #### Delete group item
 
 - As a user, I want to delete item
+- AS a user, I want to get feedback if there is an existing sub group item under the group
 
 #### Add new sub group item
 
 - As a user, I want to add a new sub group item
+- As a user, I want get feedback when a new item is created
 
 #### Edit sub group item
 
 - As a user, I want to edit a group item 
+- As a user, I want get feedback when an item was edited
 
 #### Delete sub group item
 
 - As a user, I want to delete a sub group item
+- As a user, I want get feedback when an item deleted
 
 #### Search functionality
 
 - As a user, I want to search after my sub items 
+- As a user, I want to see my result in a table on a nw page
 
 #### Summarize
 
@@ -264,7 +252,6 @@ Demo page where I test the features from Data Centric Development lecture and co
 
 ### Features Left to Implement
 
-- We get back estimation about how much money we have if we continue the saving or spending
 - There is no Tutorial site as the project description is enough to understand the goal of the project
 - There is no user page where the user can handle its data
 - Password reset in that case because it is not belongs to this project scope
@@ -327,7 +314,7 @@ After this I copied the code snippets in this public repository, and explained t
         4. In your local IDE you can choose to create new project from version control/Git 
         5. Paste the link there that you copied before
         6. For additional help you can more information under this [link](https://help.github.com/en/articles/cloning-a-repository)
-    - Online: (Need to expand)
+    - Online:
         1. I used Heroku:
         2. Create project with unique name
         3. I choose the project and under the Deploy tab I connect the github project where the source code are
@@ -335,8 +322,3 @@ After this I copied the code snippets in this public repository, and explained t
         5. Create requirements.txt file: pip freeze > requirements.txt (In this way the Heroku will know what kind of extensions should be installed)
         6. I set the Config Vars under the Settings (IP=0.0.0.0 and PORT=5000)
         7. The application up and running and available under this [link](https://budgetcalculator-thirdproject.herokuapp.com)
-        
-        
-## ToDO
-### User stories
-### Testing documentations   
