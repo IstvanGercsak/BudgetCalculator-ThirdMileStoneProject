@@ -1,5 +1,7 @@
 # Testing Document of the Budget Calculator
 
+- Check the Console during the testing
+
 ## Manual tests
 
 The test are written based on the user stories and expect working functionality.

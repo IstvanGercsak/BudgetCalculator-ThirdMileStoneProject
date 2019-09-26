@@ -179,11 +179,12 @@ The application is convenient to use on every resolution (Mobile/Tablet/PC)
 #### Log In
 
 - As a user, I want to log in with the application with my details
-- As a user, I want to have a unique username 
+- As a user, I want to get back feedback if the username or password is not correct 
 
 #### Log out
 
-- As a user, I want log out from the application
+- As a user, I want log out from the application with the Sign out button
+- As a user, I want the cookie to be deleted after the 
 
 #### Add new group item
 
