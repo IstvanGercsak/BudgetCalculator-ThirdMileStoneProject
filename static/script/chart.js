@@ -46,7 +46,6 @@ if (sumbalance <= 0) {
 
 for (j = group_name.length; group_name.length > expense_value.length; j--) {
     group_name.shift();
-    console.log(group_name.length)
 }
 
 // Fill up Groups
