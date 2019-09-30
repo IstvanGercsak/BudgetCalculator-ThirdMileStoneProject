@@ -380,6 +380,22 @@ For the first step I created a test database where I run my Create script and ru
 I created a separate test.py file and I write test into that file
 After I installed to my computer the pytest with "pip install -U pytest" command I could run the test locally with the "pytest test.py" command.
 
+##### GUI Test Automation
+
+For these test I use the google chrome browser. The coverage is cover the main functionality.
+
+- Steps to set up:
+    - Create test file
+    - Download ChromeDriver (latest version: 77.0.3865.40)
+    - install selenium with the "pip install selenium" command in the command line
+    - run test with "pyton test.py" command in the command line from under the selenium_test folder
+
+- Architect:
+    - setUpClass:
+        - Initialize runners and open the browsers and redirect to the landing page 
+    - tearDownClass:
+        - Close the browser
+
 ## Testing by other people
 
 After I arrived to the testing phase I give the project link to my acquaintance so I could get back honest feedback about the project and bugs
