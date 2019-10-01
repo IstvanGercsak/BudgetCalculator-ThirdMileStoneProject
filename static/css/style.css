@@ -112,6 +112,12 @@ html, body {
 
 /* DASHBOARD */
 
+.dashboard, .sign-out {
+    height: 38px;
+    width: 119px;
+
+}
+
 .username-color {
     background: #1c7430;
     color: white;
@@ -404,6 +410,7 @@ footer i {
     .dashboard, .sign-out {
         padding-left: 5px;
         padding-right: 5px;
+        height: 38px;
     }
 
     .username p {

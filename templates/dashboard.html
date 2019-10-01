@@ -160,7 +160,7 @@
                                                     <select name="year" id="year" title="year" required>
                                                         <option selected
                                                                 value="{{ group_item.DATE_YEAR }}"> {{ group_item.DATE_YEAR }} </option>
-                                                        <option disabled> <---></option>
+                                                        <option disabled><---></option>
                                                         <option value="2019">2019</option>
                                                         <option value="2020">2020</option>
                                                         <option value="2021">2021</option>
@@ -342,11 +342,13 @@
     </div>
 </footer>
 
+{# This codes requires for pop ups #}
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
+{# This codes requires for toaster #}
 <script src="{{ url_for('static', filename='script/popper.min.js') }}"></script>
 <script src="{{ url_for('static', filename='script/jquery.min.js') }}"></script>
 <script src="{{ url_for('static', filename='script/bootstrap.min.js') }}"></script>

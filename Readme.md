@@ -255,6 +255,8 @@ Demo page where I test the features from Data Centric Development lecture and co
 - There is no Tutorial site as the project description is enough to understand the goal of the project
 - There is no user page where the user can handle its data
 - Password reset in that case because it is not belongs to this project scope
+- I store the secret key in the configuration.py file. I had to commit the file into the github repository because 
+on the Heroku I turned on the auto deploy and I need that file on my Heroku server. 
 
 ## Technologies Used
 
