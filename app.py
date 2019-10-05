@@ -2,13 +2,19 @@ import os
 import pymysql
 from flask import Flask, flash, render_template, url_for, redirect, request, session
 from passlib.hash import sha256_crypt
-from configuration import connection_host, connection_port, connection_user, connection_password, connection_db
 
 main_app = Flask(__name__)
 
 # Set the cache to 0 -> There is no cache at all
 main_app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 main_app.secret_key = os.environ.get('SECRET_KEY')
+
+connection_host = os.environ.get('CONNECTION_HOST_THIRD_PROJECT')
+connection_port = os.environ.get('CONNECTION_PORT_THIRD_PROJECT')
+connection_user = os.environ.get('CONNECTION_USER_THIRD_PROJECT')
+connection_password = os.environ.get('CONNECTION_PASSWORD_THIRD_PROJECT')
+connection_db = os.environ.get('CONNECTION_DB_THIRD_PROJECT')
+connection_port = int(connection_port)
 
 
 # Start the application
