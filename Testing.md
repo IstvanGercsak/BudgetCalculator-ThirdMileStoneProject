@@ -365,14 +365,10 @@ The test are written based on the user stories and expect working functionality.
 
 #### Automated tests
 
-##### Unit tests
-
-**Definition:** Unit testing is a level of software testing where individual units/ components of a software are tested
-Under this section the unit test going to be fulfill the regression tests
-
 ##### GUI Test Automation
 
 For these test I use the google chrome browser. The coverage is cover the main functionality.
+Currently these test can run only locally as we need to have Chrome driver to run it.
 
 - Steps to set up:
     - Create test file
@@ -385,6 +381,9 @@ For these test I use the google chrome browser. The coverage is cover the main f
         - Initialize runners and open the browsers and redirect to the landing page 
     - tearDownClass:
         - Close the browser
+
+- Test result:
+    ![Log in page](selenium_test/test_result.jpg)
 
 ## Testing by other people
 
@@ -408,3 +407,5 @@ After I arrived to the testing phase I give the project link to my acquaintance 
 
 - CSS Validator [link](https://jigsaw.w3.org/css-validator/)
 - Responsive design checker [link](http://ami.responsivedesign.is/)
+- PEP8 Checker [link](http://pep8online.com)
+- Java Script hints [link](https://jshint.com/)

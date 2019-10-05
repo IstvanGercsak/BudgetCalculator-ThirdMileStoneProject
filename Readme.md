@@ -2,7 +2,7 @@
 
 [View my project](https://budgetcalculator-thirdproject.herokuapp.com)
 
-This website was made as my second Milestone project at [Code Institute](https://codeinstitute.net/).
+This website was made as my third Milestone project at [Code Institute](https://codeinstitute.net/).
 The main goal was to create full stack web application and follow the newest UX/UI principles and create different 
 layers thereby as a user I can store/modify and reach data from remote database. 
 The idea was to create a budget calculator and with its help we can handle our financial more consciously. 
@@ -249,14 +249,14 @@ Demo page where I test the features from Data Centric Development lecture and co
 - Search functionality
 - Show available balance
 - Show savings
+- Store the database details and secret key in environmental variables.
+
 
 ### Features Left to Implement
 
 - There is no Tutorial site as the project description is enough to understand the goal of the project
 - There is no user page where the user can handle its data
 - Password reset in that case because it is not belongs to this project scope
-- I store the secret key in the configuration.py file. I had to commit the file into the github repository because 
-on the Heroku I turned on the auto deploy and I need that file on my Heroku server. 
 
 ## Technologies Used
 
@@ -302,7 +302,7 @@ After this I copied the code snippets in this public repository, and explained t
     - I use local IDE for create the project, I installed the Git locally and synchronized my local IDE 
     with the local git. I use IntelliJ Pycharm for the front end development with its helpful built in deployment tools. 
     After I created a Git and GitHub repository, I could start to work and I could test my features locally.
-    I could see my changes locally to open my index.html file with the View/Open browser menu option in my local IDE.
+    I could see my changes locally to start my application with my local IDE.
     Here I could choose the required browser which I want to use. (Chrome, Mozilla, etc.)
 - **Commits**:
     - After every small piece and increment, I made commit to my local Git repository. After that in the end of the 
@@ -310,7 +310,7 @@ After this I copied the code snippets in this public repository, and explained t
     - For the development I only use one branch called "master".
 - **Local and online deployment**
     - Locally: It is very easy to clone repository from my account if you follow these steps:
-        1. Follow this link [Project GitHub repository]() 
+        1. Follow this link [Project GitHub repository](https://github.com/IstvanGercsak/BudgetCalculator-ThirdMileStoneProject) 
         2. Under the repository name, click "Clone or download".
         3. Here you have to copy the url's of the repository
         4. In your local IDE you can choose to create new project from version control/Git 
@@ -321,6 +321,7 @@ After this I copied the code snippets in this public repository, and explained t
         2. Create project with unique name
         3. I choose the project and under the Deploy tab I connect the github project where the source code are
         4. Set the deployment to Autodeploy so after every commit there will be a new deployment into Heroku.
-        5. Create requirements.txt file: pip freeze > requirements.txt (In this way the Heroku will know what kind of extensions should be installed)
-        6. I set the Config Vars under the Settings (IP=0.0.0.0 and PORT=5000)
+        5. Create requirements.txt file: pip freeze > requirements.txt (In this way the Heroku will know what kind of 
+        extensions should be installed)
+        6. I set the Config Vars under the Settings (IP=0.0.0.0, PORT=5000, DB connection details, Secret key)
         7. The application up and running and available under this [link](https://budgetcalculator-thirdproject.herokuapp.com)

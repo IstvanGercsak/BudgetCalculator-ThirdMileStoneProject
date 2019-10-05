@@ -13,7 +13,7 @@
 </head>
 <body>
 
-{# Toast messages #}
+<!-- Toast messages -->
 {% with messages = get_flashed_messages() %}
     {% if messages %}
         <div class="toast over" data-autohide="true" data-delay="4000">
@@ -28,12 +28,12 @@
     {% endif %}
 {% endwith %}
 
-{# Navbar #}
+<!-- Navbar -->
 <nav class="navbar navbar-light bg-light">
     <p class="nav-header-welcome">Sign up</p>
 </nav>
 
-{# Sig up container #}
+<!-- Sig up container -->
 <div class="container-fluid">
     <div class="row">
         <div class="col-12 login-container">
@@ -70,7 +70,7 @@
     </div>
 </div>
 
-{# Footer #}
+<!-- Footer -->
 <footer>
     <div class="container-fluid">
         <div class="row">
@@ -95,14 +95,19 @@
     </div>
 </footer>
 
+<!-- Alert message after sign up -->
 <script>
     function alertmessage() {
         alert("Thank you for your registration. We will redirect you on the start page, and you can Log in your given username and password");
     }
 </script>
+
+<!-- JS files for toaster -->
 <script src="{{ url_for('static', filename='script/popper.min.js') }}"></script>
 <script src="{{ url_for('static', filename='script/jquery.min.js') }}"></script>
 <script src="{{ url_for('static', filename='script/bootstrap.min.js') }}"></script>
+
+<!-- Toast message appear -->
 <script>
     $(document).ready(function () {
         $('.toast').toast('show');

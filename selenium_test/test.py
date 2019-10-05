@@ -47,15 +47,14 @@ class setup_teardown(unittest.TestCase):
 
     def setUp(self):
         options = webdriver.ChromeOptions()
-        # options.add_argument('headless')
+        options.add_argument('headless')
 
         # create a new Chrome session
-        # At work
         self.driver = webdriver.Chrome(executable_path=r'c:\chromedriver\chromedriver.exe', options=options)
-        # At home
-        # self.driver = webdriver.Chrome(executable_path=r'c:\chromedriver\chromedriver.exe', chrome_options=options)
+
         self.driver.implicitly_wait(5)
-        # self.driver.maximize_window()
+        self.driver.maximize_window()
+
         # navigate to the application home page
         self.driver.get(prod_url)
 
@@ -79,10 +78,13 @@ class test(setup_teardown):
     def test_username(self):
         # username field
         assert self.driver.find_element_by_id(username_id).is_displayed()
+
         # password field
         assert self.driver.find_element_by_id(password_id).is_displayed()
+
         # Log in button
         assert self.driver.find_element_by_css_selector(login_button_css_selector).is_displayed()
+
         # Sign up page button
         assert self.driver.find_element_by_css_selector(sign_up_css_selector).is_displayed()
 
@@ -90,16 +92,20 @@ class test(setup_teardown):
     def test_signup(self):
         # Navigate on the sign up page
         self.driver.find_element_by_css_selector(sign_up_css_selector).click()
+
         # Check the Sign up page url
         assert self.driver.current_url in prod_url + "/sign_up"
+
         # Check the Sign up elements
         assert self.driver.find_element_by_id("username").is_displayed()
         assert self.driver.find_element_by_id("password").is_displayed()
         assert self.driver.find_element_by_id("password-again").is_displayed()
         assert self.driver.find_element_by_name("currency").is_displayed()
+
         # Buttons
         assert self.driver.find_element_by_css_selector(sign_up_button_css_selector).is_displayed()
         assert self.driver.find_element_by_css_selector(back_button_css_selector).is_displayed()
+
         # Click on Back button
         self.driver.find_element_by_css_selector(back_button_css_selector).click()
         assert self.driver.current_url in prod_url + "/"

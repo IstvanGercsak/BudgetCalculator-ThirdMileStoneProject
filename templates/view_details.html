@@ -13,7 +13,7 @@
 </head>
 <body>
 
-{# Toast message#}
+<!-- Toast message -->
 {% with messages = get_flashed_messages() %}
     {% if messages %}
         <div class="toast over" data-autohide="true" data-delay="4000">
@@ -28,7 +28,7 @@
     {% endif %}
 {% endwith %}
 
-{# Navigation #}
+<!-- Navigation -->
 <nav class="container-fluid navbar-light bg-light">
     <div class="row">
         <div class="col-4 username nav-item-padding">
@@ -51,20 +51,20 @@
     </div>
 </nav>
 
-{# Information about the sub group #}
+<!-- Information about the sub group -->
 <p class="align-center letter-font-color details-paragraph"><b>{{ groupname }}</b> group</p>
 <p class="align-center letter-font-color details-paragraph">Details of the {{ groupyear }} {{ month }} period</p>
 <p class="align-center letter-font-color details-paragraph"> Sum value of this sub group:</p>
 <p class="align-center letter-font-color details-paragraph">{{ datesdetails | sum(attribute='VALUE') }} {{ session['currency'] }} </p>
 
-{# Add new sub item button #}
+<!-- Add new sub item button -->
 <div class="align-center">
     <button type="button" class="btn btn-success align-center" data-toggle="modal" data-target="#add-new-sub-item">
         <i class="fas fa-plus"></i> Add new sub item
     </button>
 </div>
 
-{# Table for sub group #}
+<!-- Table for sub group -->
 <div class="table-size">
     <table class="table table-striped table-dark">
         <tr>
@@ -91,7 +91,7 @@
                         <i class="fas fa-edit"></i><span class="hide-mobile"> Modify Sub item</span>
                     </button>
 
-                    {# Edit sub group item pop up #}
+                    <!-- Edit sub group item pop up -->
                     <div class="modal fade" id="{{ subgroup.SUBID + subgroup.SUBITEMID * 33 }}" tabindex="-1"
                          role="dialog"
                          aria-labelledby="modify-sub-item"
@@ -138,7 +138,7 @@
                         <i class="fas fa-trash-alt"></i><span class="hide-mobile"> Remove item</span>
                     </button>
 
-                    {# Remove sub group item pop up #}
+                    <!-- Remove sub group item pop up -->
                     <div class="modal fade" id="{{ subgroup.SUBID }}" tabindex="-1" role="dialog"
                          aria-labelledby="remove-sub-item-Label"
                          aria-hidden="true">
@@ -172,7 +172,7 @@
     </table>
 </div>
 
-{# Add new sub group modal #}
+<!-- Add new sub group modal -->
 <div class="modal fade" id="add-new-sub-item" tabindex="-1" role="dialog"
      aria-labelledby="add-new-sub-item"
      aria-hidden="true">
@@ -191,7 +191,8 @@
                     <input type="text" id="subitem" name="subitem" title="subitem" placeholder="Sub Item name" required>
                     <br>
                     <p>NEW SUB ITEM VALUE IN {{ session['currency'] }}</p>
-                    <input type="number" id="subitemvalue" name="subitemvalue" title="subitemvalue" placeholder="Sub Item Value" required min="1">
+                    <input type="number" id="subitemvalue" name="subitemvalue" title="subitemvalue"
+                           placeholder="Sub Item Value" required min="1">
                     <br>
                     <p>DATE</p>
                     <input type="date" name="date" id="date" title="date" required>
@@ -208,7 +209,7 @@
     </div>
 </div>
 
-{# Footer #}
+<!-- Footer -->
 <footer>
     <div class="container-fluid">
         <div class="row">
@@ -233,22 +234,25 @@
     </div>
 </footer>
 
-{# This codes requires for pop ups #}
+<!-- This codes requires for pop ups -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
-{# This codes requires for toaster #}
+<!-- This codes requires for toaster -->
 <script src="{{ url_for('static', filename='script/popper.min.js') }}"></script>
 <script src="{{ url_for('static', filename='script/jquery.min.js') }}"></script>
 <script src="{{ url_for('static', filename='script/bootstrap.min.js') }}"></script>
 
+<!-- Show the toast -->
 <script>
     $(document).ready(function () {
         $('.toast').toast('show');
     });
 </script>
+
+<!-- Color the numbers -->
 <script>
 
     $(".color-by-value:contains('-')").css('color', 'red');
