@@ -8,7 +8,7 @@ main_app = Flask(__name__)
 
 # Set the cache to 0 -> There is no cache at all
 main_app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
-main_app.config.from_object('configuration.Config')
+main_app.secret_key = os.environ.get('SECRET_KEY')
 
 
 # Start the application

@@ -47,7 +47,7 @@ class setup_teardown(unittest.TestCase):
 
     def setUp(self):
         options = webdriver.ChromeOptions()
-        options.add_argument('headless')
+        # options.add_argument('headless')
 
         # create a new Chrome session
         # At work

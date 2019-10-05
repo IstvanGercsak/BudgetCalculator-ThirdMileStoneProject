@@ -366,19 +366,9 @@ The test are written based on the user stories and expect working functionality.
 #### Automated tests
 
 ##### Unit tests
+
 **Definition:** Unit testing is a level of software testing where individual units/ components of a software are tested
 Under this section the unit test going to be fulfill the regression tests
-
-###### Database testing
-
-For database testing I use the [pytest](https://docs.pytest.org/en/latest/) library.
-Here I test my sql queries whether they are working correcting after the modification and refactoring.
-
-For the first step I created a test database where I run my Create script and run my test cases on that test database. 
-(The sql scripts are in the Guide.sql file in the root folder)
-
-I created a separate test.py file and I write test into that file
-After I installed to my computer the pytest with "pip install -U pytest" command I could run the test locally with the "pytest test.py" command.
 
 ##### GUI Test Automation
 
