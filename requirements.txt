@@ -8,7 +8,7 @@ Flask==1.0.2
 Flask-PyMongo==2.2.0
 itsdangerous==1.1.0
 jinja2==2.10
-lxml==4.2.6
+lxml==4.6.3
 MarkupSafe==1.1.1
 passlib==1.7.1
 pipenv==2018.5.18
